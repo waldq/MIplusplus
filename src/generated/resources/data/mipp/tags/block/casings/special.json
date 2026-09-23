@@ -1,0 +1,21 @@
+{
+  "values": [
+    "mipp:white_special_casing",
+    "mipp:light_gray_special_casing",
+    "mipp:gray_special_casing",
+    "mipp:black_special_casing",
+    "mipp:brown_special_casing",
+    "mipp:red_special_casing",
+    "mipp:orange_special_casing",
+    "mipp:yellow_special_casing",
+    "mipp:lime_special_casing",
+    "mipp:green_special_casing",
+    "mipp:cyan_special_casing",
+    "mipp:light_blue_special_casing",
+    "mipp:blue_special_casing",
+    "mipp:purple_special_casing",
+    "mipp:magenta_special_casing",
+    "mipp:pink_special_casing",
+    "mipp:basic_special_casing"
+  ]
+}

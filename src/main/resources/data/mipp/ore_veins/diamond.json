@@ -1,0 +1,42 @@
+{
+  "id": "diamond",
+  "data": {
+    "type": "stock",
+    "weight": 2,
+    "density": 0.1
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": [
+    ]
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "minecraft:diamond_ore": 70,
+      "minecraft:coal_ore": 10
+    },
+    "minecraft:deepslate": {
+      "minecraft:deepslate_diamond_ore": 70,
+      "minecraft:deepslate_coal_ore": 10
+    }
+  },
+  "rareBlocks": {},
+  "rareBlockChance": 0.0,
+  "bounds": {
+    "radiusX": 16,
+    "radiusY": 8,
+    "radiusZ": 16,
+    "maxY": 0,
+    "minY": -59,
+    "size": 1.0
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

@@ -1,0 +1,39 @@
+{
+  "id": "redstone",
+  "data": {
+    "type": "stock",
+    "weight": 4,
+    "density": 0.2
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": []
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "minecraft:redstone_ore": 50
+    },
+    "minecraft:deepslate": {
+      "minecraft:deepslate_redstone_ore": 50
+    }
+  },
+  "rareBlocks": {},
+  "rareBlockChance": 0.0,
+  "bounds": {
+    "radiusX": 22,
+    "radiusY": 7,
+    "radiusZ": 20,
+    "maxY": 16,
+    "minY": -59,
+    "size": 1.2
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

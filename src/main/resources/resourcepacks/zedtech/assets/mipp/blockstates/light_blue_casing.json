@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "": {
+      "model": "mipp:block/light_blue_casing"
+    }
+  },
+  "athena:loader": "athena:ctm",
+  "ctm_textures": {
+    "default": {
+      "center": "mipp:block/casings/light_blue_casing/4",
+      "empty": "mipp:block/casings/light_blue_casing/1",
+      "horizontal": "mipp:block/casings/light_blue_casing/3",
+      "particle": "mipp:block/light_blue_casing",
+      "vertical": "mipp:block/casings/light_blue_casing/2"
+    }
+  },
+  "connect_to": {
+    "type": "or",
+    "conditions": [
+      {
+        "type": "sameBlock"
+      },
+      {
+        "type": "tag",
+        "tag": "mipp:casings/color/light_blue"
+      }
+    ]
+  }
+}

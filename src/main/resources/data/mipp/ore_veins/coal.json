@@ -1,0 +1,43 @@
+{
+  "id": "coal",
+  "data": {
+    "type": "stock",
+    "weight": 8,
+    "density": 0.1
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": []
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "minecraft:coal_ore": 50,
+      "modern_industrialization:lignite_coal_ore": 50
+    },
+    "minecraft:deepslate": {
+      "minecraft:deepslate_coal_ore": 50,
+      "modern_industrialization:deepslate_lignite_coal_ore": 50
+    }
+  },
+  "rareBlocks": {
+    "minecraft:coal_block": 1
+  },
+  "rareBlockChance": 0.01,
+  "bounds": {
+    "radiusX": 20,
+    "radiusY": 7,
+    "radiusZ": 21,
+    "maxY": 70,
+    "minY": 16,
+    "size": 1.0
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

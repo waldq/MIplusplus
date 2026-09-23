@@ -1,0 +1,43 @@
+{
+  "id": "copper",
+  "data": {
+    "type": "stock",
+    "weight": 7,
+    "density": 0.1
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": [
+      "#minecraft:is_overworld"
+    ]
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "minecraft:copper_ore": 50
+    },
+    "minecraft:deepslate": {
+      "minecraft:deepslate_copper_ore": 50
+    }
+  },
+  "rareBlocks": {
+    "minecraft:raw_copper_block": 1
+  },
+  "rareBlockChance": 0.01,
+  "bounds": {
+    "radiusX": 23,
+    "radiusY": 7,
+    "radiusZ": 24,
+    "maxY": 48,
+    "minY": -8,
+    "size": 1.1
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

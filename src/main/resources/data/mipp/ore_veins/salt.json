@@ -1,0 +1,39 @@
+{
+  "id": "salt",
+  "data": {
+    "type": "stock",
+    "weight": 5,
+    "density": 0.1
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": []
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "modern_industrialization:salt_ore": 50
+    },
+    "minecraft:deepslate": {
+      "modern_industrialization:deepslate_salt_ore": 50
+    }
+  },
+  "rareBlocks": {},
+  "rareBlockChance": 0.0,
+  "bounds": {
+    "radiusX": 20,
+    "radiusY": 6,
+    "radiusZ": 20,
+    "maxY": 80,
+    "minY": -48,
+    "size": 1.0
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

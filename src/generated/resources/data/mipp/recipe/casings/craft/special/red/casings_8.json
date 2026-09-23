@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": {
+      "tag": "mipp:casings/special"
+    },
+    "d": {
+      "item": "minecraft:red_dye"
+    }
+  },
+  "pattern": [
+    "ccc",
+    "cdc",
+    "ccc"
+  ],
+  "result": {
+    "count": 8,
+    "id": "mipp:red_special_casing"
+  }
+}

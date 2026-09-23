@@ -1,0 +1,42 @@
+{
+  "id": "gold",
+  "data": {
+    "type": "stock",
+    "weight": 5,
+    "density": 0.2
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": [
+    ]
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "minecraft:gold_ore": 50
+    },
+    "minecraft:deepslate": {
+      "minecraft:deepslate_gold_ore": 50
+    }
+  },
+  "rareBlocks": {
+    "minecraft:raw_gold_block": 1
+  },
+  "rareBlockChance": 0.01,
+  "bounds": {
+    "radiusX": 25,
+    "radiusY": 10,
+    "radiusZ": 25,
+    "maxY": 16,
+    "minY": -48,
+    "size": 1.1
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

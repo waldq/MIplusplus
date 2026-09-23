@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "": {
+      "model": "mipp:block/magenta_casing"
+    }
+  },
+  "athena:loader": "athena:ctm",
+  "ctm_textures": {
+    "default": {
+      "center": "mipp:block/casings/magenta_casing/4",
+      "empty": "mipp:block/casings/magenta_casing/1",
+      "horizontal": "mipp:block/casings/magenta_casing/3",
+      "particle": "mipp:block/magenta_casing",
+      "vertical": "mipp:block/casings/magenta_casing/2"
+    }
+  },
+  "connect_to": {
+    "type": "or",
+    "conditions": [
+      {
+        "type": "sameBlock"
+      },
+      {
+        "type": "tag",
+        "tag": "mipp:casings/color/magenta"
+      }
+    ]
+  }
+}

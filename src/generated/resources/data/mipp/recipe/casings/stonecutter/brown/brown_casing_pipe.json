@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "mipp:brown_casing"
+    },
+    {
+      "item": "mipp:brown_casing_pipe"
+    },
+    {
+      "item": "mipp:brown_special_casing"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "mipp:brown_casing_pipe"
+  }
+}

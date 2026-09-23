@@ -1,0 +1,44 @@
+{
+  "id": "iron",
+  "data": {
+    "type": "stock",
+    "weight": 7,
+    "density": 0.1
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": []
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "minecraft:iron_ore": 80,
+      "modern_industrialization:nickel_ore": 20
+    },
+    "minecraft:deepslate": {
+      "minecraft:deepslate_iron_ore": 80,
+      "modern_industrialization:deepslate_nickel_ore": 20
+    }
+  },
+  "rareBlocks": {
+    "minecraft:raw_iron_block": 1,
+    "modern_industrialization:raw_nickel_block": 1
+  },
+  "rareBlockChance": 0.01,
+  "bounds": {
+    "radiusX": 20,
+    "radiusY": 10,
+    "radiusZ": 20,
+    "maxY": 52,
+    "minY": -16,
+    "size": 1.2
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

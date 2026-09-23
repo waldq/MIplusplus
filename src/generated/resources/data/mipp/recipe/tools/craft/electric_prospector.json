@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "modern_industrialization:analog_circuit"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "c": {
+      "item": "modern_industrialization:capacitor"
+    },
+    "i": {
+      "item": "modern_industrialization:inductor"
+    },
+    "r": {
+      "item": "modern_industrialization:resistor"
+    }
+  },
+  "pattern": [
+    " G ",
+    "IBI",
+    "cri"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mipp:electric_prospector"
+  }
+}

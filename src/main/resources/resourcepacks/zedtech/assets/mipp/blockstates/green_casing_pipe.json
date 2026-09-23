@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "": {
+      "model": "mipp:block/green_casing_pipe"
+    }
+  },
+  "athena:loader": "athena:ctm",
+  "ctm_textures": {
+    "default": {
+      "center": "mipp:block/casings/green_casing_pipe/4",
+      "empty": "mipp:block/casings/green_casing_pipe/1",
+      "horizontal": "mipp:block/casings/green_casing_pipe/3",
+      "particle": "mipp:block/green_casing_pipe",
+      "vertical": "mipp:block/casings/green_casing_pipe/2"
+    }
+  },
+  "connect_to": {
+    "type": "or",
+    "conditions": [
+      {
+        "type": "sameBlock"
+      },
+      {
+        "type": "tag",
+        "tag": "mipp:casings/color/green"
+      }
+    ]
+  }
+}

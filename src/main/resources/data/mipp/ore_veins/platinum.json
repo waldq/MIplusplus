@@ -1,0 +1,42 @@
+{
+  "id": "platinum",
+  "data": {
+    "type": "stock",
+    "weight": 2,
+    "density": 0.1
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": [
+    ]
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "modern_industrialization:platinum_ore": 95,
+      "modern_industrialization:iridium_ore": 5
+    },
+    "minecraft:deepslate": {
+      "modern_industrialization:platinum_ore": 95,
+      "modern_industrialization:deepslate_iridium_ore": 5
+    }
+  },
+  "rareBlocks": {},
+  "rareBlockChance": 0.0,
+  "bounds": {
+    "radiusX": 16,
+    "radiusY": 8,
+    "radiusZ": 16,
+    "maxY": 16,
+    "minY": -59,
+    "size": 1.0
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

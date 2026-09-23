@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "mipp:block/mv_chunk_loader"
+    }
+  }
+}

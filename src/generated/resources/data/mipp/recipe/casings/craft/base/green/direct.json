@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "modern_industrialization:iron_plate"
+    },
+    "d": {
+      "item": "minecraft:green_dye"
+    }
+  },
+  "pattern": [
+    " P ",
+    "PdP",
+    " P "
+  ],
+  "result": {
+    "count": 1,
+    "id": "mipp:green_casing"
+  }
+}

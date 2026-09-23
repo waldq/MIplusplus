@@ -1,0 +1,42 @@
+{
+  "id": "tin",
+  "data": {
+    "type": "stock",
+    "weight": 8,
+    "density": 0.1
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": [
+    ]
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "modern_industrialization:tin_ore": 50
+    },
+    "minecraft:deepslate": {
+      "modern_industrialization:deepslate_tin_ore": 50
+    }
+  },
+  "rareBlocks": {
+    "minecraft:raw_tin_block": 1
+  },
+  "rareBlockChance": 0.01,
+  "bounds": {
+    "radiusX": 20,
+    "radiusY": 9,
+    "radiusZ": 22,
+    "maxY": 60,
+    "minY": 18,
+    "size": 1.0
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

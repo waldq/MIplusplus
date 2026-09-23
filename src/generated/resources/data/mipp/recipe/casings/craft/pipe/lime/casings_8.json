@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "c": {
+      "tag": "mipp:casings/pipe"
+    },
+    "d": {
+      "item": "minecraft:lime_dye"
+    }
+  },
+  "pattern": [
+    "ccc",
+    "cdc",
+    "ccc"
+  ],
+  "result": {
+    "count": 8,
+    "id": "mipp:lime_casing_pipe"
+  }
+}

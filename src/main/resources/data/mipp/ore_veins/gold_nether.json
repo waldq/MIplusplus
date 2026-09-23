@@ -1,0 +1,39 @@
+{
+  "id": "gold_nether",
+  "data": {
+    "type": "stock",
+    "weight": 8,
+    "density": 0.2
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:the_nether"
+    ],
+    "biomes": []
+  },
+  "oreWeights": {
+    "#mipp:nether_replaceable": {
+      "minecraft:nether_gold_ore": 995,
+      "minecraft:ancient_debris": 5
+    }
+  },
+  "rareBlocks": {
+    "minecraft:raw_gold_block": 1
+  },
+  "rareBlockChance": 0.01,
+  "bounds": {
+    "radiusX": 16,
+    "radiusY": 8,
+    "radiusZ": 16,
+    "maxY": 60,
+    "minY": 10,
+    "size": 1.0
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

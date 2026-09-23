@@ -1,0 +1,21 @@
+{
+  "values": [
+    "mipp:white_casing_pipe",
+    "mipp:light_gray_casing_pipe",
+    "mipp:gray_casing_pipe",
+    "mipp:black_casing_pipe",
+    "mipp:brown_casing_pipe",
+    "mipp:red_casing_pipe",
+    "mipp:orange_casing_pipe",
+    "mipp:yellow_casing_pipe",
+    "mipp:lime_casing_pipe",
+    "mipp:green_casing_pipe",
+    "mipp:cyan_casing_pipe",
+    "mipp:light_blue_casing_pipe",
+    "mipp:blue_casing_pipe",
+    "mipp:purple_casing_pipe",
+    "mipp:magenta_casing_pipe",
+    "mipp:pink_casing_pipe",
+    "mipp:basic_casing_pipe"
+  ]
+}

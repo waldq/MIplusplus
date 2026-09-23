@@ -1,0 +1,41 @@
+{
+  "id": "titanium",
+  "data": {
+    "type": "stock",
+    "weight": 1,
+    "density": 0.1
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": []
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "modern_industrialization:titanium_ore": 80,
+      "modern_industrialization:tungsten_ore": 20
+    },
+    "minecraft:deepslate": {
+      "modern_industrialization:titanium_ore": 80,
+      "modern_industrialization:deepslate_tungsten_ore": 20
+    }
+  },
+  "rareBlocks": {},
+  "rareBlockChance": 0.0,
+  "bounds": {
+    "radiusX": 16,
+    "radiusY": 8,
+    "radiusZ": 16,
+    "maxY": 16,
+    "minY": -59,
+    "size": 1.0
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

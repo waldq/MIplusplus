@@ -1,0 +1,43 @@
+{
+  "id": "uranium",
+  "data": {
+    "type": "stock",
+    "weight": 1,
+    "density": 0.1
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:overworld"
+    ],
+    "biomes": []
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "modern_industrialization:uranium_ore": 90,
+      "modern_industrialization:iridium_ore": 5,
+      "modern_industrialization:monazite_ore": 5
+    },
+    "minecraft:deepslate": {
+      "modern_industrialization:deepslate_uranium_ore": 90,
+      "modern_industrialization:deepslate_iridium_ore": 5,
+      "modern_industrialization:deepslate_monaziite_ore": 5
+    }
+  },
+  "rareBlocks": {},
+  "rareBlockChance": 0.0,
+  "bounds": {
+    "radiusX": 17,
+    "radiusY": 8,
+    "radiusZ": 17,
+    "maxY": 16,
+    "minY": -48,
+    "size": 1.0
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}

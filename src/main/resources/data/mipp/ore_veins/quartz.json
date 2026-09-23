@@ -1,0 +1,43 @@
+{
+  "id": "quartz",
+  "data": {
+    "type": "stock",
+    "weight": 2,
+    "density": 0.2
+  },
+  "dimData": {
+    "dimensions": [
+      "minecraft:nether"
+    ],
+    "biomes": [
+      "#minecraft:is_nether"
+    ]
+  },
+  "oreWeights": {
+    "#mipp:stones": {
+      "modern_industrialization:quartz_ore": 80,
+      "modern_industrialization:antimony_ore": 20
+    },
+    "minecraft:deepslate": {
+      "modern_industrialization:quartz_ore": 80,
+      "modern_industrialization:deepslate_antimony_ore": 20
+    }
+  },
+  "rareBlocks": {},
+  "rareBlockChance": 0.0,
+  "bounds": {
+    "radiusX": 15,
+    "radiusY": 8,
+    "radiusZ": 17,
+    "maxY": 32,
+    "minY": -32,
+    "size": 1.0
+  },
+  "samples": {
+    "number": 6,
+    "sampleWeights" : {
+      "mipp:sample": 10
+    }
+  },
+  "enabled": true
+}
