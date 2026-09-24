@@ -14,10 +14,10 @@
   },
   "oreWeights": {
     "#mipp:stones": {
-      "minecraft:lead_ore": 70
+      "modern_industrialization:lead_ore": 70
     },
     "minecraft:deepslate": {
-      "minecraft:deepslate_lead_ore": 70
+      "modern_industrialization:deepslate_lead_ore": 70
     }
   },
   "rareBlocks": {},

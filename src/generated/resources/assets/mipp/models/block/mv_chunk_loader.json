@@ -4,7 +4,9 @@
     "fluid_auto": "modern_industrialization:block/overlays/fluid_auto",
     "front": "mipp:block/machines/chunk_loader/overlay_front",
     "item_auto": "modern_industrialization:block/overlays/item_auto",
-    "output": "modern_industrialization:block/overlays/output"
+    "output": "modern_industrialization:block/overlays/output",
+    "side": "mipp:block/machines/chunk_loader/overlay_side",
+    "top": "mipp:block/machines/chunk_loader/overlay_top"
   },
   "loader": "modern_industrialization:machine"
 }
