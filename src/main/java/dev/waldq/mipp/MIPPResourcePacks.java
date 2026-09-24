@@ -9,7 +9,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 
-@EventBusSubscriber(modid = MIPP.MODID)
+@EventBusSubscriber(modid = MIPP.ID)
 public class MIPPResourcePacks {
     @SubscribeEvent
     public static void registerZedTechFinder(AddPackFindersEvent event) {

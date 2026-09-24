@@ -18,7 +18,7 @@ import static aztech.modern_industrialization.MITooltips.EU_MAXED_PARSER;
 public class MIPPTooltips {
 
     public static final TooltipAttachment ENERGY_STORED_ITEM = TooltipAttachment.singleLineOptional(
-            (stack, item) -> BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(MIPP.MODID),
+            (stack, item) -> BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(MIPP.ID),
             (flags, context, stack, item) -> {
                 ILongEnergyStorage energyStorage = stack.getCapability(EnergyApi.ITEM);
                 if (energyStorage != null) {

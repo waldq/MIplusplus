@@ -1,42 +1,58 @@
 package dev.waldq.mipp;
 
-import net.neoforged.neoforge.common.ModConfigSpec;
+import net.swedz.tesseract.config.annotation.ConfigComment;
+import net.swedz.tesseract.config.annotation.ConfigKey;
+import net.swedz.tesseract.config.annotation.Range;
+import net.swedz.tesseract.config.annotation.SubSection;
 
-public class MIPPConfig {
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+public interface MIPPConfig {
+    @ConfigKey
+    @ConfigComment("The maximum number of chunks that can be loaded for each player on the server.")
+    @Range.Integer(min = 0, max = 100)
+    default int maxChunksPerPlayer() { return 25; }
 
-    public static final ModConfigSpec.IntValue CHUNKS_PER_PLAYER = BUILDER
-            .comment("Maximum number of chunks loaded for each player on the server.")
-            .defineInRange("maxChunksPerPlayer", 25, 0, 100);
+    @ConfigKey
+    @SubSection
+    ProspectorParameters prospectorPerameters();
 
-    public static final ModConfigSpec.IntValue PROSPECTOR_ENERGY_COST = BUILDER
-            .comment("How much energy will ore prospector consume when starting a scan.")
-            .defineInRange("prospectorEnergyCost", 32, 0, 3200);
+    interface ProspectorParameters {
+        @ConfigKey
+        @ConfigComment("How much energy will ore prospector consume when starting a scan.")
+        @Range.Integer(min = 0, max = 3200)
+        default int prospectorEnergyCost() { return 32; }
 
-    public static final ModConfigSpec.IntValue PROSPECTOR_LARGE_SCAN_RANGE = BUILDER
-            .comment("Chunk chunkRadius that prospector will search in when doing a large scan.")
-            .defineInRange("prospectorLargeScanR", 1000, 1, 1000);
+        @ConfigKey
+        @ConfigComment("Chunk radius that prospector will search in when doing a large scan.")
+        @Range.Integer(min = 1, max = 1000)
+        default int prospectorLargeScanR() { return 20; }
 
-    public static final ModConfigSpec.IntValue PROSPECTOR_LOCAL_SCAN_RANGE = BUILDER
-            .comment("Chunk chunkRadius that prospector will search in when doing a local scan.")
-            .defineInRange("prospectorLocalScanR", 5, 1, 11);
+        @ConfigKey
+        @ConfigComment("Chunk radius that prospector will search in when doing a local scan.")
+        @Range.Integer(min = 1, max = 11)
+        default int prospectorLocalScanR() { return 5; }
 
-    public static final ModConfigSpec.IntValue CHUNKS_PER_TICK = BUILDER
-            .comment("Number of chunk sections (16x16x16) allowed to be processed by a prospector every tick.")
-            .defineInRange("chunksPerTick", 3, 1, 500);
+        @ConfigKey
+        @ConfigComment("Number of chunk sections (16x16x16 blocks) allowed to be processed by a prospector every tick.")
+        @Range.Integer(min = 1, max = 1000)
+        default int chunksPerTick() { return 100; }
+    }
 
-    public static final ModConfigSpec.BooleanValue ENABLE_VANILLA_ORE_GENERATION = BUILDER
-            .comment("Whether to enable vanilla ore veins or not")
-            .define("enableVanillaOres", false);
+    @ConfigKey
+    @SubSection
+    OreGenParameters oreGenParameters();
 
-    public static final ModConfigSpec.BooleanValue ENABLE_ORE_GENERATION = BUILDER
-            .comment("Whether to enable large ore vein generation from this mod or not.")
-            .define("enableCustomOreGeneration", true);
+    interface OreGenParameters {
+        @ConfigKey
+        @ConfigComment("Whether to enable vanilla ore veins or not.")
+        default boolean enableVanillaOres() { return false; }
 
-    public static final ModConfigSpec.IntValue CHUNK_SKIP_CHANCE = BUILDER
-            .comment("Chance of a chunk being skipped during ore gen stage.")
-            .defineInRange("chunkSkipChance", 95, 1, 100);
+        @ConfigKey
+        @ConfigComment("Whether to enable large ore vein generation from this mod or not.")
+        default boolean enableCustomOreGeneration() { return true; }
 
-    public static final ModConfigSpec SPEC = BUILDER.build();
-
+        @ConfigKey
+        @ConfigComment("Chance of a chunk being skipped during ore gen stage.")
+        @Range.Integer(min = 1, max = 100)
+        default int chunkSkipChance() { return 99; }
+    }
 }

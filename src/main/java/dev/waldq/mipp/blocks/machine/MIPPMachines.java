@@ -81,7 +81,7 @@ public final class MIPPMachines {
 
             hook.builder("%s_chunk_loader".formatted(tier.name), "%s Chunk Loader".formatted(tier.shortEnglishName), (bep) -> new ElectricChunkLoaderBlockEntity(bep, MIPP.id("%s_chunk_loader".formatted(tier.name)), tier))
                     .creator(((ctor, properties) -> new ChunkLoaderBlock(ctor, properties, tier)))
-                    .builtinModel(tier.casing, "chunk_loader", (model) -> model.top(false).side(false).front(true).active(false).outputTextureDefault())
+                    .builtinModel(tier.casing, "chunk_loader", (model) -> model.top(true).side(true).front(true).active(false).outputTextureDefault())
                     .registrator(ElectricChunkLoaderBlockEntity::registerEnergyApi)
                     .registerMachine();
         }

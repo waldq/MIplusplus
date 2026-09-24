@@ -9,8 +9,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 
 public class MIPPRecipeTypes {
-    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, MIPP.MODID);
-    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, MIPP.MODID);
+    public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(Registries.RECIPE_SERIALIZER, MIPP.ID);
+    public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES = DeferredRegister.create(Registries.RECIPE_TYPE, MIPP.ID);
 
     public static void init(IEventBus bus) {
         RECIPE_SERIALIZERS.register(bus);

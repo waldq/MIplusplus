@@ -33,8 +33,8 @@ import java.util.stream.Collectors;
 
 public final class MIPPBlocks {
     public static final class Registry {
-        public static final  DeferredRegister.Blocks              BLOCKS         = DeferredRegister.createBlocks(MIPP.MODID);
-        public static final  DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MIPP.MODID);
+        public static final  DeferredRegister.Blocks              BLOCKS         = DeferredRegister.createBlocks(MIPP.ID);
+        public static final  DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MIPP.ID);
         private static final Set<BlockHolder>                     HOLDERS        = Sets.newHashSet();
 
         private static void init(IEventBus bus) {

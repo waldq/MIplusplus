@@ -71,7 +71,7 @@ public class DataMapDatagenProvider extends DataMapProvider {
     }
 
     private void addOreMapData(ResourceLocation block, int color) {
-        this.builder(MIPPDataMaps.ORE_COLOR).add(block, new OreMapData(color, null), false);
+        this.builder(MIPPDataMaps.ORE_COLOR).add(block, new OreMapData(color, Optional.empty()), false);
     }
 
     private void addOreMapData(TagKey<Block> tag, int color, ResourceLocation mainBlock) {

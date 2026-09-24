@@ -11,7 +11,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class MIPPFeatures {
     public static final DeferredRegister<Feature<?>> FEATURES =
-            DeferredRegister.create(Registries.FEATURE, MIPP.MODID);
+            DeferredRegister.create(Registries.FEATURE, MIPP.ID);
 
     public static final DeferredHolder<Feature<?>, OreVeinFeature> ORE_VEIN_FEATURE =
             FEATURES.register("ore_vein", () -> new OreVeinFeature(NoneFeatureConfiguration.CODEC));

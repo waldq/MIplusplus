@@ -26,7 +26,7 @@ public final class ItemTagDatagenProvider extends ItemTagsProvider {
 			CompletableFuture<TagLookup<Block>> blockTags,
 			ExistingFileHelper existingFileHelper
 	) {
-		super(output, lookupProvider, blockTags, MIPP.MODID, existingFileHelper);
+		super(output, lookupProvider, blockTags, MIPP.ID, existingFileHelper);
 	}
 
 

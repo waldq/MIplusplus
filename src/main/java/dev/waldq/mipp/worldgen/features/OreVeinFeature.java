@@ -2,6 +2,7 @@ package dev.waldq.mipp.worldgen.features; // Ваш пакет
 
 import com.mojang.serialization.Codec;
 
+import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPConfig;
 
 import dev.waldq.mipp.worldgen.veins.*;
@@ -28,7 +29,7 @@ public class OreVeinFeature extends Feature<NoneFeatureConfiguration> {
 
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
-        if (!MIPPConfig.ENABLE_ORE_GENERATION.getAsBoolean()) return false;
+        if (!MIPP.config().oreGenParameters().enableCustomOreGeneration()) return false;
 
         WorldGenLevel level = context.level();
         BlockPos origin = context.origin();

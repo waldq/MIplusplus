@@ -2,8 +2,8 @@ package dev.waldq.mipp.blocks.machine.chunkloader;
 
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.blocks.machine.blockentities.ElectricChunkLoaderBlockEntity;
-
 import dev.waldq.mipp.saveddata.ChunkLoaderSavedData;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,7 +11,6 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 
-import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -20,7 +19,7 @@ import net.neoforged.neoforge.event.level.BlockEvent;
 
 import static dev.waldq.mipp.MIPPAttachments.CHUNK_AMOUNT;
 
-@EventBusSubscriber(modid = MIPP.MODID)
+@EventBusSubscriber(modid = MIPP.ID)
 public class ChunkLoaderListener {
 
 

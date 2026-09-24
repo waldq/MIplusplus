@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-@EventBusSubscriber(modid = MIPP.MODID)
+@EventBusSubscriber(modid = MIPP.ID)
 public class ServerTickListener {
 
     private static class ScanData {

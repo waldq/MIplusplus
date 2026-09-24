@@ -23,9 +23,9 @@ To add an ore vein, you need to define the following fields in its JSON:
 - 8: samples:
   - number: number of samples that will spawn in the center chunk of your vein on the surface.
   - sample weights: they work exaclty like ore weights and rare block weights, except that samples will spawn on the surface. I don't provide you with all the possible samples for the existing ores so you either have to create you own or use standard sample block.
-- 9: enabled: true if you want to enable you vein.
-After defining your vein's JSON, you can put it in KubeJS data folder in ore_veins folder for it to start working.
-For your own convenience I suggest putting your custom veins under your modpack's namespace and editing MI++ veins under its namespace.
+- 9: enabled: true if you want to enable you vein.  
+After defining your vein's JSON, you can put it in KubeJS data folder in `ore_veins` folder for it to start working.  
+For your own convenience I suggest putting your custom veins under your modpack's namespace and editing MI++ veins under its namespace (`data/<modpack>/ore_veins` and `data/mipp/ore_veins` respectfully).
 ```json
 {
   "id": "coal",
@@ -74,4 +74,4 @@ For your own convenience I suggest putting your custom veins under your modpack'
 }
 ```
 # EDITING EXISTING VEIN
-Editing is really straightforward, you just follow same steps as with adding a vein, but the id of the edited vein has to exist somewhere in ore_veins folders.
+Editing is really straightforward, you just follow same steps as with adding a vein, but the id of the edited vein has to exist somewhere in `ore_veins` folders, otherwise you will just add a new vein.

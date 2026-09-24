@@ -9,9 +9,7 @@
     "dimensions": [
       "minecraft:overworld"
     ],
-    "biomes": [
-      "#minecraft:is_overworld"
-    ]
+    "biomes": []
   },
   "oreWeights": {
     "#mipp:stones": {

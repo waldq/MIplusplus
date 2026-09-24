@@ -14,8 +14,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod(value = MIPP.MODID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = MIPP.MODID, value = Dist.CLIENT)
+@Mod(value = MIPP.ID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = MIPP.ID, value = Dist.CLIENT)
 public final class MIPPClient {
     @SubscribeEvent
     private static void registerBlockEntityRenderers(FMLClientSetupEvent event) {

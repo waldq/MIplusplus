@@ -8,7 +8,7 @@ import net.swedz.tesseract.neoforge.registry.holder.ItemHolder;
 
 public final class ItemModelsDatagenProvider extends ItemModelProvider {
 	public ItemModelsDatagenProvider(GatherDataEvent event) {
-		super(event.getGenerator().getPackOutput(), MIPP.MODID, event.getExistingFileHelper());
+		super(event.getGenerator().getPackOutput(), MIPP.ID, event.getExistingFileHelper());
 	}
 	
 	@Override

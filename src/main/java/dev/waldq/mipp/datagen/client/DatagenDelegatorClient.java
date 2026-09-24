@@ -17,8 +17,8 @@ public final class DatagenDelegatorClient
 	{
 		MIDatagenHooks.Client.includeMISprites(event);
 		
-//		MIDatagenHooks.Client.addTexturesHook(event, MIPP.MODID, MIPPFluids.values());
-		MIDatagenHooks.Client.addMachineCasingModelsHook(event, MIPP.MODID);
+//		MIDatagenHooks.Client.addTexturesHook(event, MIPP.ID, MIPPFluids.values());
+		MIDatagenHooks.Client.addMachineCasingModelsHook(event, MIPP.ID);
 		
 		add(event, BlockModelsDatagenProvider::new);
 		add(event, ItemModelsDatagenProvider::new);
