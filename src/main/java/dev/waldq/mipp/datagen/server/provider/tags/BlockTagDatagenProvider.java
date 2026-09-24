@@ -26,7 +26,7 @@ public final class BlockTagDatagenProvider extends BlockTagsProvider {
 			CompletableFuture<HolderLookup.Provider> lookupProvider,
 			ExistingFileHelper existingFileHelper
 	) {
-		super(output, lookupProvider, MIPP.MODID, existingFileHelper);
+		super(output, lookupProvider, MIPP.ID, existingFileHelper);
 	}
 
 	private void addSupportsSampleTags() {

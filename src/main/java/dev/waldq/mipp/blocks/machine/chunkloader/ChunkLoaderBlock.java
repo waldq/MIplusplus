@@ -4,21 +4,17 @@ import aztech.modern_industrialization.api.energy.CableTier;
 import aztech.modern_industrialization.machines.MachineBlock;
 import aztech.modern_industrialization.machines.MachineBlockEntity;
 
-import dev.waldq.mipp.MIPPConfig;
-import dev.waldq.mipp.blocks.machine.blockentities.ElectricChunkLoaderBlockEntity;
+import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.blocks.machine.utils.CableTierUtils;
 
 import dev.waldq.mipp.saveddata.ChunkLoaderSavedData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.function.BiFunction;
-
-import static dev.waldq.mipp.MIPPAttachments.CHUNK_AMOUNT;
 
 public class ChunkLoaderBlock extends MachineBlock {
     private final CableTier cableTier;
@@ -47,6 +43,6 @@ public class ChunkLoaderBlock extends MachineBlock {
     }
 
     public int getMaxChunksAmount() {
-        return MIPPConfig.CHUNKS_PER_PLAYER.getAsInt();
+        return MIPP.config().maxChunksPerPlayer();
     }
 }

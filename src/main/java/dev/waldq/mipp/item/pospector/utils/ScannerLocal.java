@@ -1,5 +1,6 @@
 package dev.waldq.mipp.item.pospector.utils;
 
+import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPConfig;
 import dev.waldq.mipp.worldgen.veins.OreVeinConfig;
 import dev.waldq.mipp.worldgen.veins.VeinPlacerHelper;
@@ -100,7 +101,7 @@ public class ScannerLocal  {
             return;
         }
 
-        final int sectionsToProcess = MIPPConfig.CHUNKS_PER_TICK.getAsInt();
+        final int sectionsToProcess = MIPP.config().prospectorPerameters().chunksPerTick();
 
         for (int i = 0; i < sectionsToProcess; i++) {
             if (currentChunkSectionIndex >= pendingChunkSections.size()) {

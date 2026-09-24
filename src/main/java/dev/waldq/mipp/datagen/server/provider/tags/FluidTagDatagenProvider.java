@@ -14,7 +14,7 @@
 //{
 //	public FluidTagDatagenProvider(GatherDataEvent event)
 //	{
-//		super(event.getGenerator().getPackOutput(), event.getLookupProvider(), MIPP.MODID, event.getExistingFileHelper());
+//		super(event.getGenerator().getPackOutput(), event.getLookupProvider(), MIPP.ID, event.getExistingFileHelper());
 //	}
 //
 //	@Override

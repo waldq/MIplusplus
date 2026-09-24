@@ -36,8 +36,8 @@ public class OreVeinDataMapUtils {
 
     public static BlockState getMainBlock(BlockState state) {
         OreMapData data = getCachedOreMapData(state);
-        if (data != null && data.mainBlock() != null && data.mainBlock().isPresent()) {
-            return BuiltInRegistries.BLOCK.get(data.mainBlock().get()).defaultBlockState();
+        if (data != null && data.replacement() != null && data.replacement().isPresent()) {
+            return BuiltInRegistries.BLOCK.get(data.replacement().get()).defaultBlockState();
         }
         return state;
     }

@@ -11,15 +11,19 @@ import dev.waldq.mipp.worldgen.features.MIPPFeatures;
 import dev.waldq.mipp.worldgen.veins.OreVeinConfigLoader;
 
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import net.swedz.tesseract.api.Assert;
+import net.swedz.tesseract.config.ConfigManager;
 import net.swedz.tesseract.neoforge.capabilities.CapabilitiesListeners;
 import net.swedz.tesseract.neoforge.compat.mi.TesseractMI;
 import net.swedz.tesseract.neoforge.compat.mi.component.craft.multiplied.EuCostTransformer;
 import net.swedz.tesseract.neoforge.compat.mi.tooltip.MIParser;
+import net.swedz.tesseract.neoforge.config.ModConfigFileAccess;
 import net.swedz.tesseract.neoforge.lang.LangInstance;
 import net.swedz.tesseract.neoforge.lang.LangManager;
 import net.swedz.tesseract.neoforge.registry.holder.BlockHolder;
@@ -32,30 +36,24 @@ import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
-
 import static aztech.modern_industrialization.MITooltips.*;
 
 
-@Mod(MIPP.MODID)
+@Mod(MIPP.ID)
 public class MIPP {
-    public static final String MODID = "mipp";
+    public static final String ID = "mipp";
     public static final String NAME = "MI++";
 
-    public static ResourceLocation id(String id) {return ResourceLocation.fromNamespaceAndPath(MODID, id);}
+    public static ResourceLocation id(String id) {return ResourceLocation.fromNamespaceAndPath(ID, id);}
 
     private static MIPPText TEXT;
-    private static LangInstance<MIPPText> LANG_INSTANCE;
+    private static MIPPConfig CONFIG;
 
-    public static MIPPText text() {
-        Assert.notNull(TEXT, "Text not yet loaded");
-        return TEXT;
-    }
+
 
     private static final OreVeinConfigLoader ORE_VEIN_CONFIG_LOADER = new OreVeinConfigLoader();
 
@@ -63,15 +61,13 @@ public class MIPP {
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public MIPP(IEventBus bus, ModContainer modContainer) {
-        this.preSetup(bus, modContainer);
+    public MIPP(IEventBus bus, ModContainer container) {
+        setupText(bus, container);
+        setupConfig(bus, container);
 
-        bus.addListener(this::commonSetup);
-
-        TesseractMI.init(MODID);
-        modContainer.registerConfig(ModConfig.Type.COMMON, MIPPConfig.SPEC);
         MIPPAttachments.init(bus);
 
+        TesseractMI.init(ID);
         MIPPItems.init(bus);
         MIPPBlocks.init(bus);
         MIPPRecipeTypes.init(bus);
@@ -98,12 +94,32 @@ public class MIPP {
                 })
         );
 
-        bus.addListener(RegisterCapabilitiesEvent.class, (event) -> CapabilitiesListeners.triggerAll(MODID, event));
+        bus.addListener(RegisterCapabilitiesEvent.class, (event) -> CapabilitiesListeners.triggerAll(ID, event));
 
     }
 
-    private void preSetup(IEventBus bus, ModContainer container) {
-        var instance = new LangManager(MODID)
+    public static MIPPConfig config() {
+        Assert.notNull(CONFIG, "Config not yet loaded.");
+        return CONFIG;
+    }
+
+    private static void setupConfig(IEventBus bus, ModContainer container) {
+        var file = new ModConfigFileAccess(container, ModConfig.Type.STARTUP);
+        var instance = new ConfigManager(file)
+                .build(MIPPConfig.class)
+                .load();
+        bus.addListener(FMLCommonSetupEvent.class, event -> instance.load(false));
+        file.registerReloadListeners(bus, instance);
+        CONFIG = instance.config();
+    }
+
+    public static MIPPText text() {
+        Assert.notNull(TEXT, "Text not yet loaded");
+        return TEXT;
+    }
+
+    private void setupText(IEventBus bus, ModContainer container) {
+        var instance = new LangManager(ID)
                 .builtinColorStyles()
                 .style("tooltip", () -> DEFAULT_STYLE)
                 .style("tooltip_subtext", () -> DEFAULT_STYLE.withItalic(true))
@@ -140,13 +156,6 @@ public class MIPP {
         TEXT = instance.lang();
     }
 
-
-    private void commonSetup(FMLCommonSetupEvent event) {
-    }
-
     @SubscribeEvent
     public void onAddReloadListeners(AddReloadListenerEvent event) {event.addListener(ORE_VEIN_CONFIG_LOADER);}
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {}
 }

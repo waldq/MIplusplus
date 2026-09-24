@@ -15,7 +15,7 @@ import java.util.function.Function;
 
 public final class MIPPItems {
     public static final class Registry {
-        public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MIPP.MODID);
+        public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MIPP.ID);
         private static final Set<ItemHolder> HOLDERS = Sets.newHashSet();
 
         private static void init(IEventBus bus) { ITEMS.register(bus); }

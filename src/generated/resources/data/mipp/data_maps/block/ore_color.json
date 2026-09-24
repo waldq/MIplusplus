@@ -2,91 +2,91 @@
   "values": {
     "#c:ores/antimony": {
       "color": "DCDCF0",
-      "mainBlock": "modern_industrialization:antimony_ore"
+      "replacement": "modern_industrialization:antimony_ore"
     },
     "#c:ores/bauxite": {
       "color": "C86400",
-      "mainBlock": "modern_industrialization:bauxite_ore"
+      "replacement": "modern_industrialization:bauxite_ore"
     },
     "#c:ores/coal": {
       "color": "000000",
-      "mainBlock": "minecraft:coal_ore"
+      "replacement": "minecraft:coal_ore"
     },
     "#c:ores/copper": {
       "color": "E65D0E",
-      "mainBlock": "minecraft:copper_ore"
+      "replacement": "minecraft:copper_ore"
     },
     "#c:ores/diamond": {
       "color": "10D7DE",
-      "mainBlock": "minecraft:diamond_ore"
+      "replacement": "minecraft:diamond_ore"
     },
     "#c:ores/emerald": {
       "color": "75E069",
-      "mainBlock": "minecraft:emerald_ore"
+      "replacement": "minecraft:emerald_ore"
     },
     "#c:ores/gold": {
       "color": "D4C00D",
-      "mainBlock": "minecraft:gold_ore"
+      "replacement": "minecraft:gold_ore"
     },
     "#c:ores/iridium": {
       "color": "E1E6F5",
-      "mainBlock": "modern_industrialization:iridium_ore"
+      "replacement": "modern_industrialization:iridium_ore"
     },
     "#c:ores/iron": {
       "color": "D4BCA7",
-      "mainBlock": "minecraft:iron_ore"
+      "replacement": "minecraft:iron_ore"
     },
     "#c:ores/lapis": {
       "color": "3843E0",
-      "mainBlock": "minecraft:lapis_ore"
+      "replacement": "minecraft:lapis_ore"
     },
     "#c:ores/lead": {
       "color": "6A76BC",
-      "mainBlock": "modern_industrialization:lead_ore"
+      "replacement": "modern_industrialization:lead_ore"
     },
     "#c:ores/lignite_coal": {
       "color": "644646",
-      "mainBlock": "modern_industrialization:lignite_coal_ore"
+      "replacement": "modern_industrialization:lignite_coal_ore"
     },
     "#c:ores/monazite": {
       "color": "96248E",
-      "mainBlock": "modern_industrialization:monazite_ore"
+      "replacement": "modern_industrialization:monazite_ore"
     },
     "#c:ores/nickel": {
       "color": "FAFAC8",
-      "mainBlock": "modern_industrialization:nickel_ore"
+      "replacement": "modern_industrialization:nickel_ore"
     },
     "#c:ores/platinum": {
       "color": "FFE5BA",
-      "mainBlock": "modern_industrialization:platinum_ore"
+      "replacement": "modern_industrialization:platinum_ore"
     },
     "#c:ores/quartz": {
       "color": "E8C4B5",
-      "mainBlock": "modern_industrialization:quartz_ore"
+      "replacement": "modern_industrialization:quartz_ore"
     },
     "#c:ores/redstone": {
       "color": "D91A1A",
-      "mainBlock": "minecraft:redstone_ore"
+      "replacement": "minecraft:redstone_ore"
     },
     "#c:ores/salt": {
       "color": "C7D6C5",
-      "mainBlock": "modern_industrialization:salt_ore"
+      "replacement": "modern_industrialization:salt_ore"
     },
     "#c:ores/tin": {
       "color": "C0BCD0",
-      "mainBlock": "modern_industrialization:tin_ore"
+      "replacement": "modern_industrialization:tin_ore"
     },
     "#c:ores/titanium": {
       "color": "DCA0F0",
-      "mainBlock": "modern_industrialization:titanium_ore"
+      "replacement": "modern_industrialization:titanium_ore"
     },
     "#c:ores/tungsten": {
       "color": "8760AD",
-      "mainBlock": "modern_industrialization:tungsten_ore"
+      "replacement": "modern_industrialization:tungsten_ore"
     },
     "#c:ores/uranium": {
       "color": "39E600",
-      "mainBlock": "modern_industrialization:uranium_ore"
+      "replacement": "modern_industrialization:uranium_ore"
     }
   }
 }

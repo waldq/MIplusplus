@@ -18,8 +18,6 @@ import aztech.modern_industrialization.machines.models.MachineModelClientData;
 import aztech.modern_industrialization.util.Simulation;
 import aztech.modern_industrialization.util.Tickable;
 
-import dev.waldq.mipp.MIPPAttachments;
-import dev.waldq.mipp.MIPPConfig;
 import dev.waldq.mipp.blocks.machine.utils.CableTierUtils;
 import dev.waldq.mipp.blocks.machine.components.ElectricChunkLoaderComponent;
 
@@ -48,13 +46,17 @@ public class ElectricChunkLoaderBlockEntity extends MachineBlockEntity implement
 
     public void setOwnerUUID(UUID ownerUUID) {
         if (ownerUUID != null) {
+            this.ownerUUID = ownerUUID;
             this.setData(OWNER_UUID, ownerUUID);
             this.setChanged();
         }
     }
 
     public UUID getOwnerUUID() {
-        return this.getData(OWNER_UUID);
+        if (this.ownerUUID == null && this.hasData(OWNER_UUID)) {
+            this.ownerUUID = this.getData(OWNER_UUID);
+        }
+        return this.ownerUUID;
     }
 
     public ElectricChunkLoaderBlockEntity(

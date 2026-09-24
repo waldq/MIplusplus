@@ -7,11 +7,9 @@
   },
   "dimData": {
     "dimensions": [
-      "minecraft:nether"
+      "minecraft:overworld"
     ],
-    "biomes": [
-      "#minecraft:is_nether"
-    ]
+    "biomes": []
   },
   "oreWeights": {
     "#mipp:stones": {

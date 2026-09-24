@@ -6,10 +6,8 @@ import dev.waldq.mipp.network.PlayerSyncHandler;
 
 import net.minecraft.core.UUIDUtil;
 
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
@@ -22,7 +20,7 @@ public class MIPPAttachments {
     }
 
     private static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES =
-            DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MIPP.MODID);
+            DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MIPP.ID);
 
     public static final Supplier<AttachmentType<Integer>> CHUNK_AMOUNT = ATTACHMENT_TYPES.register(
             "chunks_amount", () -> AttachmentType.builder(() -> 0)

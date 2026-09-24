@@ -14,10 +14,10 @@ import java.util.Comparator;
 import java.util.function.Supplier;
 
 public class MIPPCreativeTab {
-    private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MIPP.MODID);
+    private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MIPP.ID);
 
-    public static final Supplier<CreativeModeTab> CREATIVE_TAB = CREATIVE_MODE_TAB.register(MIPP.MODID, () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.%s.%s".formatted(MIPP.MODID, MIPP.MODID)))
+    public static final Supplier<CreativeModeTab> CREATIVE_TAB = CREATIVE_MODE_TAB.register(MIPP.ID, () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup.%s.%s".formatted(MIPP.ID, MIPP.ID)))
             .icon(() -> MIPPItems.ENERGY_ZAP.asItem().getDefaultInstance())
             .displayItems((params, output) -> {
                 Comparator<ItemHolder> compareBySortOrder = Comparator.comparing(ItemHolder::sortOrder);

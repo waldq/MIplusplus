@@ -44,15 +44,15 @@ import java.util.*;
 public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolder {
 
     private int getEnergyCost() {
-        return MIPPConfig.PROSPECTOR_ENERGY_COST.getAsInt();
+        return MIPP.config().prospectorPerameters().prospectorEnergyCost();
     }
 
     private int getLargeChunkRadius() {
-        return MIPPConfig.PROSPECTOR_LARGE_SCAN_RANGE.getAsInt();
+        return MIPP.config().prospectorPerameters().prospectorLargeScanR();
     }
 
     private int getLocalChunkRadius() {
-        return MIPPConfig.PROSPECTOR_LOCAL_SCAN_RANGE.getAsInt();
+        return MIPP.config().prospectorPerameters().prospectorLocalScanR();
     }
 
     public ProspectorItemBehavior(Properties properties, long capacity) {
@@ -136,7 +136,7 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
     // This is adapted code originally part of GregTech:CEu, hosted at https://github.com/GregTechCEu/GregTech-Modern
     @Override
     public ModularScreen createScreen(PlayerInventoryGuiData<?> data, ModularPanel<?> mainPanel) {
-        return new ModularScreen(MIPP.MODID, mainPanel);
+        return new ModularScreen(MIPP.ID, mainPanel);
     }
 
     @Override

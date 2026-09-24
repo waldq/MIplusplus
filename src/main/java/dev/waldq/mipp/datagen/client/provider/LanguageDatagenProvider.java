@@ -23,7 +23,7 @@ public final class LanguageDatagenProvider extends LanguageProvider
 	}
 	
 	public LanguageDatagenProvider(GatherDataEvent event) {
-		super(event.getGenerator().getPackOutput(), MIPP.MODID, "en_us");
+		super(event.getGenerator().getPackOutput(), MIPP.ID, "en_us");
 	}
 	
 	@Override
@@ -44,7 +44,7 @@ public final class LanguageDatagenProvider extends LanguageProvider
 //		}
 
 		MIPPMachines.RecipeTypes.getRecipeTypeNames().forEach((recipeType, englishName) -> {
-			this.add("rei_categories.%s.%s".formatted(MIPP.MODID, recipeType.getPath()), englishName);
+			this.add("rei_categories.%s.%s".formatted(MIPP.ID, recipeType.getPath()), englishName);
 		});
 
 		MIPPTags.translations().forEach(this::add);
@@ -72,8 +72,8 @@ public final class LanguageDatagenProvider extends LanguageProvider
 
 		veins.forEach(this::add);
 		
-		MIDatagenHooks.Client.withLanguageHook(this, MIPP.MODID);
+		MIDatagenHooks.Client.withLanguageHook(this, MIPP.ID);
 		
-		this.add("itemGroup.%s.%s".formatted(MIPP.MODID, MIPP.MODID), MIPP.NAME);
+		this.add("itemGroup.%s.%s".formatted(MIPP.ID, MIPP.ID), MIPP.NAME);
 	}
 }
