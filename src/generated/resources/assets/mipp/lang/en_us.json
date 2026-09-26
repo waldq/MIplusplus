@@ -59,7 +59,7 @@
   "text.mipp.chunk_loader_too_much": "Can't place another loader. You have %s chunks loaded.",
   "text.mipp.energy_generation_tooltip": "Generates %s",
   "text.mipp.prospector_all_res": "All resources",
-  "text.mipp.prospector_energy_notice": "Not enough energy. Needs %s to scan",
+  "text.mipp.prospector_energy_notice": "Not enough energy. Needs %s to scan.",
   "text.mipp.prospector_found_vein": "Found %s in approximately %s blocks away.",
   "text.mipp.veins.bauxite": "Bauxite Vein",
   "text.mipp.veins.coal": "Coal Vein",

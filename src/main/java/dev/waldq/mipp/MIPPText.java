@@ -12,7 +12,7 @@ public interface MIPPText {
     MutableComponent energyGenerationTooltip(@WithStyle("highlighted") Component energy);
 
     @WithStyle("red")
-    @LangKey(text = "Not enough energy. Needs %s to scan")
+    @LangKey(text = "Not enough energy. Needs %s to scan.")
     MutableComponent prospectorEnergyNotice(Component energy);
 
     @WithStyle("green")
