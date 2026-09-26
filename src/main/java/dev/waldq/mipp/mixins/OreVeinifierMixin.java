@@ -1,7 +1,6 @@
 package dev.waldq.mipp.mixins;
 
 import dev.waldq.mipp.MIPP;
-import dev.waldq.mipp.MIPPConfig;
 
 import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.NoiseChunk;
@@ -37,7 +36,7 @@ public class OreVeinifierMixin {
             method = "create(Lnet/minecraft/world/level/levelgen/DensityFunction;Lnet/minecraft/world/level/levelgen/DensityFunction;Lnet/minecraft/world/level/levelgen/DensityFunction;Lnet/minecraft/world/level/levelgen/PositionalRandomFactory;)Lnet/minecraft/world/level/levelgen/NoiseChunk$BlockStateFiller;",
             at = @At("HEAD"),
             cancellable = true)
-    private static void gtceu$create(DensityFunction function1, DensityFunction function2, DensityFunction function3,
+    private static void mipp$create(DensityFunction function1, DensityFunction function2, DensityFunction function3,
                                      PositionalRandomFactory random,
                                      CallbackInfoReturnable<NoiseChunk.BlockStateFiller> cir) {
         if (!MIPP.config().oreGenParameters().enableVanillaOres())
