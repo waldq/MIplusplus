@@ -2,8 +2,10 @@ package dev.waldq.mipp.datagen.client.provider.models;
 
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPBlocks;
+
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+
 import net.swedz.tesseract.neoforge.registry.holder.BlockHolder;
 
 public final class BlockModelsDatagenProvider extends BlockStateProvider {

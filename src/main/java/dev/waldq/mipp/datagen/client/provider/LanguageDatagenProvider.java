@@ -1,12 +1,15 @@
 package dev.waldq.mipp.datagen.client.provider;
 
 import com.google.common.collect.Sets;
+
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPItems;
 import dev.waldq.mipp.MIPPTags;
 import dev.waldq.mipp.blocks.machine.MIPPMachines;
+
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+
 import net.swedz.tesseract.neoforge.datagen.mi.MIDatagenHooks;
 import net.swedz.tesseract.neoforge.lang.LangInstance;
 import net.swedz.tesseract.neoforge.registry.holder.ItemHolder;

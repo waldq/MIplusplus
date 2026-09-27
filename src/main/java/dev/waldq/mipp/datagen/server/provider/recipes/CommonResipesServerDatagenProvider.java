@@ -1,26 +1,26 @@
 package dev.waldq.mipp.datagen.server.provider.recipes;
 
 import aztech.modern_industrialization.MI;
+
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPBlocks;
 import dev.waldq.mipp.MIPPItems;
-import dev.waldq.mipp.MIPPTags;
 import dev.waldq.mipp.utils.ColorUtils;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+
 import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder;
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapedRecipeBuilder;
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapelessRecipeBuilder;
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.StonecutterRecipeBuilder;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public class CommonResipesServerDatagenProvider extends RecipesServerDatagenProvider {

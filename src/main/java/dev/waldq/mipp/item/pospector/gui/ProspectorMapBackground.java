@@ -45,6 +45,7 @@ public class ProspectorMapBackground extends AbstractTexture implements IDrawabl
 
     private final int imageHeight;
     private final int imageWidth;
+    private final int border = 4;
 
     private final Set<BlockState>[] foundOres;
     private boolean isDirty = true;
@@ -105,22 +106,23 @@ public class ProspectorMapBackground extends AbstractTexture implements IDrawabl
 
     public int getImageWidth() { return imageWidth; }
 
+    public int getBorder() { return border; }
 
     @Override
     public void draw(GuiContext context, int x, int y, int width, int height, WidgetTheme widgetTheme) {
         // getId() generates a new texture ID if it's NOT_ASSIGNED, so we shouldn't use that.
         if (this.id == NOT_ASSIGNED || isDirty) loadToImage();
 
-        int border = 4;
+        int border = this.border;
 
         int mapX = x + border;
         int mapY = y + border;
-        int mapWidth = width - border;
-        int mapHeight = height - border;
+        int mapX2 = x + width - border;
+        int mapY2 = y + height - border;
 
         RenderSystem.enableBlend();
         RenderSystem.setShaderTexture(0, this.getId());
-        GuiDraw.drawTexture(context.getLastGraphicsPose(), mapX, mapY, mapWidth, mapHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
+        GuiDraw.drawTexture(context.getLastGraphicsPose(), mapX, mapY, mapX2, mapY2, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f);
         RenderSystem.disableBlend();
     }
 

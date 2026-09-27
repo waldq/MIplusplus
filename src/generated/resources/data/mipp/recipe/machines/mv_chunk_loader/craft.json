@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "modern_industrialization:electronic_circuit"
+    },
+    "H": {
+      "item": "modern_industrialization:advanced_machine_hull"
+    },
+    "L": {
+      "item": "mipp:lv_chunk_loader"
+    },
+    "M": {
+      "item": "modern_industrialization:large_motor"
+    },
+    "c": {
+      "item": "modern_industrialization:electrum_cable"
+    }
+  },
+  "pattern": [
+    "cCc",
+    "LHL",
+    "CMC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mipp:mv_chunk_loader"
+  }
+}

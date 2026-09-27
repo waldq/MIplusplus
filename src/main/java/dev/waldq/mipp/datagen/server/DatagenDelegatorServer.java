@@ -3,6 +3,7 @@ package dev.waldq.mipp.datagen.server;
 import dev.waldq.mipp.datagen.server.provider.datamaps.DataMapDatagenProvider;
 import dev.waldq.mipp.datagen.server.provider.loottable.BlockLootTableDatagenProvider;
 import dev.waldq.mipp.datagen.server.provider.recipes.CommonResipesServerDatagenProvider;
+import dev.waldq.mipp.datagen.server.provider.recipes.MachineItemRecipesServerDatagenProvider;
 import dev.waldq.mipp.datagen.server.provider.tags.BlockTagDatagenProvider;
 import dev.waldq.mipp.datagen.server.provider.tags.ItemTagDatagenProvider;
 
@@ -23,6 +24,7 @@ public final class DatagenDelegatorServer {
 		add(event, DataMapDatagenProvider::new);
 		addLootTable(event, BlockLootTableDatagenProvider::new);
 		add(event, CommonResipesServerDatagenProvider::new);
+		add(event, MachineItemRecipesServerDatagenProvider::new);
 
 //		add(event, DamageTypeTagDatagenProvider::new);
 //		add(event, FluidTagDatagenProvider::new);

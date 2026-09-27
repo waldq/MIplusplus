@@ -60,6 +60,11 @@ neoForge {
 
     version = project.neo_version
 
+    validateAccessTransformers = true
+    accessTransformers = [
+            "src/main/resources/${mod_id}.accesstransformer.cfg"
+    ]
+
     parchment {
         mappingsVersion = project.parchment_mappings_version
         minecraftVersion = project.parchment_minecraft_version
@@ -124,7 +129,7 @@ dependencies {
     }
 }
 
-var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
             minecraft_version      : minecraft_version,
             minecraft_version_range: minecraft_version_range,
@@ -143,14 +148,11 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 
     ]
     inputs.properties replaceProperties
-    expand replaceProperties
-    from "src/main/templates"
-    into "build/generated/sources/modMetadata"
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
 }
-
-sourceSets.main.resources.srcDir generateModMetadata
-
-neoForge.ideSyncTask generateModMetadata
 
 publishing {
     publications {
