@@ -64,6 +64,7 @@ public class MIPP {
         setupConfig(bus, container);
 
         MIPPAttachments.init(bus);
+        MIPPComponents.init(bus);
 
         TesseractMI.init(ID);
         MIPPItems.init(bus);

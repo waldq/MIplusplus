@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mipp:item/electric_prospector",
+    "layer1": "mipp:item/electric_prospector/prospector_screen_00",
+    "layer2": "mipp:item/electric_prospector_led_off"
+  }
+}

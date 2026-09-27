@@ -19,10 +19,23 @@ import brachy.modularui.widgets.layout.Flow;
 import com.google.common.base.Strings;
 
 import dev.waldq.mipp.MIPP;
+import dev.waldq.mipp.MIPPComponents;
+import dev.waldq.mipp.item.component.BlockTracker;
+import dev.waldq.mipp.item.pospector.ProspectorItemBehavior;
 import dev.waldq.mipp.utils.OreVeinDataMapUtils;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.core.SectionPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.fml.loading.FMLEnvironment;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -50,6 +63,8 @@ public class ProspectorMapWidget extends Widget<ProspectorMapWidget> implements 
     private final Set<BlockState> uniqueOres;
     private final DynamicHandler dynamicHandler;
 
+    private final Player player;
+
     private boolean darkMode = true;
     private BlockState selectedBlockState = null;
     private String lastSearch = "";
@@ -62,7 +77,8 @@ public class ProspectorMapWidget extends Widget<ProspectorMapWidget> implements 
             Set<BlockState> uniqueOres,
             StringValue searchValue,
             DynamicWidget<?> searchListWidget,
-            PanelSyncManager panelSyncManager
+            PanelSyncManager panelSyncManager,
+            Player player
     ) {
         this.chunkRadius = chunkRadius;
         this.foundOres = foundOres;
@@ -72,11 +88,37 @@ public class ProspectorMapWidget extends Widget<ProspectorMapWidget> implements 
         this.dynamicHandler = createListSyncHandler();
         searchListWidget.clientOnlyHandler(this.dynamicHandler);
 
+        this.player = player;
+
         if (FMLEnvironment.dist.isClient()) {
             this.mapBack = new ProspectorMapBackground(this);
             background(MapHelper.BACKGROUND_INVERSE,
                     this.mapBack);
-            size(this.mapBack.getImageWidth(), this.mapBack.getImageHeight());
+            size(this.mapBack.getImageWidth() + this.mapBack.getBorder() * 2,
+                    this.mapBack.getImageHeight() + this.mapBack.getBorder() * 2);
+
+            tooltipAutoUpdate(true);
+            tooltipDynamic(tooltip -> {
+                tooltip.clearText();
+
+                Map<BlockState, Integer> oresWithCount = getHoveredChunkOresWithCount();
+                if (oresWithCount.isEmpty()) return;
+
+                oresWithCount.entrySet().stream()
+                        .sorted(Map.Entry.<BlockState, Integer>comparingByValue().reversed())
+                        .forEach(entry -> {
+                            BlockState blockState = entry.getKey();
+                            int count = entry.getValue();
+
+                            Component name = blockState.getBlock().getName();
+
+                            Component line = Component.empty()
+                                    .append(name)
+                                    .append(Component.literal(" x" + count).withStyle(ChatFormatting.GRAY));
+
+                            tooltip.addLine(line);
+                        });
+            });
         }
     }
 
@@ -198,6 +240,61 @@ public class ProspectorMapWidget extends Widget<ProspectorMapWidget> implements 
                 this.mapBack.loadToImage();
             }
         }
+    }
+
+    private Map<BlockState, Integer> getHoveredChunkOresWithCount() {
+        if (this.foundOres == null || this.mapBack == null) return Map.of();
+
+        int border = this.mapBack.getBorder();
+
+        int renderWidth = getArea().getWidth() - border * 2;
+        int renderHeight = getArea().getHeight() - border * 2;
+
+        if (renderWidth <= 0 || renderHeight <= 0) return Map.of();
+
+        int relX = getContext().getMouseX() - border;
+        int relZ = getContext().getMouseY() - border;
+
+        if (relX < 0 || relZ < 0 || relX >= renderWidth || relZ >= renderHeight) {
+            return Map.of();
+        }
+
+        int mapWidth = (this.chunkRadius * 2 + 1) * 16;
+
+        int blockX = (int) ((double) relX / renderWidth * mapWidth);
+        int blockZ = (int) ((double) relZ / renderHeight * mapWidth);
+
+        blockX = Math.clamp(blockX, 0, mapWidth - 1);
+        blockZ = Math.clamp(blockZ, 0, mapWidth - 1);
+
+        int chunkX = blockX / 16;
+        int chunkZ = blockZ / 16;
+
+        Map<BlockState, Integer> oreCounts = new LinkedHashMap<>();
+
+        int startX = chunkX * 16;
+        int startZ = chunkZ * 16;
+
+        for (int x = startX; x < startX + 16; x++) {
+            for (int z = startZ; z < startZ + 16; z++) {
+                int index = x + z * mapWidth;
+                if (index >= 0 && index < this.foundOres.length) {
+                    Set<BlockState> states = this.foundOres[index];
+                    if (states != null) {
+                        for (BlockState state : states) {
+                            BlockState mainState = OreVeinDataMapUtils.getMainBlock(state);
+                            if (mainState == null) mainState = state;
+
+                            if (this.selectedBlockState == null || Objects.equals(this.selectedBlockState, mainState)) {
+                                oreCounts.merge(mainState, 1, Integer::sum);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return oreCounts;
     }
 
     public Set<BlockState>[] getFoundOres() { return foundOres; }

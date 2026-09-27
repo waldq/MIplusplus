@@ -5,6 +5,7 @@ import dev.waldq.mipp.MIPPTooltips;
 import dev.waldq.mipp.blocks.machine.MIPPMachines;
 import dev.waldq.mipp.blocks.machine.processcondition.EnergyGenerationCondition;
 
+import dev.waldq.mipp.blocks.machine.processcondition.OreVeinInChunkCondition;
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookEntrypoint;
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookListener;
 import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.*;
@@ -14,6 +15,7 @@ public class MIPPMIHookListener implements MIHookListener {
     @Override
     public void machineProcessConditions(MachineProcessConditionsMIHookContext hook) {
         hook.register(MIPP.id("energy_generation"), EnergyGenerationCondition.CODEC, EnergyGenerationCondition.STREAM_CODEC);
+        hook.register(MIPP.id("vein_in_chunk"), OreVeinInChunkCondition.CODEC, OreVeinInChunkCondition.STREAM_CODEC);
     }
 
     @Override

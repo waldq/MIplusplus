@@ -2,6 +2,7 @@ package dev.waldq.mipp.datamaps;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Optional;

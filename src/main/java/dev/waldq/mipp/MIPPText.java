@@ -11,11 +11,14 @@ public interface MIPPText {
     @LangKey(text = "Generates %s")
     MutableComponent energyGenerationTooltip(@WithStyle("highlighted") Component energy);
 
+    @WithStyle("gray")
+    @LangKey(text = "Requires %s to be underneath")
+    MutableComponent veinUnderneathTooltip(@WithStyle("highlighted") Component veinName);
+
     @WithStyle("red")
     @LangKey(text = "Not enough energy. Needs %s to scan.")
     MutableComponent prospectorEnergyNotice(Component energy);
 
-    @WithStyle("green")
     @LangKey(text = "Found %s in approximately %s blocks away.")
     MutableComponent prospectorFoundVein(Component veinString, Component distance);
 

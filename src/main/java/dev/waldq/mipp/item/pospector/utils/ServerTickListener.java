@@ -3,8 +3,10 @@ package dev.waldq.mipp.item.pospector.utils;
 import brachy.modularui.factory.PlayerInventoryUIFactory;
 import dev.waldq.mipp.MIPP;
 
+import dev.waldq.mipp.MIPPComponents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
 import net.neoforged.bus.api.SubscribeEvent;
@@ -84,6 +86,8 @@ public class ServerTickListener {
                 data.guiOpened = true;
 
                 if (data.hand != null) {
+                    ItemStack stack = player.getItemInHand(data.hand);
+                    stack.set(MIPPComponents.IS_SCANNING.get(), false);
                     PlayerInventoryUIFactory.INSTANCE.openFromHand(player, data.hand);
                 }
 

@@ -46,4 +46,9 @@ public abstract class RecipesServerDatagenProvider extends RecipeProvider {
         addMaterialMachineRecipe(material, name, recipeType, eu, (int) (200 * material.get(HARDNESS).timeFactor), recipeBuilder, output);
     }
 
+    @Override
+    public String getName()
+    {
+        return this.getClass().getSimpleName();
+    }
 }

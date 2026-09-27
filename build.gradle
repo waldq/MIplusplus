@@ -60,6 +60,11 @@ neoForge {
 
     version = project.neo_version
 
+    validateAccessTransformers = true
+    accessTransformers = [
+            "src/main/resources/${mod_id}.accesstransformer.cfg"
+    ]
+
     parchment {
         mappingsVersion = project.parchment_mappings_version
         minecraftVersion = project.parchment_minecraft_version

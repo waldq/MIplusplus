@@ -17,9 +17,10 @@ import brachy.modularui.widgets.layout.Flow;
 import brachy.modularui.widgets.textfield.TextFieldWidget;
 
 import dev.waldq.mipp.MIPP;
-import dev.waldq.mipp.MIPPConfig;
+import dev.waldq.mipp.MIPPComponents;
 import dev.waldq.mipp.item.ElectricItem;
 import dev.waldq.mipp.item.IItemUIHolder;
+import dev.waldq.mipp.item.component.BlockTracker;
 import dev.waldq.mipp.item.pospector.gui.MapHelper;
 import dev.waldq.mipp.item.pospector.gui.ProspectorMapWidget;
 import dev.waldq.mipp.item.pospector.utils.ScannerLarge;
@@ -28,11 +29,16 @@ import dev.waldq.mipp.item.pospector.utils.ServerTickListener;
 import dev.waldq.mipp.worldgen.veins.OreVeinConfig;
 import dev.waldq.mipp.worldgen.veins.OreVeinConfigLoader;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
@@ -60,6 +66,19 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
     }
 
     @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int itemSlot, boolean isSelected) {
+        if (level instanceof ServerLevel serverLevel) {
+            BlockTracker tracker = stack.get(MIPPComponents.BLOCK_TRACKER.get());
+            if (tracker != null) {
+                BlockTracker updatedTracker = tracker.tick(serverLevel);
+                if (updatedTracker != tracker) {
+                    stack.set(MIPPComponents.BLOCK_TRACKER.get(), updatedTracker);
+                }
+            }
+        }
+    }
+
+    @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand usedHand) {
         ItemStack stack = player.getItemInHand(usedHand);
 
@@ -82,9 +101,16 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
                 List<OreVeinConfig> activeVeins = OreVeinConfigLoader.getVeinsForDimension(dim);
 
                 if (player.isShiftKeyDown()) {
-                    scanLocal(serverLevel, player, usedHand, activeVeins);
+                    scanLocal(serverLevel, player, stack, usedHand, activeVeins);
                 } else {
-                    scanLarge(serverLevel, player, dim, activeVeins);
+                    var hasTarget = stack.get(MIPPComponents.BLOCK_TRACKER);
+                    var isScanning = stack.get(MIPPComponents.IS_SCANNING);
+                    if ((isScanning != null && isScanning) || hasTarget != null) {
+                        stack.remove(MIPPComponents.BLOCK_TRACKER);
+                        stack.set(MIPPComponents.IS_SCANNING.get(), false);
+                    } else {
+                        scanLarge(serverLevel, player, stack, dim, activeVeins);
+                    }
                 }
             }
             return InteractionResultHolder.consume(stack);
@@ -93,7 +119,8 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
         return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
     }
 
-    private void scanLarge(ServerLevel level, Player player, ResourceLocation dim, List<OreVeinConfig> activeVeins) {
+    private void scanLarge(ServerLevel level, Player player, ItemStack stack, ResourceLocation dim, List<OreVeinConfig> activeVeins) {
+        stack.set(MIPPComponents.IS_SCANNING.get(), true);
         ChunkPos centerChunk = player.chunkPosition();
         long seed = level.getSeed();
 
@@ -106,27 +133,42 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
                 activeVeins
         );
 
+        record VeinSearchResult(OreVeinConfig vein, BlockPos targetPos, int distance) {}
+
         foundVeins.entrySet().stream()
                 .map(entry -> {
+                    OreVeinConfig vein = entry.getKey();
                     ChunkPos chunk = entry.getValue();
+
+                    BlockPos targetPos = chunk.getMiddleBlockPosition(level.getSeaLevel());
+
                     int distance = (int) Math.hypot(
-                            chunk.getMiddleBlockX() - player.blockPosition().getX(),
-                            chunk.getMiddleBlockZ() - player.blockPosition().getZ()
+                            targetPos.getX() - player.blockPosition().getX(),
+                            targetPos.getZ() - player.blockPosition().getZ()
                     );
-                    return Map.entry(entry.getKey(), distance);
+
+                    return new VeinSearchResult(vein, targetPos, distance);
                 })
-                .sorted(Comparator.comparingInt(Map.Entry::getValue))
+                .sorted(Comparator.comparingInt(VeinSearchResult::distance))
                 .forEach(entry -> {
+                    BlockPos trackable = entry.targetPos();
+
+                    ClickEvent event = new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/mipp track %s %s %s".formatted(trackable.getX(), trackable.getY(), trackable.getZ()));
+
+                    Style style = Style.EMPTY.withClickEvent(event).withColor(ChatFormatting.GREEN);
+
                     player.displayClientMessage(
                             MIPP.text().prospectorFoundVein(
-                                    Component.translatable("text.mipp.veins.%s".formatted(entry.getKey().id().getPath())),
-                                    Component.literal(String.valueOf(entry.getValue()))),
+                                    Component.translatable("text.mipp.veins.%s".formatted(entry.vein().id().getPath())),
+                                    Component.literal(String.valueOf(entry.distance()))).setStyle(style),
                             false
                     );
                 });
     }
 
-    private void scanLocal(ServerLevel level, Player player, InteractionHand usedHand, List<OreVeinConfig> activeVeins) {
+    private void scanLocal(ServerLevel level, Player player, ItemStack stack, InteractionHand usedHand, List<OreVeinConfig> activeVeins) {
+        stack.set(MIPPComponents.IS_SCANNING.get(), true);
+
         ScannerLocal scanner = new ScannerLocal(level, player, getLocalChunkRadius());
         scanner.collectChunks(activeVeins);
 
@@ -162,7 +204,7 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
                         .mainAxisAlignment(Alignment.MainAxis.START)
                         .crossAxisAlignment(Alignment.CrossAxis.START)
                         .child(mapWidget
-                                .size(mapSize + 11, mapSize + 11)
+                                .size(mapSize + 8, mapSize + 8)
                                 .margin(0, 6, 0, 0)
                         )
                         .child(Flow.col()
@@ -206,7 +248,8 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
                 uniqueOres,
                 searchValue,
                 searchListWidget,
-                panelSyncManager
+                panelSyncManager,
+                player
         );
     }
 }

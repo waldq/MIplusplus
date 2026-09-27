@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "modern_industrialization:digital_circuit"
+    },
+    "H": {
+      "item": "modern_industrialization:turbo_machine_hull"
+    },
+    "L": {
+      "item": "mipp:mv_chunk_loader"
+    },
+    "M": {
+      "item": "modern_industrialization:advanced_motor"
+    },
+    "c": {
+      "item": "modern_industrialization:aluminum_cable"
+    }
+  },
+  "pattern": [
+    "cCc",
+    "LHL",
+    "CMC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mipp:hv_chunk_loader"
+  }
+}
