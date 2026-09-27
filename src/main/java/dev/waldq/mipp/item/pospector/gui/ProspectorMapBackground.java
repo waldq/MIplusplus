@@ -65,19 +65,22 @@ public class ProspectorMapBackground extends AbstractTexture implements IDrawabl
                 boolean edge = x == this.imageWidth - 1 || z == this.imageHeight - 1;
 
                 boolean drewColor = false;
+                var index = x + z * (this.imageHeight - 1);
 
                 if (!edge) {
-                    Set<BlockState> states = this.foundOres[x + z * (this.imageHeight - 1)];
-                    if (states != null) {
-                        for (BlockState state : states) {
-                            BlockState mainState = OreVeinDataMapUtils.getMainBlock(state);
-                            if (mapWidget.getSelected() == null
-                                    || mapWidget.getSelected().equals(mainState)) {
-                                int color = OreVeinDataMapUtils.getCachedOreColor(state);
-                                image.setPixelRGBA(x, z, GradientUtil.argbToAbgr(color) | 0xFF000000);
+                    if (index < this.foundOres.length) {
+                        Set<BlockState> states = this.foundOres[index];
+                        if (states != null) {
+                            for (BlockState state : states) {
+                                BlockState mainState = OreVeinDataMapUtils.getMainBlock(state);
+                                if (mapWidget.getSelected() == null
+                                        || mapWidget.getSelected().equals(mainState)) {
+                                    int color = OreVeinDataMapUtils.getCachedOreColor(state);
+                                    image.setPixelRGBA(x, z, GradientUtil.argbToAbgr(color) | 0xFF000000);
 
-                                drewColor = true;
-                                break;
+                                    drewColor = true;
+                                    break;
+                                }
                             }
                         }
                     }
