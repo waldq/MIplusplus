@@ -1,6 +1,7 @@
 package dev.waldq.mipp;
 
 import com.google.common.collect.Sets;
+import dev.waldq.mipp.item.analyzer.AnalyzerItem;
 import dev.waldq.mipp.item.pospector.ProspectorItemBehavior;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -44,6 +45,12 @@ public final class MIPPItems {
             "electric_prospector", "Electric Prospector", p -> new ProspectorItemBehavior(p, 3200L),
             MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
             .withCapabilities(MICommonCapabitilies::simpleEnergyItem)
+            .withModelBuilder(CommonModelBuilders::generated)
+            .register();
+
+    public static final ItemHolder<AnalyzerItem> ANALYZER = create(
+            "analyzer", "Analyzer", AnalyzerItem::new,
+            MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
             .withModelBuilder(CommonModelBuilders::generated)
             .register();
 
