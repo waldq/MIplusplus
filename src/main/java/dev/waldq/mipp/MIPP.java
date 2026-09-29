@@ -7,6 +7,7 @@ import aztech.modern_industrialization.util.TextHelper;
 import dev.waldq.mipp.blocks.machine.components.ChunkLoaderComponent;
 import dev.waldq.mipp.datagen.DatagenDelegator;
 import dev.waldq.mipp.datagen.client.provider.LanguageDatagenProvider;
+import dev.waldq.mipp.network.MIPPPackets;
 import dev.waldq.mipp.worldgen.features.MIPPFeatures;
 import dev.waldq.mipp.worldgen.veins.OreVeinConfigLoader;
 
@@ -14,6 +15,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.registries.datamaps.RegisterDataMapTypesEvent;
 
 import net.swedz.tesseract.api.Assert;
@@ -94,6 +96,7 @@ public class MIPP {
         );
 
         bus.addListener(RegisterCapabilitiesEvent.class, (event) -> CapabilitiesListeners.triggerAll(ID, event));
+        bus.addListener(RegisterPayloadHandlersEvent.class, MIPPPackets::init);
 
     }
 
