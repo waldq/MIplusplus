@@ -1,0 +1,33 @@
+{
+  "type": "modern_industrialization:assembler",
+  "duration": 200,
+  "eu": 8,
+  "item_inputs": [
+    {
+      "amount": 2,
+      "item": "modern_industrialization:item_pipe"
+    },
+    {
+      "amount": 1,
+      "item": "modern_industrialization:analog_circuit_board"
+    },
+    {
+      "amount": 2,
+      "item": "modern_industrialization:resistor"
+    },
+    {
+      "amount": 1,
+      "item": "modern_industrialization:analog_circuit"
+    },
+    {
+      "amount": 1,
+      "item": "modern_industrialization:capacitor"
+    }
+  ],
+  "item_outputs": [
+    {
+      "amount": 1,
+      "item": "mipp:pipe_network_analyzer"
+    }
+  ]
+}

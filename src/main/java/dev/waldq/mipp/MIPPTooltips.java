@@ -47,7 +47,7 @@ public class MIPPTooltips {
     ).noShiftRequired();
 
     public static final TooltipAttachment PIPE_NETWORK_ANALYZER = TooltipAttachment.multilines(
-            MIPPItems.ANALYZER,
+            MIPPItems.PIPE_NETWORK_ANALYZER,
             List.of(
                     MIPP.text().pipeNetworkAnalyzerHelp1("use"),
                     MIPP.text().pipeNetworkAnalyzerHelp2("sneak", "use"),

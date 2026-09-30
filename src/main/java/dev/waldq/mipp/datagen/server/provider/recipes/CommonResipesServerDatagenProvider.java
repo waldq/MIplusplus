@@ -102,6 +102,21 @@ public class CommonResipesServerDatagenProvider extends RecipesServerDatagenProv
                         .pattern("cri"),
                 output
         );
+
+        addBasicCraftingRecipes(
+                "tools", "pipe_network_analyzer", true,
+                MIPPItems.PIPE_NETWORK_ANALYZER.asItem(), 1,
+                r -> r
+                        .define('B', MI.id("analog_circuit_board"))
+                        .define('r', MI.id("resistor"))
+                        .define('C', MI.id("analog_circuit"))
+                        .define('c', MI.id("capacitor"))
+                        .define('P', MI.id("item_pipe"))
+                        .pattern(" C ")
+                        .pattern("PBP")
+                        .pattern("rcr"),
+                output
+        );
     }
 
     private static void interchangeableCasings(RecipeOutput output, String color) {

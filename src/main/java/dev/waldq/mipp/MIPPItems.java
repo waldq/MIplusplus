@@ -52,7 +52,7 @@ public final class MIPPItems {
             .withModelBuilder(CommonModelBuilders::generated)
             .register();
 
-    public static final ItemHolder<PipeNetworkAnalyzerItem> ANALYZER = create(
+    public static final ItemHolder<PipeNetworkAnalyzerItem> PIPE_NETWORK_ANALYZER = create(
             "pipe_network_analyzer", "Pipe Network Analyzer", PipeNetworkAnalyzerItem::new,
             MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
             .withModelBuilder(CommonModelBuilders::generated)
