@@ -73,5 +73,14 @@ For your own convenience I suggest putting your custom veins under your modpack'
   "enabled": true
 }
 ```
+In order for your veins to be displayed correctly in chat when using the Electric Prospector, you need to create the following lines for each of your veins in you desired language lang files:
+```json
+{
+  "text.mipp.veins.mipp.iron": "Iron Vein", //example
+  "text.mipp.veins.<namespace>.<path>": "<English Name>"
+}
+```
+I suggest you define your veins with a namespace, although they will work even without it. You will have to set `<namespace>` to `minecraft` in you lang files if you don't want to define your own.
+
 # EDITING EXISTING VEIN
 Editing is really straightforward, you just follow same steps as with adding a vein, but the id of the edited vein has to exist somewhere in `ore_veins` folders, otherwise you will just add a new vein.
