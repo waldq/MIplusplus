@@ -5,7 +5,7 @@ import aztech.modern_industrialization.client.machines.multiblocks.MultiblockMac
 import aztech.modern_industrialization.machines.MachineBlock;
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity;
 
-import dev.waldq.mipp.item.analyzer.PipeNetworkAnalyzerItem;
+import dev.waldq.mipp.item.pipenetworkanalyzer.PipeNetworkAnalyzerItem;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;

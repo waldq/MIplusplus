@@ -7,9 +7,9 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 
-import dev.waldq.mipp.item.analyzer.helper.InsertTracker;
-import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeAccessor;
-import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeItemConnectionAccessor;
+import dev.waldq.mipp.item.pipenetworkanalyzer.helper.InsertTracker;
+import dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors.ItemNetworkNodeAccessor;
+import dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors.ItemNetworkNodeItemConnectionAccessor;
 
 import net.minecraft.server.level.ServerLevel;
 

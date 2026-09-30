@@ -2,8 +2,8 @@ package dev.waldq.mipp.mixins;
 
 import aztech.modern_industrialization.pipes.item.ItemNetworkNode;
 
-import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeAccessor;
-import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeItemConnectionAccessor;
+import dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors.ItemNetworkNodeAccessor;
+import dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors.ItemNetworkNodeItemConnectionAccessor;
 
 import net.minecraft.core.BlockPos;
 

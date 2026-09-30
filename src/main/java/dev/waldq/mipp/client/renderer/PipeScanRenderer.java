@@ -12,7 +12,7 @@ import dev.waldq.mipp.MIPPClient;
 import dev.waldq.mipp.client.ClientPipeScan;
 import dev.waldq.mipp.client.ThroughputColor;
 import dev.waldq.mipp.client.helper.CubeOverlayRenderHelper;
-import dev.waldq.mipp.item.analyzer.PipeNetworkAnalyzerItem;
+import dev.waldq.mipp.item.pipenetworkanalyzer.PipeNetworkAnalyzerItem;
 
 import net.minecraft.client.Camera;
 import net.minecraft.client.Minecraft;

@@ -1,4 +1,4 @@
-package dev.waldq.mipp.item.analyzer;
+package dev.waldq.mipp.item.pipenetworkanalyzer;
 
 import aztech.modern_industrialization.pipes.api.PipeNetwork;
 import aztech.modern_industrialization.pipes.api.PipeNetworkType;
@@ -8,7 +8,7 @@ import aztech.modern_industrialization.pipes.impl.PipeVoxelShape;
 import aztech.modern_industrialization.pipes.item.ItemNetwork;
 import aztech.modern_industrialization.pipes.item.ItemNetworkNode;
 
-import dev.waldq.mipp.item.analyzer.helper.PipeScanner;
+import dev.waldq.mipp.item.pipenetworkanalyzer.helper.PipeScanner;
 import dev.waldq.mipp.mixins.PipeNetworkNodeAccessor;
 
 import net.minecraft.core.BlockPos;

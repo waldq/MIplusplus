@@ -1,16 +1,16 @@
-package dev.waldq.mipp.item.analyzer.helper;
-
+package dev.waldq.mipp.item.pipenetworkanalyzer.helper;
 
 import aztech.modern_industrialization.pipes.api.PipeNetwork;
 import aztech.modern_industrialization.pipes.item.ItemNetwork;
 
-import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeAccessor;
+import dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors.ItemNetworkNodeAccessor;
 import dev.waldq.mipp.network.packet.PipeScanPacket;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.*;
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 
 public final class PipeScanner {
     private PipeScanner() {}
@@ -21,14 +21,14 @@ public final class PipeScanner {
             return;
         }
 
-        Map<BlockPos, int[]> blockStat = new LinkedHashMap<>();
+        Long2ObjectOpenHashMap<int[]> blockStat = new Long2ObjectOpenHashMap<>();
 
         for (var node : network.iterateTickingNodes()) {
             processNode(node, blockStat);
         }
 
         List<PipeScanPacket.PipeScanEntry> entries = new ArrayList<>(blockStat.size());
-        blockStat.forEach((pos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(pos, totals[0], totals[1])));
+        blockStat.forEach((longPos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(BlockPos.of(longPos), totals[0], totals[1])));
         new PipeScanPacket(entries).sendToClient(player);
     }
 
@@ -38,16 +38,16 @@ public final class PipeScanner {
             return;
         }
 
-        Map<BlockPos, int[]> blockStat = new LinkedHashMap<>();
+        Long2ObjectOpenHashMap<int[]> blockStat = new Long2ObjectOpenHashMap<>();
 
         processNode(node, blockStat);
 
         List<PipeScanPacket.PipeScanEntry> entries = new ArrayList<>(blockStat.size());
-        blockStat.forEach((pos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(pos, totals[0], totals[1])));
+        blockStat.forEach((longPos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(BlockPos.of(longPos), totals[0], totals[1])));
         new PipeScanPacket(entries).sendToClient(player);
     }
 
-    private static void processNode(PipeNetwork.PosNode node, Map<BlockPos, int[]> blockStat) {
+    private static void processNode(PipeNetwork.PosNode node, Long2ObjectOpenHashMap<int[]> blockStat) {
         if (!(node.getNode() instanceof ItemNetworkNodeAccessor itemNetworkNode)) return;
 
         BlockPos pipePos = node.getPos();
@@ -56,7 +56,7 @@ public final class PipeScanner {
             if (conn != null) {
                 BlockPos pos = pipePos.relative(conn.mipp$getDirection());
 
-                int[] totals = blockStat.computeIfAbsent(pos, otherPos -> new int[2]);
+                int[] totals = blockStat.computeIfAbsent(pos.asLong(), otherPos -> new int[2]);
 
                 totals[0] += conn.mipp$getExtracted();
                 totals[1] += conn.mipp$getInserted();

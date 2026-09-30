@@ -1,6 +1,5 @@
-package dev.waldq.mipp.item.analyzer.miaccessors;
+package dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors;
 
-import aztech.modern_industrialization.pipes.api.PipeEndpointType;
 import net.minecraft.core.Direction;
 
 public interface ItemNetworkNodeItemConnectionAccessor {

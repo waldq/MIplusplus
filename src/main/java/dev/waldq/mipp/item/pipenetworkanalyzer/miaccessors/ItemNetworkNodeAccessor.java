@@ -1,4 +1,4 @@
-package dev.waldq.mipp.item.analyzer.miaccessors;
+package dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors;
 
 import net.minecraft.core.BlockPos;
 

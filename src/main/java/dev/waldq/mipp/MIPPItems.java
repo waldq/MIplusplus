@@ -1,11 +1,15 @@
 package dev.waldq.mipp;
 
 import com.google.common.collect.Sets;
-import dev.waldq.mipp.item.analyzer.PipeNetworkAnalyzerItem;
+
+import dev.waldq.mipp.item.pipenetworkanalyzer.PipeNetworkAnalyzerItem;
 import dev.waldq.mipp.item.pospector.ProspectorItemBehavior;
+
 import net.minecraft.world.item.Item;
+
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
 import net.swedz.tesseract.neoforge.registry.SortOrder;
 import net.swedz.tesseract.neoforge.registry.common.CommonModelBuilders;
 import net.swedz.tesseract.neoforge.registry.common.MICommonCapabitilies;
