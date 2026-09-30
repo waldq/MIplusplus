@@ -8,6 +8,7 @@ import dev.technici4n.grandpower.api.ILongEnergyStorage;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 
+import net.swedz.tesseract.neoforge.tooltip.Parser;
 import net.swedz.tesseract.neoforge.tooltip.TooltipAttachment;
 
 import java.util.List;
@@ -17,6 +18,19 @@ import static aztech.modern_industrialization.MITooltips.DEFAULT_STYLE;
 import static aztech.modern_industrialization.MITooltips.EU_MAXED_PARSER;
 
 public class MIPPTooltips {
+
+    public static final Parser<String> KEYBIND_PARSER = (key) ->
+    {
+        if(key.equals("alt"))
+        {
+            return MIPP.text().keyAlt();
+        }
+        else if(key.equals("mouse_scroll"))
+        {
+            return MIPP.text().keyMouseScroll();
+        }
+        return Parser.KEYBIND.parse(key);
+    };
 
     public static final TooltipAttachment ENERGY_STORED_ITEM = TooltipAttachment.singleLineOptional(
             (stack, item) -> BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(MIPP.ID),
@@ -37,7 +51,8 @@ public class MIPPTooltips {
             List.of(
                     MIPP.text().pipeNetworkAnalyzerHelp1("use"),
                     MIPP.text().pipeNetworkAnalyzerHelp2("sneak", "use"),
-                    MIPP.text().pipeNetworkAnalyzerHelp3("sneak", "use")
+                    MIPP.text().pipeNetworkAnalyzerHelp3("sneak", "mouse_scroll"),
+                    MIPP.text().pipeNetworkAnalyzerHelp4("sneak", "use")
             )
     );
 

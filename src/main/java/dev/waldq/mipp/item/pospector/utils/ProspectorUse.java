@@ -27,7 +27,7 @@
 //        if (!player.isCreative() && getStoredEnergy(stack) < ENERGY_COST) {
 //            if (!level.isClientSide()) {
 //                var amount = TextHelper.getAmount(ENERGY_COST);
-//                player.displayClientMessage(MIPP.text().prospectorEnergyNotice(MIText.Eu.text(amount.digit(), amount.unit())), true);
+//                player.displayClientMessage(MIPP.text().electricProspectorEnergyNotice(MIText.Eu.text(amount.digit(), amount.unit())), true);
 //            }
 //            return InteractionResultHolder.fail(stack);
 //        }
@@ -68,7 +68,7 @@
 //                        if (player.isAlive()) {
 //                            for (var entry : discoveredVeinsInfo) {
 //                                player.displayClientMessage(
-//                                        MIPP.text().prospectorFoundVein(
+//                                        MIPP.text().electricProspectorFoundVein(
 //                                                Component.literal(entry.getKey().englishName()),
 //                                                Component.literal(String.valueOf(entry.getValue()))
 //                                        ),

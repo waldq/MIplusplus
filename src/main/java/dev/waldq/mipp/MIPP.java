@@ -129,6 +129,8 @@ public class MIPP {
 
                 .builtinParsers()
 
+                .parser("keybind", String.class, () -> MIPPTooltips.KEYBIND_PARSER)
+
                 .parser("percentage", float.class, () -> (value) -> Parser.FLOAT_PERCENTAGE.parse(value, 0))
 
                 .parser(

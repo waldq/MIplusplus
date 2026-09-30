@@ -8,6 +8,7 @@ import aztech.modern_industrialization.pipes.impl.PipeVoxelShape;
 import aztech.modern_industrialization.pipes.item.ItemNetwork;
 import aztech.modern_industrialization.pipes.item.ItemNetworkNode;
 
+import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.item.pipenetworkanalyzer.helper.PipeScanner;
 import dev.waldq.mipp.mixins.PipeNetworkNodeAccessor;
 
@@ -97,6 +98,8 @@ public class PipeNetworkAnalyzerItem extends Item {
             var node = getItemNetworkNode(ctx);
 
             if (node != null) {
+                player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerViewing(), true);
+
                 if (player.isShiftKeyDown()) {
                     ItemNetwork network = getItemNetwork(node);
                     PipeScanner.scan(sPlayer, network);

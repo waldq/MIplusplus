@@ -53,24 +53,24 @@ public final class LanguageDatagenProvider extends LanguageProvider
 		MIPPTags.translations().forEach(this::add);
 
         Map<String, String> veins = Map.ofEntries(
-				Map.entry("text.mipp.veins.bauxite", "Bauxite Vein"),
-				Map.entry("text.mipp.veins.coal", "Coal Vein"),
-				Map.entry("text.mipp.veins.copper", "Copper Vein"),
-				Map.entry("text.mipp.veins.diamond", "Diamond Vein"),
-				Map.entry("text.mipp.veins.emerald", "Emerald Vein"),
-				Map.entry("text.mipp.veins.gold", "Gold Vein"),
-				Map.entry("text.mipp.veins.gold_nether", "Nether Gold Vein"),
-				Map.entry("text.mipp.veins.iron", "Iron Vein"),
-				Map.entry("text.mipp.veins.lapis", "Lapis Vein"),
-				Map.entry("text.mipp.veins.lead", "Lead Vein"),
-				Map.entry("text.mipp.veins.platinum", "Platinum Vein"),
-				Map.entry("text.mipp.veins.quartz", "Quartz Vein"),
-				Map.entry("text.mipp.veins.quartz_nether", "Nether Quartz Vein"),
-				Map.entry("text.mipp.veins.redstone", "Redstone Vein"),
-				Map.entry("text.mipp.veins.salt", "Salt Vein"),
-				Map.entry("text.mipp.veins.tin", "Tin Vein"),
-				Map.entry("text.mipp.veins.titanium", "Titanium Vein"),
-				Map.entry("text.mipp.veins.uranium", "Uranium Vein")
+				Map.entry("text.mipp.veins.mipp.bauxite", "Bauxite Vein"),
+				Map.entry("text.mipp.veins.mipp.coal", "Coal Vein"),
+				Map.entry("text.mipp.veins.mipp.copper", "Copper Vein"),
+				Map.entry("text.mipp.veins.mipp.diamond", "Diamond Vein"),
+				Map.entry("text.mipp.veins.mipp.emerald", "Emerald Vein"),
+				Map.entry("text.mipp.veins.mipp.gold", "Gold Vein"),
+				Map.entry("text.mipp.veins.mipp.gold_nether", "Nether Gold Vein"),
+				Map.entry("text.mipp.veins.mipp.iron", "Iron Vein"),
+				Map.entry("text.mipp.veins.mipp.lapis", "Lapis Vein"),
+				Map.entry("text.mipp.veins.mipp.lead", "Lead Vein"),
+				Map.entry("text.mipp.veins.mipp.platinum", "Platinum Vein"),
+				Map.entry("text.mipp.veins.mipp.quartz", "Quartz Vein"),
+				Map.entry("text.mipp.veins.mipp.quartz_nether", "Nether Quartz Vein"),
+				Map.entry("text.mipp.veins.mipp.redstone", "Redstone Vein"),
+				Map.entry("text.mipp.veins.mipp.salt", "Salt Vein"),
+				Map.entry("text.mipp.veins.mipp.tin", "Tin Vein"),
+				Map.entry("text.mipp.veins.mipp.titanium", "Titanium Vein"),
+				Map.entry("text.mipp.veins.mipp.uranium", "Uranium Vein")
 		);
 
 		veins.forEach(this::add);

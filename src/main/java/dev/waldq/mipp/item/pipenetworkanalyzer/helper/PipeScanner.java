@@ -3,6 +3,7 @@ package dev.waldq.mipp.item.pipenetworkanalyzer.helper;
 import aztech.modern_industrialization.pipes.api.PipeNetwork;
 import aztech.modern_industrialization.pipes.item.ItemNetwork;
 
+import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors.ItemNetworkNodeAccessor;
 import dev.waldq.mipp.network.packet.PipeScanPacket;
 
@@ -27,6 +28,8 @@ public final class PipeScanner {
             processNode(node, blockStat);
         }
 
+        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerEmptyNetwork(), true);
+
         List<PipeScanPacket.PipeScanEntry> entries = new ArrayList<>(blockStat.size());
         blockStat.forEach((longPos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(BlockPos.of(longPos), totals[0], totals[1])));
         new PipeScanPacket(entries).sendToClient(player);
@@ -41,6 +44,8 @@ public final class PipeScanner {
         Long2ObjectOpenHashMap<int[]> blockStat = new Long2ObjectOpenHashMap<>();
 
         processNode(node, blockStat);
+
+        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerEmptyNode(), true);
 
         List<PipeScanPacket.PipeScanEntry> entries = new ArrayList<>(blockStat.size());
         blockStat.forEach((longPos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(BlockPos.of(longPos), totals[0], totals[1])));
@@ -65,6 +70,7 @@ public final class PipeScanner {
     }
 
     public static void clear(ServerPlayer player) {
+        player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerReset(), true);
         new PipeScanPacket(List.of()).sendToClient(player);
     }
 }
