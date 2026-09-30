@@ -1,9 +1,12 @@
 package dev.waldq.mipp.mixins;
 
 import aztech.modern_industrialization.pipes.item.ItemNetworkNode;
+
 import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeAccessor;
 import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeItemConnectionAccessor;
+
 import net.minecraft.core.BlockPos;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

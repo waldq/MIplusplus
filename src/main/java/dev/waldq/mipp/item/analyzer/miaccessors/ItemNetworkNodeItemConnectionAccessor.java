@@ -5,7 +5,6 @@ import net.minecraft.core.Direction;
 
 public interface ItemNetworkNodeItemConnectionAccessor {
     Direction mipp$getDirection();
-    PipeEndpointType mipp$getPipeEndpointType();
 
     int mipp$getExtracted();
     void mipp$addExtracted(int amount);

@@ -1,15 +1,18 @@
 package dev.waldq.mipp.mixins;
 
-import aztech.modern_industrialization.pipes.api.PipeNetwork;
 import aztech.modern_industrialization.pipes.item.ItemNetwork;
+
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
-import dev.waldq.mipp.item.analyzer.InsertTracker;
+
+import dev.waldq.mipp.item.analyzer.helper.InsertTracker;
 import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeAccessor;
 import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeItemConnectionAccessor;
+
 import net.minecraft.server.level.ServerLevel;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Coerce;

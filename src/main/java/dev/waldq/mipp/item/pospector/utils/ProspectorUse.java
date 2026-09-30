@@ -5,15 +5,15 @@
 //import dev.waldq.mipp.MIPP;
 //import dev.waldq.mipp.worldgen.generator.veins.OreVeinConfig;
 //import dev.waldq.mipp.worldgen.generator.veins.OreVeinConfigLoader;
-//import net.minecraft.network.chat.Component;
-//import net.minecraft.resources.ResourceLocation;
-//import net.minecraft.server.level.ServerLevel;
-//import net.minecraft.world.InteractionHand;
-//import net.minecraft.world.InteractionResultHolder;
-//import net.minecraft.world.entity.player.Player;
-//import net.minecraft.world.item.ItemStack;
-//import net.minecraft.world.level.ChunkPos;
-//import net.minecraft.world.level.Level;
+//import helper.minecraft.network.chat.Component;
+//import helper.minecraft.resources.ResourceLocation;
+//import helper.minecraft.server.level.ServerLevel;
+//import helper.minecraft.world.InteractionHand;
+//import helper.minecraft.world.InteractionResultHolder;
+//import helper.minecraft.world.entity.player.Player;
+//import helper.minecraft.world.item.ItemStack;
+//import helper.minecraft.world.level.ChunkPos;
+//import helper.minecraft.world.level.Level;
 //
 //import java.util.ArrayList;
 //import java.util.List;

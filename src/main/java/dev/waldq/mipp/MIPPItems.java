@@ -1,7 +1,7 @@
 package dev.waldq.mipp;
 
 import com.google.common.collect.Sets;
-import dev.waldq.mipp.item.analyzer.AnalyzerItem;
+import dev.waldq.mipp.item.analyzer.PipeNetworkAnalyzerItem;
 import dev.waldq.mipp.item.pospector.ProspectorItemBehavior;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -48,8 +48,8 @@ public final class MIPPItems {
             .withModelBuilder(CommonModelBuilders::generated)
             .register();
 
-    public static final ItemHolder<AnalyzerItem> ANALYZER = create(
-            "analyzer", "Analyzer", AnalyzerItem::new,
+    public static final ItemHolder<PipeNetworkAnalyzerItem> ANALYZER = create(
+            "pipe_network_analyzer", "Pipe Network Analyzer", PipeNetworkAnalyzerItem::new,
             MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
             .withModelBuilder(CommonModelBuilders::generated)
             .register();

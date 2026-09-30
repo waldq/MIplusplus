@@ -1,6 +1,5 @@
 package dev.waldq.mipp.client;
 
-import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.network.packet.PipeScanPacket;
 
 import net.minecraft.core.BlockPos;

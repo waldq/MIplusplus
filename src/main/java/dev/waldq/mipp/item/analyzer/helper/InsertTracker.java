@@ -1,4 +1,4 @@
-package dev.waldq.mipp.item.analyzer;
+package dev.waldq.mipp.item.analyzer.helper;
 
 import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeItemConnectionAccessor;
 import net.minecraft.core.BlockPos;

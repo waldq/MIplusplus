@@ -10,6 +10,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 
 import net.swedz.tesseract.neoforge.tooltip.TooltipAttachment;
 
+import java.util.List;
 import java.util.Optional;
 
 import static aztech.modern_industrialization.MITooltips.DEFAULT_STYLE;
@@ -30,6 +31,25 @@ public class MIPPTooltips {
                 return Optional.empty();
             }
     ).noShiftRequired();
+
+    public static final TooltipAttachment PIPE_NETWORK_ANALYZER = TooltipAttachment.multilines(
+            MIPPItems.ANALYZER,
+            List.of(
+                    MIPP.text().pipeNetworkAnalyzerHelp1("use"),
+                    MIPP.text().pipeNetworkAnalyzerHelp2("sneak", "use"),
+                    MIPP.text().pipeNetworkAnalyzerHelp3("sneak", "use")
+            )
+    );
+
+    public static final TooltipAttachment ELECTRIC_PROSPECTOR = TooltipAttachment.multilines(
+            MIPPItems.ELECTRIC_PROSPECTOR,
+            List.of(
+                    MIPP.text().electricProspectorHelp1("use"),
+                    MIPP.text().electricProspectorHelp2("sneak", "use"),
+                    MIPP.text().electricProspectorHelp3("use")
+
+            )
+    );
 
     public static void init() {}
 }

@@ -1,7 +1,7 @@
 package dev.waldq.mipp.mixins;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import dev.waldq.mipp.item.analyzer.InsertTracker;
+import dev.waldq.mipp.item.analyzer.helper.InsertTracker;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

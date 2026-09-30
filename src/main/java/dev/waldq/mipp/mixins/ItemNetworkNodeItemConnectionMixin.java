@@ -1,9 +1,11 @@
 package dev.waldq.mipp.mixins;
 
 import aztech.modern_industrialization.pipes.api.PipeEndpointType;
-import aztech.modern_industrialization.pipes.item.ItemNetworkNode;
+
 import dev.waldq.mipp.item.analyzer.miaccessors.ItemNetworkNodeItemConnectionAccessor;
+
 import net.minecraft.core.Direction;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,11 +18,8 @@ public class ItemNetworkNodeItemConnectionMixin implements ItemNetworkNodeItemCo
     @Shadow
     Direction direction;
 
-    @Shadow
-    PipeEndpointType type;
-
-    @Unique int lastInserted;
-    @Unique int lastExtracted;
+    @Unique int mipp$lastInserted;
+    @Unique int mipp$lastExtracted;
 
     @Override
     public Direction mipp$getDirection() {
@@ -28,25 +27,20 @@ public class ItemNetworkNodeItemConnectionMixin implements ItemNetworkNodeItemCo
     }
 
     @Override
-    public PipeEndpointType mipp$getPipeEndpointType() {
-        return this.type;
-    }
+    public int mipp$getExtracted() { return this.mipp$lastExtracted; }
 
     @Override
-    public int mipp$getExtracted() { return this.lastExtracted; }
+    public void mipp$addExtracted(int amount) { this.mipp$lastExtracted += amount; }
 
     @Override
-    public void mipp$addExtracted(int amount) { this.lastExtracted += amount; }
+    public int mipp$getInserted() { return this.mipp$lastInserted; }
 
     @Override
-    public int mipp$getInserted() { return this.lastInserted; }
-
-    @Override
-    public void mipp$addInserted(int amount) { this.lastInserted += amount; }
+    public void mipp$addInserted(int amount) { this.mipp$lastInserted += amount; }
 
     @Override
     public void mipp$reset() {
-        this.lastInserted = 0;
-        this.lastExtracted = 0;
+        this.mipp$lastInserted = 0;
+        this.mipp$lastExtracted = 0;
     }
 }

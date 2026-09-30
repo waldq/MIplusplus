@@ -1,5 +1,7 @@
 package dev.waldq.mipp.client;
 
+import dev.waldq.mipp.MIPPClient;
+
 public final class ThroughputColor {
     private final int r, g, b, a;
 
@@ -7,7 +9,7 @@ public final class ThroughputColor {
         this.r = r;
         this.g = g;
         this.b = b;
-        this.a = a;
+        this.a = Math.clamp((int) (a - a * 0.4 * (g - Math.max(0.9 * r, b)) / 255.0), 0, 255);
     }
 
     public ThroughputColor(double value) {
@@ -21,7 +23,7 @@ public final class ThroughputColor {
                 value <= 60
                         ? 0
                         : Math.clamp((int) Math.round((value - 60.0) / (1000.0 - 60.0) * 128), 0, 128),
-                255
+                MIPPClient.config().pipeNetworkAnalyzer().useFullBlockOverlay() ? 100 : 200
         );
     }
 
