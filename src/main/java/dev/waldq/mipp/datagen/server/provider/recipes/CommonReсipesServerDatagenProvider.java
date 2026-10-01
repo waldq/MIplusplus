@@ -23,8 +23,8 @@ import net.swedz.tesseract.neoforge.compat.vanilla.recipe.StonecutterRecipeBuild
 
 import java.util.function.Consumer;
 
-public class CommonResipesServerDatagenProvider extends RecipesServerDatagenProvider {
-    public CommonResipesServerDatagenProvider(GatherDataEvent event) { super(event); }
+public class CommonReсipesServerDatagenProvider extends RecipesServerDatagenProvider {
+    public CommonReсipesServerDatagenProvider(GatherDataEvent event) { super(event); }
 
     private static void addBasicCraftingRecipes(
             String path, String name,
