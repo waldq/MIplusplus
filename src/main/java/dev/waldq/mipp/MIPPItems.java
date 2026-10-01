@@ -1,10 +1,15 @@
 package dev.waldq.mipp;
 
 import com.google.common.collect.Sets;
+
+import dev.waldq.mipp.item.pipenetworkanalyzer.PipeNetworkAnalyzerItem;
 import dev.waldq.mipp.item.pospector.ProspectorItemBehavior;
+
 import net.minecraft.world.item.Item;
+
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
 import net.swedz.tesseract.neoforge.registry.SortOrder;
 import net.swedz.tesseract.neoforge.registry.common.CommonModelBuilders;
 import net.swedz.tesseract.neoforge.registry.common.MICommonCapabitilies;
@@ -44,6 +49,12 @@ public final class MIPPItems {
             "electric_prospector", "Electric Prospector", p -> new ProspectorItemBehavior(p, 3200L),
             MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
             .withCapabilities(MICommonCapabitilies::simpleEnergyItem)
+            .withModelBuilder(CommonModelBuilders::generated)
+            .register();
+
+    public static final ItemHolder<PipeNetworkAnalyzerItem> PIPE_NETWORK_ANALYZER = create(
+            "pipe_network_analyzer", "Pipe Network Analyzer", PipeNetworkAnalyzerItem::new,
+            MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
             .withModelBuilder(CommonModelBuilders::generated)
             .register();
 

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "mipp:item/pipe_network_analyzer"
+  }
+}

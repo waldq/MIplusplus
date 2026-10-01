@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "modern_industrialization:analog_circuit_board"
+    },
+    "C": {
+      "item": "modern_industrialization:analog_circuit"
+    },
+    "P": {
+      "item": "modern_industrialization:item_pipe"
+    },
+    "c": {
+      "item": "modern_industrialization:capacitor"
+    },
+    "r": {
+      "item": "modern_industrialization:resistor"
+    }
+  },
+  "pattern": [
+    " C ",
+    "PBP",
+    "rcr"
+  ],
+  "result": {
+    "count": 1,
+    "id": "mipp:pipe_network_analyzer"
+  }
+}

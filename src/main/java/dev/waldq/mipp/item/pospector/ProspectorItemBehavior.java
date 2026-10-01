@@ -85,7 +85,7 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
         if (!player.isCreative() && getStoredEnergy(stack) < getEnergyCost()) {
             if (!level.isClientSide()) {
                 var amount = TextHelper.getAmount(getEnergyCost());
-                player.displayClientMessage(MIPP.text().prospectorEnergyNotice(MIText.Eu.text(amount.digit(), amount.unit())), true);
+                player.displayClientMessage(MIPP.text().electricProspectorEnergyNotice(MIText.Eu.text(amount.digit(), amount.unit())), true);
             }
             return InteractionResultHolder.fail(stack);
         }
@@ -124,6 +124,8 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
         ChunkPos centerChunk = player.chunkPosition();
         long seed = level.getSeed();
 
+        player.displayClientMessage(MIPP.text().electricProspectorSearchingLarge(), false);
+
         Map<OreVeinConfig, ChunkPos> foundVeins = ScannerLarge.scanArea(
                 level,
                 seed,
@@ -132,6 +134,8 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
                 getLargeChunkRadius(),
                 activeVeins
         );
+
+        if (foundVeins.isEmpty()) player.displayClientMessage(MIPP.text().electricProspectorNoVeins(), false);
 
         record VeinSearchResult(OreVeinConfig vein, BlockPos targetPos, int distance) {}
 
@@ -158,8 +162,8 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
                     Style style = Style.EMPTY.withClickEvent(event).withColor(ChatFormatting.GREEN);
 
                     player.displayClientMessage(
-                            MIPP.text().prospectorFoundVein(
-                                    Component.translatable("text.mipp.veins.%s".formatted(entry.vein().id().getPath())),
+                            MIPP.text().electricProspectorFoundVein(
+                                    Component.translatable("text.mipp.veins.%s.%s".formatted(entry.vein().id().getNamespace(), entry.vein().id().getPath())),
                                     Component.literal(String.valueOf(entry.distance()))).setStyle(style),
                             false
                     );
@@ -171,6 +175,8 @@ public class ProspectorItemBehavior extends ElectricItem implements IItemUIHolde
 
         ScannerLocal scanner = new ScannerLocal(level, player, getLocalChunkRadius());
         scanner.collectChunks(activeVeins);
+
+        player.displayClientMessage(MIPP.text().electricProspectorSearchingLocal(), true);
 
         ServerTickListener.startScan(player, scanner, usedHand);
     }

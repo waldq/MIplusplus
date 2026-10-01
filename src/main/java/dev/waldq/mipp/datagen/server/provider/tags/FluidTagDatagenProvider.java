@@ -1,12 +1,12 @@
 //package dev.waldq.mipp.datagen.server.provider.tags;
 //
-//import net.minecraft.core.HolderLookup;
-//import net.minecraft.data.tags.FluidTagsProvider;
-//import net.minecraft.tags.TagKey;
-//import net.minecraft.world.level.material.Fluid;
-//import net.neoforged.neoforge.data.event.GatherDataEvent;
+//import helper.minecraft.core.HolderLookup;
+//import helper.minecraft.data.tags.FluidTagsProvider;
+//import helper.minecraft.tags.TagKey;
+//import helper.minecraft.world.level.material.Fluid;
+//import helper.neoforged.neoforge.data.event.GatherDataEvent;
 //
-//import net.swedz.tesseract.neoforge.registry.holder.FluidHolder;
+//import helper.swedz.tesseract.neoforge.registry.holder.FluidHolder;
 //
 //import java.util.Comparator;
 //

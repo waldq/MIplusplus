@@ -19,23 +19,12 @@ import brachy.modularui.widgets.layout.Flow;
 import com.google.common.base.Strings;
 
 import dev.waldq.mipp.MIPP;
-import dev.waldq.mipp.MIPPComponents;
-import dev.waldq.mipp.item.component.BlockTracker;
-import dev.waldq.mipp.item.pospector.ProspectorItemBehavior;
 import dev.waldq.mipp.utils.OreVeinDataMapUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.GlobalPos;
-import net.minecraft.core.SectionPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.fml.loading.FMLEnvironment;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -168,7 +157,7 @@ public class ProspectorMapWidget extends Widget<ProspectorMapWidget> implements 
                                         if (Strings.isNullOrEmpty(searched)) {
                                             return true;
                                         } else {
-                                            return MIPP.text().prospectorAllRes()
+                                            return MIPP.text().electricProspectorAllRes()
                                                     .getString()
                                                     .toLowerCase()
                                                     .contains(searched.toLowerCase());
@@ -178,7 +167,7 @@ public class ProspectorMapWidget extends Widget<ProspectorMapWidget> implements 
                                             .sizeRel(1f)
                                             .padding(4, 0)
                                             .mainAxisAlignment(Alignment.MainAxis.SPACE_BETWEEN)
-                                            .child(new ScrollingTextWidget(Text.of(MIPP.text().prospectorAllRes()))
+                                            .child(new ScrollingTextWidget(Text.of(MIPP.text().electricProspectorAllRes()))
                                                     .textAlign(Alignment.CenterLeft)
                                                     .verticalCenter()
                                                     .expanded()

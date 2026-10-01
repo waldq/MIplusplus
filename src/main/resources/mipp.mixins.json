@@ -3,7 +3,12 @@
   "package": "dev.waldq.mipp.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "OreVeinifierMixin"
+    "ItemNetworkMixin",
+    "ItemNetworkNodeItemConnectionMixin",
+    "ItemNetworkNodeMixin",
+    "ItemSinkHandlerWrapperMixin",
+    "OreVeinifierMixin",
+    "PipeNetworkNodeAccessor"
   ],
   "injectors": {
     "defaultRequire": 1
