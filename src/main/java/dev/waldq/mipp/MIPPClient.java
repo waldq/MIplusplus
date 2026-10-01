@@ -5,6 +5,7 @@ import aztech.modern_industrialization.client.machines.multiblocks.MultiblockMac
 import aztech.modern_industrialization.machines.MachineBlock;
 import aztech.modern_industrialization.machines.multiblocks.MultiblockMachineBlockEntity;
 
+import dev.waldq.mipp.client.MIPPItemProperties;
 import dev.waldq.mipp.item.pipenetworkanalyzer.PipeNetworkAnalyzerItem;
 
 import net.minecraft.client.Minecraft;
@@ -81,6 +82,11 @@ public final class MIPPClient {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void registerItemProperties(FMLClientSetupEvent event) {
+        event.enqueueWork(MIPPItemProperties::register);
     }
 
     private static MIPPClientConfig CONFIG;
