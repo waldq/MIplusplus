@@ -1,10 +1,7 @@
 package dev.waldq.mipp.worldgen.features; // Ваш пакет
 
 import com.mojang.serialization.Codec;
-
 import dev.waldq.mipp.MIPP;
-import dev.waldq.mipp.MIPPConfig;
-
 import dev.waldq.mipp.worldgen.veins.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

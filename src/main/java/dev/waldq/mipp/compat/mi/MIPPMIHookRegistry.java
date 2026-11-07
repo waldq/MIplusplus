@@ -1,18 +1,14 @@
 package dev.waldq.mipp.compat.mi;
 
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType;
-
 import dev.waldq.mipp.MIPPBlocks;
+import dev.waldq.mipp.MIPPCreativeTab;
 import dev.waldq.mipp.MIPPItems;
 import dev.waldq.mipp.MIPPRecipeTypes;
-import dev.waldq.mipp.MIPPCreativeTab;
-
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-
 import net.neoforged.neoforge.registries.DeferredRegister;
-
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookEntrypoint;
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookRegistry;
 import net.swedz.tesseract.neoforge.registry.SortOrder;

@@ -28,12 +28,6 @@ public class MIPPAttachments {
                     .sync(new PlayerSyncHandler())
                     .build()
     );
-
-    public static final Supplier<AttachmentType<UUID>> OWNER_UUID = ATTACHMENT_TYPES.register(
-            "owner_uuid", () -> AttachmentType.<UUID>builder(() -> null)
-                    .serialize(UUIDUtil.STRING_CODEC)
-                    .build()
-    );
 }
 
 

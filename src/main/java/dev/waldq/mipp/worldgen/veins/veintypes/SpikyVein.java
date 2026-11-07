@@ -1,9 +1,8 @@
 package dev.waldq.mipp.worldgen.veins.veintypes;
 
+import dev.waldq.mipp.worldgen.veins.OreVeinConfig;
 import dev.waldq.mipp.worldgen.veins.VeinPlacer;
 import dev.waldq.mipp.worldgen.veins.VeinPlacerHelper;
-import dev.waldq.mipp.worldgen.veins.OreVeinConfig;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.util.RandomSource;

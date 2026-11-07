@@ -11,7 +11,9 @@ import aztech.modern_industrialization.inventory.ConfigurableItemStack;
 import aztech.modern_industrialization.inventory.SlotPositions;
 import aztech.modern_industrialization.machines.BEP;
 import aztech.modern_industrialization.machines.blockentities.AbstractCraftingMachineBlockEntity;
-import aztech.modern_industrialization.machines.components.*;
+import aztech.modern_industrialization.machines.components.EnergyComponent;
+import aztech.modern_industrialization.machines.components.MachineInventoryComponent;
+import aztech.modern_industrialization.machines.components.RedstoneControlComponent;
 import aztech.modern_industrialization.machines.gui.MachineGuiParameters;
 import aztech.modern_industrialization.machines.guicomponents.EnergyBar;
 import aztech.modern_industrialization.machines.guicomponents.ProgressBar;
@@ -22,21 +24,15 @@ import aztech.modern_industrialization.machines.models.MachineCasing;
 import aztech.modern_industrialization.machines.models.MachineModelClientData;
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType;
 import aztech.modern_industrialization.util.Simulation;
-
 import dev.waldq.mipp.blocks.machine.processcondition.EnergyGenerationCondition;
-
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-
 import net.neoforged.neoforge.fluids.FluidType;
-
 import net.swedz.tesseract.neoforge.compat.mi.mixin.accessor.CrafterComponentAccessor;
-
-
 
 import java.util.ArrayList;
 import java.util.List;

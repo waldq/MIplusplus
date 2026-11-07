@@ -1,15 +1,9 @@
 package dev.waldq.mipp.datagen.server.provider.recipes;
 
 import aztech.modern_industrialization.MIItem;
-import aztech.modern_industrialization.MITags;
-
 import dev.waldq.mipp.MIPP;
-
-import dev.waldq.mipp.MIPPTags;
 import net.minecraft.data.recipes.RecipeOutput;
-
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-
 import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder;
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapedRecipeBuilder;
 import net.swedz.tesseract.neoforge.compat.vanilla.recipe.ShapelessRecipeBuilder;

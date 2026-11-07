@@ -3,19 +3,15 @@ package dev.waldq.mipp.datagen.server.provider.recipes;
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType;
 import aztech.modern_industrialization.materials.Material;
 import aztech.modern_industrialization.materials.part.PartTemplate;
-
 import dev.waldq.mipp.MIPP;
-
 import net.minecraft.data.recipes.RecipeOutput;
-
 import net.minecraft.data.recipes.RecipeProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
-
 import net.swedz.tesseract.neoforge.compat.mi.recipe.MIMachineRecipeBuilder;
 
 import java.util.function.Consumer;
 
-import static aztech.modern_industrialization.materials.property.MaterialProperty.*;
+import static aztech.modern_industrialization.materials.property.MaterialProperty.HARDNESS;
 
 public abstract class RecipesServerDatagenProvider extends RecipeProvider {
     protected RecipesServerDatagenProvider(GatherDataEvent event) {

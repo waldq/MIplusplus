@@ -2,7 +2,6 @@ package dev.waldq.mipp;
 
 import net.swedz.tesseract.config.annotation.ConfigComment;
 import net.swedz.tesseract.config.annotation.ConfigKey;
-import net.swedz.tesseract.config.annotation.Range;
 import net.swedz.tesseract.config.annotation.SubSection;
 
 public interface MIPPClientConfig {

@@ -2,16 +2,15 @@ package dev.waldq.mipp.item.pipenetworkanalyzer.helper;
 
 import aztech.modern_industrialization.pipes.api.PipeNetwork;
 import aztech.modern_industrialization.pipes.item.ItemNetwork;
-
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors.ItemNetworkNodeAccessor;
 import dev.waldq.mipp.network.packet.PipeScanPacket;
-
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 
-import java.util.*;
-import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class PipeScanner {
     private PipeScanner() {}

@@ -1,4 +1,4 @@
-package dev.waldq.mipp.blocks.machine.blockentities;
+package dev.waldq.mipp.blocks.machine.blockentity;
 
 import aztech.modern_industrialization.MICapabilities;
 import aztech.modern_industrialization.api.energy.CableTier;
@@ -17,17 +17,14 @@ import aztech.modern_industrialization.machines.guicomponents.EnergyBar;
 import aztech.modern_industrialization.machines.models.MachineModelClientData;
 import aztech.modern_industrialization.util.Simulation;
 import aztech.modern_industrialization.util.Tickable;
-
+import dev.waldq.mipp.blocks.machine.component.ChunkLoaderComponent;
+import dev.waldq.mipp.blocks.machine.component.ElectricChunkLoaderComponent;
 import dev.waldq.mipp.blocks.machine.utils.CableTierUtils;
-import dev.waldq.mipp.blocks.machine.components.ElectricChunkLoaderComponent;
-
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.List;
-import java.util.UUID;
-
-import static dev.waldq.mipp.MIPPAttachments.OWNER_UUID;
 
 
 public class ElectricChunkLoaderBlockEntity extends MachineBlockEntity implements Tickable, EnergyComponentHolder {
@@ -36,28 +33,11 @@ public class ElectricChunkLoaderBlockEntity extends MachineBlockEntity implement
     private final MIEnergyStorage insertable;
     private final CableTier cableTier;
 
-    private boolean isEnabled = false;
-    private int timer = 100;
+    private final long energyCost;
     private final int chunkRadius;
+    private final int chunkAmount;
 
     private final ElectricChunkLoaderComponent loader = new ElectricChunkLoaderComponent();
-
-    private UUID ownerUUID;
-
-    public void setOwnerUUID(UUID ownerUUID) {
-        if (ownerUUID != null) {
-            this.ownerUUID = ownerUUID;
-            this.setData(OWNER_UUID, ownerUUID);
-            this.setChanged();
-        }
-    }
-
-    public UUID getOwnerUUID() {
-        if (this.ownerUUID == null && this.hasData(OWNER_UUID)) {
-            this.ownerUUID = this.getData(OWNER_UUID);
-        }
-        return this.ownerUUID;
-    }
 
     public ElectricChunkLoaderBlockEntity(
             BEP bep,
@@ -76,53 +56,53 @@ public class ElectricChunkLoaderBlockEntity extends MachineBlockEntity implement
         this.insertable = energy.buildInsertable(otherCableTier -> otherCableTier == cableTier);
         registerGuiComponent(new EnergyBar(new EnergyBar.Params(87,37), energy::getEu, energy::getCapacity));
         this.registerComponents(energy, loader);
-        this.chunkRadius = CableTierUtils.CableNumbers.get(cableTier).chunkRadius();
 
+        var data = CableTierUtils.CableNumbers.get(cableTier);
+
+        this.energyCost = data.cost();
+        this.chunkRadius = data.chunkRadius();
+        this.chunkAmount = data.chunkAmount();
     }
-
-    public boolean getIsEnabled() { return isEnabled; }
 
     @Override
     public void tick() {
-        if (level == null || level.isClientSide)
-            return;
-
-        if (energy.getEu() >= CableTierUtils.CableNumbers.get(cableTier).cost()) {
-            energy.consumeEu(CableTierUtils.CableNumbers.get(cableTier).cost(), Simulation.ACT);
-            timer = 100;
-            if (!isEnabled) {
-                isEnabled = true;
-                loader.setChunks(level, this.getBlockPos(), CableTierUtils.CableNumbers.get(cableTier).chunkRadius(), true);
+        if (level != null && level instanceof ServerLevel serverLevel) {
+            if (placedBy.placerId == null) {
+                if (loader.isEnabled) {
+                    loader.isEnabled = false;
+                    ChunkLoaderComponent.setChunks(serverLevel, this.getBlockPos(), chunkRadius, false);
+                    setChanged();
+                }
+                return;
             }
 
+            if (energy.getEu() >= energyCost) {
+                energy.consumeEu(energyCost, Simulation.ACT);
+                loader.resetTime();
+                if (!loader.isEnabled) {
+                    loader.isEnabled = true;
+                    ChunkLoaderComponent.setChunks(serverLevel, this.getBlockPos(), chunkRadius, true);
+                }
+
+            } else {
+                shouldUnloadChunk(serverLevel);
+            }
+        }
+    }
+
+    private void shouldUnloadChunk(ServerLevel level) {
+        if (!loader.isEnabled) return;
+        if (loader.getTime() == 0) {
+            loader.resetTime();
+            loader.isEnabled = false;
+            setChanged();
+            ChunkLoaderComponent.setChunks(level, this.getBlockPos(), this.chunkRadius, false);
         } else {
-            shouldUnloadChunk();
+            loader.decreaseTime();
         }
     }
 
-    @Override
-    public void setRemoved() {
-        if (isEnabled && level != null && !level.isClientSide) {
-            loader.setChunks(level, this.getBlockPos(), this.chunkRadius, false);
-            isEnabled = false;
-        }
-        super.setRemoved();
-    }
-
-    private void shouldUnloadChunk() {
-        if (!isEnabled) return;
-        if (timer == 0) {
-            timer = 100;
-            isEnabled = false;
-            loader.setChunks(level, this.getBlockPos(), this.chunkRadius, false);
-        } else {
-            --timer;
-        }
-    }
-
-    public int getChunkAmount() {
-        return CableTierUtils.CableNumbers.get(cableTier).chunkAmount();
-    }
+    public CableTier getCableTier() { return cableTier; }
 
     @Override
     public MIInventory getInventory() { return inventory; }

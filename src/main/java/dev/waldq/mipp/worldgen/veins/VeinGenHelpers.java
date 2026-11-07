@@ -1,7 +1,6 @@
 package dev.waldq.mipp.worldgen.veins;
 
 import dev.waldq.mipp.MIPP;
-import dev.waldq.mipp.MIPPConfig;
 import net.minecraft.util.RandomSource;
 
 import java.util.List;

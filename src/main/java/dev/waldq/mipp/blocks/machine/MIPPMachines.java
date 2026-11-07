@@ -2,15 +2,11 @@ package dev.waldq.mipp.blocks.machine;
 
 import aztech.modern_industrialization.api.energy.CableTier;
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType;
-
 import com.google.common.collect.Maps;
-
 import dev.waldq.mipp.MIPP;
+import dev.waldq.mipp.blocks.machine.blockentity.ElectricChunkLoaderBlockEntity;
 import dev.waldq.mipp.blocks.machine.chunkloader.ChunkLoaderBlock;
-import dev.waldq.mipp.blocks.machine.blockentities.ElectricChunkLoaderBlockEntity;
-
 import net.minecraft.resources.ResourceLocation;
-
 import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MachineRecipeTypesMIHookContext;
 import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MultiblockMachinesMIHookContext;
 import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.SingleBlockSpecialMachinesMIHookContext;
@@ -79,7 +75,10 @@ public final class MIPPMachines {
 //                    .registerAsWorkstationFor(MIPP.id("turbine"))
 //                    .registerMachine();
 
-            hook.builder("%s_chunk_loader".formatted(tier.name), "%s Chunk Loader".formatted(tier.shortEnglishName), (bep) -> new ElectricChunkLoaderBlockEntity(bep, MIPP.id("%s_chunk_loader".formatted(tier.name)), tier))
+            hook.builder(
+                    "%s_chunk_loader".formatted(tier.name),
+                    "%s Chunk Loader".formatted(tier.shortEnglishName),
+                    (bep) -> new ElectricChunkLoaderBlockEntity(bep, MIPP.id("%s_chunk_loader".formatted(tier.name)), tier))
                     .creator(((ctor, properties) -> new ChunkLoaderBlock(ctor, properties, tier)))
                     .builtinModel(tier.casing, "chunk_loader", (model) -> model.top(true).side(true).front(true).active(false).outputTextureDefault())
                     .registrator(ElectricChunkLoaderBlockEntity::registerEnergyApi)

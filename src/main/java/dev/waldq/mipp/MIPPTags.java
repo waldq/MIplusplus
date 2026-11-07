@@ -1,8 +1,6 @@
 package dev.waldq.mipp;
 
 import com.google.common.collect.Maps;
-
-import dev.waldq.mipp.utils.ColorUtils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;

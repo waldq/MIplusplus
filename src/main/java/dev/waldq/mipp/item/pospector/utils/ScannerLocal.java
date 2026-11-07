@@ -1,10 +1,8 @@
 package dev.waldq.mipp.item.pospector.utils;
 
 import dev.waldq.mipp.MIPP;
-import dev.waldq.mipp.MIPPConfig;
 import dev.waldq.mipp.worldgen.veins.OreVeinConfig;
 import dev.waldq.mipp.worldgen.veins.VeinPlacerHelper;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.resources.ResourceLocation;
@@ -15,7 +13,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.chunk.PalettedContainer;
-
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.*;

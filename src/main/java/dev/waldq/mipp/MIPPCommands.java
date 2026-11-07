@@ -1,21 +1,21 @@
 package dev.waldq.mipp;
 
 import dev.waldq.mipp.item.component.BlockTracker;
-
 import dev.waldq.mipp.item.pospector.ProspectorItemBehavior;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.world.item.ItemStack;
-
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 
 import java.util.Optional;
 
-import static net.minecraft.commands.Commands.*;
-import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.*;
+import static net.minecraft.commands.Commands.argument;
+import static net.minecraft.commands.Commands.literal;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.blockPos;
+import static net.minecraft.commands.arguments.coordinates.BlockPosArgument.getBlockPos;
 
 @EventBusSubscriber(modid = MIPP.ID)
 public class MIPPCommands {
