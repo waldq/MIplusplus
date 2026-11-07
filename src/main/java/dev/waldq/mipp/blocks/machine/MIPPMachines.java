@@ -52,7 +52,7 @@ public final class MIPPMachines {
     }
 
     public static void singleBlockSpecial(SingleBlockSpecialMachinesMIHookContext hook) {
-//        CraftingGeneratorBlockEntity.InventoryLayout layout = new CraftingGeneratorBlockEntity.InventoryLayout(
+//        GeneratorRecipeMachineBlockEntity.InventoryLayout layout = new GeneratorRecipeMachineBlockEntity.InventoryLayout(
 //                167,
 //                0, 0,
 //                1, 4,
@@ -70,11 +70,11 @@ public final class MIPPMachines {
 //            String name = "%s_turbine".formatted(tier.name);
 //            String englishName = "%s Turbine".formatted(tier.shortEnglishName);
 //            String overlayFolder = "steam_turbine";
-//            hook.builder(name, englishName, (bep) -> new CraftingGeneratorBlockEntity(bep, MIPP.id(name), tier, RecipeTypes.TURBINE, layout))
+//            hook.builder(name, englishName, (bep) -> new GeneratorRecipeMachineBlockEntity(bep, MIPP.id(name), tier, RecipeTypes.TURBINE, layout))
 //                    .builtinModel(tier.casing, overlayFolder, (model) -> model.top(false).side(false).front(true).active(true).outputTextureEnergy())
 //                    .registrator(MachineBlockEntity::registerItemApi)
 //                    .registrator(MachineBlockEntity::registerFluidApi)
-//                    .registrator(CraftingGeneratorBlockEntity::registerEnergyApi)
+//                    .registrator(GeneratorRecipeMachineBlockEntity::registerEnergyApi)
 //                    .gui(SteamMode.NEITHER, RecipeTypes.TURBINE, MachineGUIHelper::getTurbineGUI)
 //                    .registerAsWorkstationFor(MIPP.id("turbine"))
 //                    .registerMachine();

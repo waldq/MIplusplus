@@ -1,0 +1,6 @@
+{
+  "feature": "mipp:ore_vein",
+  "placement": [
+    { "type": "minecraft:in_square" }
+  ]
+}

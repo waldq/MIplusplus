@@ -82,8 +82,6 @@ public class ElectricChunkLoaderBlockEntity extends MachineBlockEntity implement
 
     public boolean getIsEnabled() { return isEnabled; }
 
-
-
     @Override
     public void tick() {
         if (level == null || level.isClientSide)
