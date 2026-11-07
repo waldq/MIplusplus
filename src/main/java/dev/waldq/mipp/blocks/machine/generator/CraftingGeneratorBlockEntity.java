@@ -10,7 +10,6 @@ import aztech.modern_industrialization.inventory.ConfigurableFluidStack;
 import aztech.modern_industrialization.inventory.ConfigurableItemStack;
 import aztech.modern_industrialization.inventory.SlotPositions;
 import aztech.modern_industrialization.machines.BEP;
-import aztech.modern_industrialization.machines.MachineBlockEntity;
 import aztech.modern_industrialization.machines.blockentities.AbstractCraftingMachineBlockEntity;
 import aztech.modern_industrialization.machines.components.*;
 import aztech.modern_industrialization.machines.gui.MachineGuiParameters;
@@ -43,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GeneratorRecipeMachineBlockEntity extends AbstractCraftingMachineBlockEntity implements EnergyComponentHolder, CableTierHolder {
+public class CraftingGeneratorBlockEntity extends AbstractCraftingMachineBlockEntity implements EnergyComponentHolder, CableTierHolder {
     public record InventoryLayout(
             int screenHeight,
             int itemInputCount, int itemOutputCount,
@@ -86,7 +85,7 @@ public class GeneratorRecipeMachineBlockEntity extends AbstractCraftingMachineBl
         );
     }
 
-    public GeneratorRecipeMachineBlockEntity(
+    public CraftingGeneratorBlockEntity(
             BEP bep,
             ResourceLocation blockId,
             CableTier tier,
@@ -100,7 +99,7 @@ public class GeneratorRecipeMachineBlockEntity extends AbstractCraftingMachineBl
         );
     }
 
-    private GeneratorRecipeMachineBlockEntity(
+    private CraftingGeneratorBlockEntity(
 
             BEP bep,
             ResourceLocation blockId,
@@ -208,7 +207,7 @@ public class GeneratorRecipeMachineBlockEntity extends AbstractCraftingMachineBl
     public static void registerEnergyApi(BlockEntityType<?> bet) {
         MICapabilities.onEvent(event -> {
             event.registerBlockEntity(EnergyApi.SIDED, bet, (be, direction) ->
-                    direction == ((GeneratorRecipeMachineBlockEntity) be).orientation.outputDirection ? ((GeneratorRecipeMachineBlockEntity) be).extractable : null);
+                    direction == ((CraftingGeneratorBlockEntity) be).orientation.outputDirection ? ((CraftingGeneratorBlockEntity) be).extractable : null);
         });
     }
 }

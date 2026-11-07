@@ -73,7 +73,7 @@ public class MIPP {
         MIPPBlocks.init(bus);
         MIPPRecipeTypes.init(bus);
 
-        MIPPFeatures.register(bus);
+//        MIPPFeatures.register(bus);
 
         ChunkLoaderComponent.init(bus);
         NeoForge.EVENT_BUS.register(this);
