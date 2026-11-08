@@ -1,7 +1,7 @@
 {
   "values": [
-    "mipp:cyan_casing",
-    "mipp:cyan_casing_pipe",
-    "mipp:cyan_special_casing"
+    "mipp:cyan_machine_casing",
+    "mipp:cyan_machine_casing_pipe",
+    "mipp:cyan_machine_casing_special"
   ]
 }

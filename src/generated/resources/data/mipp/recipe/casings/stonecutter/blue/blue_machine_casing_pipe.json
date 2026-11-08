@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": [
+    {
+      "item": "mipp:blue_machine_casing"
+    },
+    {
+      "item": "mipp:blue_machine_casing_pipe"
+    },
+    {
+      "item": "mipp:blue_machine_casing_special"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "mipp:blue_machine_casing_pipe"
+  }
+}

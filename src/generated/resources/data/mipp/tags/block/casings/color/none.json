@@ -1,7 +1,7 @@
 {
   "values": [
-    "mipp:basic_casing",
-    "mipp:basic_casing_pipe",
-    "mipp:basic_special_casing"
+    "mipp:basic_machine_casing",
+    "mipp:basic_machine_casing_pipe",
+    "mipp:basic_machine_casing_special"
   ]
 }
