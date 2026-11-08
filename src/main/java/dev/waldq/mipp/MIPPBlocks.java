@@ -57,11 +57,11 @@ public final class MIPPBlocks {
             .withModel(CommonModelBuilders::blockstateOnly)
             .register();
 
-    public static final Map<String, BlockHolder<Block>> COLORED_CASINGS = registerCasings("%s_casing", "%s Casing");
+    public static final Map<String, BlockHolder<Block>> COLORED_CASINGS = registerCasings("%s_machine_casing", "%s Machine Casing");
 
-    public static final Map<String, BlockHolder<Block>> COLORED_CASINGS_PIPE = registerCasings("%s_casing_pipe", "%s Casing Pipe");
+    public static final Map<String, BlockHolder<Block>> COLORED_CASINGS_PIPE = registerCasings("%s_machine_casing_pipe", "%s Pipe Machine Casing");
 
-    public static final Map<String, BlockHolder<Block>> COLORED_SPECIAL_CASINGS = registerCasings("%s_special_casing", "%s Special Casing");
+    public static final Map<String, BlockHolder<Block>> COLORED_SPECIAL_CASINGS = registerCasings("%s_machine_casing_special", "%s Special Machine Casing");
 
     private static Map<String, BlockHolder<Block>> registerCasings(String id, String englishName) {
         return Arrays.stream(ColorUtils.COLORS)
@@ -82,8 +82,8 @@ public final class MIPPBlocks {
     }
 
     public static final BlockHolder<Block> BASIC_CASING = createSimple(
-            "basic_casing",
-            "Basic Casing",
+            "basic_machine_casing",
+            "Basic Machine Casing",
             MIPPCreativeTab.Order.BLOCKS,
             MapColor.NONE,
             5.0f,
@@ -94,8 +94,8 @@ public final class MIPPBlocks {
             .register();
 
     public static final BlockHolder<Block> BASIC_CASING_PIPE = createSimple(
-            "basic_casing_pipe",
-            "Basic Casing Pipe",
+            "basic_machine_casing_pipe",
+            "Basic Pipe Machine Casing",
             MIPPCreativeTab.Order.BLOCKS,
             MapColor.NONE,
             5.0f,
@@ -106,8 +106,8 @@ public final class MIPPBlocks {
             .register();
 
     public static final BlockHolder<Block> BASIC_SPECIAL_CASING = createSimple(
-            "basic_special_casing",
-            "Basic Special Casing",
+            "basic_machine_casing_special",
+            "Basic Special Machine Casing",
             MIPPCreativeTab.Order.BLOCKS,
             MapColor.NONE,
             5.0f,

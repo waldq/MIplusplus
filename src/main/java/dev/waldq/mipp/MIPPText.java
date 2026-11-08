@@ -37,7 +37,7 @@ public interface MIPPText {
         MutableComponent energyGenerationTooltip(@WithStyle("highlighted") Component energy);
 
         @WithStyle("gray")
-        @LangKey(text = "Requires %s underneath")
+        @LangKey(text = "Requires vein below machine: %s")
         MutableComponent veinUnderneathTooltip(@WithStyle("highlighted") Component veinName);
     }
 
@@ -54,7 +54,7 @@ public interface MIPPText {
         @LangKey(text = "----------- %s -----------")
         MutableComponent line(@WithStyle("highlighted") Component nickname);
 
-        @LangKey(text = "Dimension: %s. Coordinates: %s. Tier: %s. Amount: %s.")
+        @LangKey(text = "Dimension: %s. Coordinates: %s. Tier: %s. Chunks: %s.")
         MutableComponent info(
                 @WithStyle("highlighted") Component dimension,
                 @WithStyle("highlighted") Component coords,
@@ -65,7 +65,7 @@ public interface MIPPText {
         @LangKey(text = "%s doesn't have any loaders.")
         MutableComponent noLoaders(@WithStyle("highlighted") Component nickname);
 
-        @LangKey(text = "Click to tp.")
+        @LangKey(text = "Click to teleport")
         MutableComponent clickToTp();
 
         @LangKey(text = "There are no chunk loaders in the world.")
@@ -114,7 +114,7 @@ public interface MIPPText {
         MutableComponent emptyNode();
 
         @WithStyle("red")
-        @LangKey(text = "No inventories are connected to this network")
+        @LangKey(text = "No inventories are connected to this network.")
         MutableComponent emptyNetwork();
     }
 
@@ -153,7 +153,7 @@ public interface MIPPText {
         MutableComponent foundVein(@WithStyle("highlighted") Component veinString, @WithStyle("highlighted") Component distance);
 
         @WithStyle("red")
-        @LangKey(text = "There are no ore vein nearby!")
+        @LangKey(text = "There are no ore veins nearby!")
         MutableComponent noVeins();
 
         @LangKey(text = "All resources")
