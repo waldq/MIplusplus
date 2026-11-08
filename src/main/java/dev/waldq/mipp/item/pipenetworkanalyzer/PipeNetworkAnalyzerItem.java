@@ -98,7 +98,7 @@ public class PipeNetworkAnalyzerItem extends Item {
             var node = getItemNetworkNode(ctx);
 
             if (node != null) {
-                player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerViewing(), true);
+                player.displayClientMessage(MIPP.text().networkAnalyzer().viewing(), true);
 
                 if (player.isShiftKeyDown()) {
                     ItemNetwork network = getItemNetwork(node);

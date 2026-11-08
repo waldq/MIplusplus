@@ -4,11 +4,13 @@ import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPTooltips;
 import dev.waldq.mipp.blocks.machine.MIPPMachines;
 import dev.waldq.mipp.blocks.machine.processcondition.EnergyGenerationCondition;
-
 import dev.waldq.mipp.blocks.machine.processcondition.OreVeinInChunkCondition;
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookEntrypoint;
 import net.swedz.tesseract.neoforge.compat.mi.hook.MIHookListener;
-import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.*;
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MachineProcessConditionsMIHookContext;
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MachineRecipeTypesMIHookContext;
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.MultiblockMachinesMIHookContext;
+import net.swedz.tesseract.neoforge.compat.mi.hook.context.listener.SingleBlockSpecialMachinesMIHookContext;
 
 @MIHookEntrypoint
 public class MIPPMIHookListener implements MIHookListener {

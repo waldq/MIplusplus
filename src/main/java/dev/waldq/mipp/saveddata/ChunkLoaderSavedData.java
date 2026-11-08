@@ -1,7 +1,10 @@
 package dev.waldq.mipp.saveddata;
 
+import aztech.modern_industrialization.api.energy.CableTier;
+import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPAttachments;
 
+import dev.waldq.mipp.blocks.machine.utils.CableTierUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -18,7 +21,7 @@ import java.util.*;
 
 public class ChunkLoaderSavedData extends SavedData {
 
-    public record LoaderInfo(UUID owner, ResourceLocation dimension, BlockPos pos, int chunkAmount) {
+    public record LoaderInfo(UUID owner, ResourceLocation dimension, BlockPos pos, CableTier tier) {
 
         public CompoundTag save() {
             CompoundTag tag = new CompoundTag();
@@ -27,7 +30,7 @@ public class ChunkLoaderSavedData extends SavedData {
             tag.putInt("X", pos.getX());
             tag.putInt("Y", pos.getY());
             tag.putInt("Z", pos.getZ());
-            tag.putInt("Chunks", chunkAmount);
+            tag.putString("Tier", tier.name);
             return tag;
         }
 
@@ -35,8 +38,22 @@ public class ChunkLoaderSavedData extends SavedData {
             UUID owner = tag.getUUID("Owner");
             ResourceLocation dimension = ResourceLocation.parse(tag.getString("Dimension"));
             BlockPos pos = new BlockPos(tag.getInt("X"), tag.getInt("Y"), tag.getInt("Z"));
-            int amount = tag.getInt("Chunks");
-            return new LoaderInfo(owner, dimension, pos, amount);
+            CableTier tier;
+            try {
+
+                tier = CableTier.getTier(tag.getString("Tier"));
+            } catch (NoSuchElementException e) {
+                MIPP.LOGGER.warn("Skipping chunk loader at {} in {}: unknown cable tier '{}'",
+                        pos, dimension, tag.getString("Tier"));
+                return null;
+            }
+
+            if (!CableTierUtils.CableNumbers.containsKey(tier)) {
+                MIPP.LOGGER.warn("Skipping chunk loader at {} in {}: no loader data for tier '{}'",
+                        pos, dimension, tier.name);
+                return null;
+            }
+            return new LoaderInfo(owner, dimension, pos, tier);
         }
     }
 
@@ -58,9 +75,9 @@ public class ChunkLoaderSavedData extends SavedData {
     }
 
 
-    public void addLoader(ServerLevel level, UUID owner, BlockPos pos, int chunkAmount) {
+    public void addLoader(ServerLevel level, UUID owner, BlockPos pos, CableTier tier) {
         LoaderKey key = new LoaderKey(level.dimension().location(), pos.immutable());
-        loaders.put(key, new LoaderInfo(owner, level.dimension().location(), pos.immutable(), chunkAmount));
+        loaders.put(key, new LoaderInfo(owner, level.dimension().location(), pos.immutable(), tier));
         this.setDirty();
 
         syncPlayerChunks(level.getServer(), owner);
@@ -90,7 +107,7 @@ public class ChunkLoaderSavedData extends SavedData {
     public int getChunks(UUID playerUUID) {
         return loaders.values().stream()
                 .filter(info -> info.owner().equals(playerUUID))
-                .mapToInt(LoaderInfo::chunkAmount)
+                .mapToInt(info -> CableTierUtils.CableNumbers.get(info.tier()).fullChunkAmount())
                 .sum();
     }
 
@@ -111,8 +128,8 @@ public class ChunkLoaderSavedData extends SavedData {
         ChunkLoaderSavedData data = new ChunkLoaderSavedData();
         ListTag list = tag.getList("Loaders", Tag.TAG_COMPOUND);
         for (int i = 0; i < list.size(); i++) {
-            CompoundTag loaderTag = list.getCompound(i);
-            LoaderInfo info = LoaderInfo.load(loaderTag);
+            LoaderInfo info = LoaderInfo.load(list.getCompound(i));
+            if (info == null) continue;
             data.loaders.put(new LoaderKey(info.dimension(), info.pos()), info);
         }
         return data;

@@ -84,7 +84,7 @@ public record OreVeinInChunkCondition(ResourceLocation veinId) implements Machin
 
     @Override
     public void appendDescription(List<Component> lines) {
-        lines.add(MIPP.text().veinUnderneathTooltip(Component.translatable("text.mipp.veins.%s".formatted(veinId))));
+        lines.add(MIPP.text().processConditions().veinUnderneathTooltip(Component.translatable("text.mipp.veins.%s".formatted(veinId))));
     }
 
     @Override

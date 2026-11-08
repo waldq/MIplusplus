@@ -1,12 +1,10 @@
 package dev.waldq.mipp.client.helper;
 
 import com.google.common.base.Suppliers;
-
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
-
 import dev.waldq.mipp.MIPP;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -15,7 +13,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -24,7 +21,7 @@ import net.neoforged.neoforge.client.event.RegisterRenderBuffersEvent;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static net.minecraft.client.renderer.LightTexture.*;
+import static net.minecraft.client.renderer.LightTexture.FULL_BRIGHT;
 import static net.minecraft.client.renderer.RenderStateShard.*;
 
 /**

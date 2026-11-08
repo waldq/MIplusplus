@@ -1,10 +1,8 @@
 package dev.waldq.mipp.worldgen.veins.veintypes;
 
 import com.mojang.serialization.Codec;
-
-import dev.waldq.mipp.worldgen.veins.VeinPlacerHelper;
 import dev.waldq.mipp.worldgen.veins.OreVeinConfig;
-
+import dev.waldq.mipp.worldgen.veins.VeinPlacerHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;

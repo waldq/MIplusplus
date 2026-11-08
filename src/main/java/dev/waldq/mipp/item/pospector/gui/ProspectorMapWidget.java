@@ -157,7 +157,7 @@ public class ProspectorMapWidget extends Widget<ProspectorMapWidget> implements 
                                         if (Strings.isNullOrEmpty(searched)) {
                                             return true;
                                         } else {
-                                            return MIPP.text().electricProspectorAllRes()
+                                            return MIPP.text().prospector().allRes()
                                                     .getString()
                                                     .toLowerCase()
                                                     .contains(searched.toLowerCase());
@@ -167,7 +167,7 @@ public class ProspectorMapWidget extends Widget<ProspectorMapWidget> implements 
                                             .sizeRel(1f)
                                             .padding(4, 0)
                                             .mainAxisAlignment(Alignment.MainAxis.SPACE_BETWEEN)
-                                            .child(new ScrollingTextWidget(Text.of(MIPP.text().electricProspectorAllRes()))
+                                            .child(new ScrollingTextWidget(Text.of(MIPP.text().prospector().allRes()))
                                                     .textAlign(Alignment.CenterLeft)
                                                     .verticalCenter()
                                                     .expanded()

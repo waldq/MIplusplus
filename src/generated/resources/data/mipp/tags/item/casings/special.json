@@ -1,21 +1,21 @@
 {
   "values": [
-    "mipp:white_special_casing",
-    "mipp:light_gray_special_casing",
-    "mipp:gray_special_casing",
-    "mipp:black_special_casing",
-    "mipp:brown_special_casing",
-    "mipp:red_special_casing",
-    "mipp:orange_special_casing",
-    "mipp:yellow_special_casing",
-    "mipp:lime_special_casing",
-    "mipp:green_special_casing",
-    "mipp:cyan_special_casing",
-    "mipp:light_blue_special_casing",
-    "mipp:blue_special_casing",
-    "mipp:purple_special_casing",
-    "mipp:magenta_special_casing",
-    "mipp:pink_special_casing",
-    "mipp:basic_special_casing"
+    "mipp:white_machine_casing_special",
+    "mipp:light_gray_machine_casing_special",
+    "mipp:gray_machine_casing_special",
+    "mipp:black_machine_casing_special",
+    "mipp:brown_machine_casing_special",
+    "mipp:red_machine_casing_special",
+    "mipp:orange_machine_casing_special",
+    "mipp:yellow_machine_casing_special",
+    "mipp:lime_machine_casing_special",
+    "mipp:green_machine_casing_special",
+    "mipp:cyan_machine_casing_special",
+    "mipp:light_blue_machine_casing_special",
+    "mipp:blue_machine_casing_special",
+    "mipp:purple_machine_casing_special",
+    "mipp:magenta_machine_casing_special",
+    "mipp:pink_machine_casing_special",
+    "mipp:basic_machine_casing_special"
   ]
 }

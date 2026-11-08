@@ -1,30 +1,67 @@
 name: Build
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          fetch-tags: true
 
       - name: Setup JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '21'
-          distribution: 'temurin'
+          distribution: temurin
+          java-version: "21"
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      # This is needed to be able to run ./gradlew below
-      # You can run `git update-index --chmod +x gradlew` then remove this step.
-      - name: Make Gradle wrapper executable
+      - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Build with Gradle
+      - name: Build
         run: ./gradlew build
+
+      - name: Check datagen is up to date
+        run: |
+          ./gradlew runData
+          if [ -n "$(git status --porcelain src/generated)" ]; then
+            echo "::error::src/generated is outdated. Run ./gradlew runData and commit changes."
+            git status --porcelain src/generated
+            exit 1
+          fi
+
+      - name: Check ru_ru has all en_us keys
+        env:
+          EN_FILE: src/generated/resources/assets/mipp/lang/en_us.json
+          RU_FILE: src/main/resources/assets/mipp/lang/ru_ru.json
+        shell: python
+        run: |
+          import json, os, sys
+
+          en_path, ru_path = os.environ["EN_FILE"], os.environ["RU_FILE"]
+          with open(en_path, encoding="utf-8") as f:
+              en = json.load(f)
+          with open(ru_path, encoding="utf-8") as f:
+              ru = json.load(f)
+
+          missing = sorted(set(en) - set(ru))
+          extra = sorted(set(ru) - set(en))
+
+          for key in missing:
+              print(f"::error file={ru_path}::There is no translation for the key {key} (en: {en[key]!r})")
+          for key in extra:
+              print(f"::warning file={ru_path}::Key {key} doesn't exist in en_us.json. (probably outdated)")
+
+          print(f"en_us: {len(en)} keys, ru_ru: {len(ru)}, missing: {len(missing)}, extra: {len(extra)}")
+          sys.exit(1 if missing else 0)

@@ -2,13 +2,14 @@ package dev.waldq.mipp.utils;
 
 import dev.waldq.mipp.MIPPDataMaps;
 import dev.waldq.mipp.datamaps.OreMapData;
-
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class OreVeinDataMapUtils {
     private static final Map<BlockState, OreMapData> ORE_MAP_DATA_MAP = new HashMap<>();

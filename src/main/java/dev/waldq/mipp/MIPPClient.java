@@ -52,7 +52,7 @@ public final class MIPPClient {
                 event.setCanceled(true);
 
                 player.displayClientMessage(
-                        MIPP.text().pipeNetworkAnalyzerRange(
+                        MIPP.text().networkAnalyzer().range(
                                 Component.literal(String.valueOf((int) newDist))
                         ),
                         true

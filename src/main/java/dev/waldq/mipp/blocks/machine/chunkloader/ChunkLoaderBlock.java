@@ -5,6 +5,7 @@ import aztech.modern_industrialization.machines.MachineBlock;
 import aztech.modern_industrialization.machines.MachineBlockEntity;
 
 import dev.waldq.mipp.MIPP;
+import dev.waldq.mipp.blocks.machine.component.ChunkLoaderComponent;
 import dev.waldq.mipp.blocks.machine.utils.CableTierUtils;
 
 import dev.waldq.mipp.saveddata.ChunkLoaderSavedData;
@@ -18,6 +19,7 @@ import java.util.function.BiFunction;
 
 public class ChunkLoaderBlock extends MachineBlock {
     private final CableTier cableTier;
+    private final int chunkRadius;
 
     public ChunkLoaderBlock(
             BiFunction<BlockPos, BlockState, MachineBlockEntity> factory,
@@ -26,12 +28,14 @@ public class ChunkLoaderBlock extends MachineBlock {
     ) {
         super(factory, properties);
         this.cableTier = cableTier;
+        this.chunkRadius = CableTierUtils.CableNumbers.get(cableTier).chunkRadius();
     }
 
     @Override
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean moved) {
         if (!state.is(newState.getBlock())) {
             if (level instanceof ServerLevel serverLevel) {
+                ChunkLoaderComponent.setChunks(serverLevel, pos, chunkRadius, false);
                 ChunkLoaderSavedData.get(level).removeLoader(serverLevel, pos);
             }
         }
@@ -39,7 +43,7 @@ public class ChunkLoaderBlock extends MachineBlock {
     }
 
     public int getChunksAmount() {
-        return CableTierUtils.CableNumbers.get(cableTier).chunkAmount();
+        return CableTierUtils.CableNumbers.get(cableTier).fullChunkAmount();
     }
 
     public int getMaxChunksAmount() {

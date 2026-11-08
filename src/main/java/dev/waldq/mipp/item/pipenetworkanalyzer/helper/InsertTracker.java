@@ -1,11 +1,9 @@
 package dev.waldq.mipp.item.pipenetworkanalyzer.helper;
 
 import dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors.ItemNetworkNodeItemConnectionAccessor;
-
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-
-import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 
 public final class InsertTracker {
     private static final Long2ObjectOpenHashMap<ItemNetworkNodeItemConnectionAccessor[]> CONNECTIONS = new Long2ObjectOpenHashMap<>();

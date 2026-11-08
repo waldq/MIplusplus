@@ -1,7 +1,7 @@
 package dev.waldq.mipp.blocks.machine.chunkloader;
 
 import dev.waldq.mipp.MIPP;
-import dev.waldq.mipp.blocks.machine.blockentities.ElectricChunkLoaderBlockEntity;
+import dev.waldq.mipp.blocks.machine.blockentity.ElectricChunkLoaderBlockEntity;
 import dev.waldq.mipp.saveddata.ChunkLoaderSavedData;
 
 import net.minecraft.network.chat.Component;
@@ -11,6 +11,7 @@ import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -21,8 +22,6 @@ import static dev.waldq.mipp.MIPPAttachments.CHUNK_AMOUNT;
 
 @EventBusSubscriber(modid = MIPP.ID)
 public class ChunkLoaderListener {
-
-
     @SubscribeEvent
     private static void onUseItemOnBlock(UseItemOnBlockEvent event) {
         Player player = event.getPlayer();
@@ -38,7 +37,7 @@ public class ChunkLoaderListener {
             if (current + clb.getChunksAmount() > maxChunkAmount) {
                 if (!event.getLevel().isClientSide()) {
                     player.displayClientMessage(
-                            MIPP.text().chunkLoaderTooMuch(
+                            MIPP.text().chunkLoader().tooMuch(
                                     Component.literal(String.valueOf(current))
                             ),
                             true
@@ -50,20 +49,18 @@ public class ChunkLoaderListener {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     private static void onBlockPlace(BlockEvent.EntityPlaceEvent event) {
         if (event.getLevel().isClientSide()) return;
 
         if (event.getEntity() instanceof ServerPlayer player
                 && event.getLevel() instanceof ServerLevel level) {
             if (level.getBlockEntity(event.getPos()) instanceof ElectricChunkLoaderBlockEntity be) {
-                be.setOwnerUUID(player.getUUID());
-
                 ChunkLoaderSavedData.get(level).addLoader(
                         level,
                         player.getUUID(),
                         event.getPos(),
-                        be.getChunkAmount()
+                        be.getCableTier()
                 );
             }
         }
@@ -76,4 +73,6 @@ public class ChunkLoaderListener {
             data.syncPlayerChunks(player.getServer(), player.getUUID());
         }
     }
+
+    private ChunkLoaderListener() {}
 }

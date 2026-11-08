@@ -2,16 +2,15 @@ package dev.waldq.mipp.item.pipenetworkanalyzer.helper;
 
 import aztech.modern_industrialization.pipes.api.PipeNetwork;
 import aztech.modern_industrialization.pipes.item.ItemNetwork;
-
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.item.pipenetworkanalyzer.miaccessors.ItemNetworkNodeAccessor;
 import dev.waldq.mipp.network.packet.PipeScanPacket;
-
+import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 
-import java.util.*;
-import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class PipeScanner {
     private PipeScanner() {}
@@ -28,7 +27,7 @@ public final class PipeScanner {
             processNode(node, blockStat);
         }
 
-        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerEmptyNetwork(), true);
+        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().networkAnalyzer().emptyNetwork(), true);
 
         List<PipeScanPacket.PipeScanEntry> entries = new ArrayList<>(blockStat.size());
         blockStat.forEach((longPos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(BlockPos.of(longPos), totals[0], totals[1])));
@@ -45,7 +44,7 @@ public final class PipeScanner {
 
         processNode(node, blockStat);
 
-        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerEmptyNode(), true);
+        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().networkAnalyzer().emptyNode(), true);
 
         List<PipeScanPacket.PipeScanEntry> entries = new ArrayList<>(blockStat.size());
         blockStat.forEach((longPos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(BlockPos.of(longPos), totals[0], totals[1])));
@@ -70,7 +69,7 @@ public final class PipeScanner {
     }
 
     public static void clear(ServerPlayer player) {
-        player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerReset(), true);
+        player.displayClientMessage(MIPP.text().networkAnalyzer().reset(), true);
         new PipeScanPacket(List.of()).sendToClient(player);
     }
 }

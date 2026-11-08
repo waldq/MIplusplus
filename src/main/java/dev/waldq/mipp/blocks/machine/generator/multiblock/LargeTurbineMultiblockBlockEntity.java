@@ -8,11 +8,10 @@ import aztech.modern_industrialization.machines.multiblocks.HatchTypes;
 import aztech.modern_industrialization.machines.multiblocks.ShapeTemplate;
 import aztech.modern_industrialization.machines.multiblocks.SimpleMember;
 import aztech.modern_industrialization.machines.recipe.MachineRecipeType;
-
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.blocks.machine.MIPPMachines;
 
-import static aztech.modern_industrialization.machines.multiblocks.HatchTypes.*;
+import static aztech.modern_industrialization.machines.multiblocks.HatchTypes.ENERGY_OUTPUT;
 
 public class LargeTurbineMultiblockBlockEntity extends MIPPGeneratorMultiblockBlockEntity {
     public static String ID = "large_turbine";
