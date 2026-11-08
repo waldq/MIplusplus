@@ -23,11 +23,11 @@ public class MIPPTooltips {
     {
         if(key.equals("alt"))
         {
-            return MIPP.text().keyAlt();
+            return MIPP.text().binds().keyAlt();
         }
         else if(key.equals("mouse_scroll"))
         {
-            return MIPP.text().keyMouseScroll();
+            return MIPP.text().binds().keyMouseScroll();
         }
         return Parser.KEYBIND.parse(key);
     };
@@ -49,19 +49,19 @@ public class MIPPTooltips {
     public static final TooltipAttachment PIPE_NETWORK_ANALYZER = TooltipAttachment.multilines(
             MIPPItems.PIPE_NETWORK_ANALYZER,
             List.of(
-                    MIPP.text().pipeNetworkAnalyzerHelp1("use"),
-                    MIPP.text().pipeNetworkAnalyzerHelp2("sneak", "use"),
-                    MIPP.text().pipeNetworkAnalyzerHelp3("sneak", "mouse_scroll"),
-                    MIPP.text().pipeNetworkAnalyzerHelp4("sneak", "use")
+                    MIPP.text().networkAnalyzer().help1("use"),
+                    MIPP.text().networkAnalyzer().help2("sneak", "use"),
+                    MIPP.text().networkAnalyzer().help3("sneak", "mouse_scroll"),
+                    MIPP.text().networkAnalyzer().help4("sneak", "use")
             )
     );
 
     public static final TooltipAttachment ELECTRIC_PROSPECTOR = TooltipAttachment.multilines(
             MIPPItems.ELECTRIC_PROSPECTOR,
             List.of(
-                    MIPP.text().electricProspectorHelp1("use"),
-                    MIPP.text().electricProspectorHelp2("sneak", "use"),
-                    MIPP.text().electricProspectorHelp3("use")
+                    MIPP.text().prospector().help1("use"),
+                    MIPP.text().prospector().help2("sneak", "use"),
+                    MIPP.text().prospector().help3("use")
 
             )
     );

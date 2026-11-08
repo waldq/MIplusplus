@@ -43,7 +43,7 @@ public class ChunkLoaderBlock extends MachineBlock {
     }
 
     public int getChunksAmount() {
-        return CableTierUtils.CableNumbers.get(cableTier).chunkAmount();
+        return CableTierUtils.CableNumbers.get(cableTier).fullChunkAmount();
     }
 
     public int getMaxChunksAmount() {

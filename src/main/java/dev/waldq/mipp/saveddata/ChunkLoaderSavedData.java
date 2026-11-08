@@ -107,7 +107,7 @@ public class ChunkLoaderSavedData extends SavedData {
     public int getChunks(UUID playerUUID) {
         return loaders.values().stream()
                 .filter(info -> info.owner().equals(playerUUID))
-                .mapToInt(info -> CableTierUtils.CableNumbers.get(info.tier()).chunkAmount())
+                .mapToInt(info -> CableTierUtils.CableNumbers.get(info.tier()).fullChunkAmount())
                 .sum();
     }
 

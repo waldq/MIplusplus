@@ -27,7 +27,7 @@ public final class PipeScanner {
             processNode(node, blockStat);
         }
 
-        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerEmptyNetwork(), true);
+        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().networkAnalyzer().emptyNetwork(), true);
 
         List<PipeScanPacket.PipeScanEntry> entries = new ArrayList<>(blockStat.size());
         blockStat.forEach((longPos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(BlockPos.of(longPos), totals[0], totals[1])));
@@ -44,7 +44,7 @@ public final class PipeScanner {
 
         processNode(node, blockStat);
 
-        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerEmptyNode(), true);
+        if (blockStat.isEmpty()) player.displayClientMessage(MIPP.text().networkAnalyzer().emptyNode(), true);
 
         List<PipeScanPacket.PipeScanEntry> entries = new ArrayList<>(blockStat.size());
         blockStat.forEach((longPos, totals) -> entries.add(new PipeScanPacket.PipeScanEntry(BlockPos.of(longPos), totals[0], totals[1])));
@@ -69,7 +69,7 @@ public final class PipeScanner {
     }
 
     public static void clear(ServerPlayer player) {
-        player.displayClientMessage(MIPP.text().pipeNetworkAnalyzerReset(), true);
+        player.displayClientMessage(MIPP.text().networkAnalyzer().reset(), true);
         new PipeScanPacket(List.of()).sendToClient(player);
     }
 }

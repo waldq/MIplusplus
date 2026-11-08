@@ -61,7 +61,7 @@ public class ElectricChunkLoaderBlockEntity extends MachineBlockEntity implement
 
         this.energyCost = data.cost();
         this.chunkRadius = data.chunkRadius();
-        this.chunkAmount = data.chunkAmount();
+        this.chunkAmount = data.fullChunkAmount();
     }
 
     @Override

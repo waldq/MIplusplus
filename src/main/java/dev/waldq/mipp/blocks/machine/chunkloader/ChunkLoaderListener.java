@@ -37,7 +37,7 @@ public class ChunkLoaderListener {
             if (current + clb.getChunksAmount() > maxChunkAmount) {
                 if (!event.getLevel().isClientSide()) {
                     player.displayClientMessage(
-                            MIPP.text().chunkLoaderTooMuch(
+                            MIPP.text().chunkLoader().tooMuch(
                                     Component.literal(String.valueOf(current))
                             ),
                             true

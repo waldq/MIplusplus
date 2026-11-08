@@ -76,7 +76,7 @@ public record EnergyGenerationCondition(long amount) implements MachineProcessCo
     @Override
     public void appendDescription(List<Component> lines) {
         var energyAmount = TextHelper.getAmount(amount);
-        lines.add(MIPP.text().energyGenerationTooltip(MIText.Eu.text(energyAmount.digit(), energyAmount.unit())));
+        lines.add(MIPP.text().processConditions().energyGenerationTooltip(MIText.Eu.text(energyAmount.digit(), energyAmount.unit())));
     }
 
     @Override
