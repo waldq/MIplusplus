@@ -49,7 +49,6 @@ public final class MIPPItems {
             "electric_prospector", "Electric Prospector", p -> new ProspectorItemBehavior(p, 3200L),
             MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
             .withCapabilities(MICommonCapabitilies::simpleEnergyItem)
-            .withModelBuilder(CommonModelBuilders::generated)
             .register();
 
     public static final ItemHolder<PipeNetworkAnalyzerItem> PIPE_NETWORK_ANALYZER = create(
