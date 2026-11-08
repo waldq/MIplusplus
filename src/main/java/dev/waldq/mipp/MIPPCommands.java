@@ -45,17 +45,25 @@ public class MIPPCommands {
                         .then(literal("get")
                                 .then(argument("players", gameProfile())
                                         .suggests((context, builder) -> {
-                                            var cache = context.getSource().getServer().getProfileCache();
-                                            if (cache == null) return builder.buildFuture();
-                                            var loaders = ChunkLoaderSavedData.get(context.getSource().getLevel()).getAllLoaders().values().stream()
-                                                    .map(ChunkLoaderSavedData.LoaderInfo::owner)
-                                                    .distinct()
-                                                    .map(cache::get)
-                                                    .flatMap(Optional::stream)
+                                            var loaders = ownerProfiles(context.getSource()).stream()
+                                                    .filter(profile -> !Objects.equals(profile.getName(), profile.getId().toString()))
                                                     .map(GameProfile::getName);
                                             return SharedSuggestionProvider.suggest(loaders, builder);
                                         })
-                                        .executes(context -> getPlayersChunkLoaders(context.getSource(), getGameProfiles(context, "players"))))))
+                                        .executes(context -> getPlayersChunkLoaders(context.getSource(), getGameProfiles(context, "players")))
+                                )
+                                .then(literal("all")
+                                        .executes(context -> {
+                                            var profiles = ownerProfiles(context.getSource());
+                                            if (profiles.isEmpty()) {
+                                                context.getSource().sendFailure(MIPP.text().chunkLoader().none());
+                                                return 0;
+                                            }
+                                            return getPlayersChunkLoaders(context.getSource(), profiles);
+                                        })
+                                )
+                        )
+                )
         );
     }
 
@@ -110,6 +118,20 @@ public class MIPPCommands {
 
         targetStack.remove(MIPPComponents.BLOCK_TRACKER);
         return 1;
+    }
+
+    private static List<GameProfile> ownerProfiles(CommandSourceStack source) {
+        var cache = source.getServer().getProfileCache();
+
+        return ChunkLoaderSavedData.get(source.getLevel()).getAllLoaders().values().stream()
+                .map(ChunkLoaderSavedData.LoaderInfo::owner)
+                .distinct()
+                .map(id -> {
+                    var profile = cache == null ? Optional.<GameProfile>empty() : cache.get(id);
+                    return profile.orElseGet(() -> new GameProfile(id, id.toString()));
+                })
+                .toList();
+
     }
 
     private static int getPlayersChunkLoaders(CommandSourceStack source, Collection<GameProfile> players) {

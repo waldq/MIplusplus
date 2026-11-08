@@ -67,6 +67,9 @@ public interface MIPPText {
 
         @LangKey(text = "Click to tp.")
         MutableComponent clickToTp();
+
+        @LangKey(text = "There are no chunk loaders in the world.")
+        MutableComponent none();
     }
 
     interface NetworkAnalyzer {

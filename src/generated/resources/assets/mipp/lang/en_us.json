@@ -64,6 +64,7 @@
   "text.mipp.chunk_loader.info": "Dimension: %s. Coordinates: %s. Tier: %s. Amount: %s.",
   "text.mipp.chunk_loader.line": "----------- %s -----------",
   "text.mipp.chunk_loader.no_loaders": "%s doesn't have any loaders.",
+  "text.mipp.chunk_loader.none": "There are no chunk loaders in the world.",
   "text.mipp.chunk_loader.too_much": "Can't place another loader. You already have %s chunks loaded.",
   "text.mipp.network_analyzer.empty_network": "No inventories are connected to this network",
   "text.mipp.network_analyzer.empty_node": "No inventories are connected to this node.",
