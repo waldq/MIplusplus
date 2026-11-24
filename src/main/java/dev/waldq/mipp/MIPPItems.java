@@ -1,7 +1,9 @@
 package dev.waldq.mipp;
 
+import aztech.modern_industrialization.api.energy.CableTier;
 import com.google.common.collect.Sets;
 
+import dev.waldq.mipp.item.debugjournal.ElectricDebugJournalItem;
 import dev.waldq.mipp.item.pipenetworkanalyzer.PipeNetworkAnalyzerItem;
 import dev.waldq.mipp.item.pospector.ProspectorItemBehavior;
 
@@ -55,6 +57,12 @@ public final class MIPPItems {
             "pipe_network_analyzer", "Pipe Network Analyzer", PipeNetworkAnalyzerItem::new,
             MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
             .withModelBuilder(CommonModelBuilders::generated)
+            .register();
+
+    public static final ItemHolder<ElectricDebugJournalItem> ELECTRIC_DEBUG_JOURNAL = create(
+            "electric_debug_journal", "Electric Debug Journal", p -> new ElectricDebugJournalItem(p, CableTier.HV, 3200L),
+            MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
+            .withCapabilities(MICommonCapabitilies::simpleEnergyItem)
             .register();
 
     public static final ItemHolder<Item> ENERGY_ZAP = create(

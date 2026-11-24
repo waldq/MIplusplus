@@ -8,6 +8,7 @@
     "ItemNetworkNodeItemConnectionMixin",
     "ItemNetworkNodeMixin",
     "ItemSinkHandlerWrapperMixin",
+    "ModularNetworkSideMixin",
     "OreVeinifierMixin",
     "PipeNetworkNodeAccessor"
   ],
