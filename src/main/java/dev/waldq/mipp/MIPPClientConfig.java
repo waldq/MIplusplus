@@ -1,13 +1,15 @@
 package dev.waldq.mipp;
 
-import net.swedz.tesseract.config.annotation.ConfigComment;
-import net.swedz.tesseract.config.annotation.ConfigKey;
-import net.swedz.tesseract.config.annotation.SubSection;
+import net.swedz.tesseract.config.annotation.*;
 
 public interface MIPPClientConfig {
     @ConfigKey
     @SubSection
     PipeNetworkAnalyzer pipeNetworkAnalyzer();
+
+    @ConfigKey
+    @SubSection
+    DebugJournal debugJournal();
 
     interface PipeNetworkAnalyzer {
         @ConfigKey
@@ -16,5 +18,12 @@ public interface MIPPClientConfig {
                 "MI standard outline will be used otherwise."
         })
         default boolean useFullBlockOverlay() { return true; }
+    }
+
+    interface DebugJournal {
+        @ConfigKey
+        @ConfigComment("Maximum buckets (sections, 30 seconds each) shown in the debug journal screen.")
+        @Range.Integer(min = 1, max = 480)
+        default int maxBucketsShown() { return 60; }
     }
 }

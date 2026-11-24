@@ -1,7 +1,7 @@
 package dev.waldq.mipp;
 
 import com.mojang.authlib.GameProfile;
-import dev.waldq.mipp.blocks.machine.utils.CableTierUtils;
+import dev.waldq.mipp.utils.CableTierUtils;
 import dev.waldq.mipp.item.component.BlockTracker;
 import dev.waldq.mipp.item.pospector.ProspectorItemBehavior;
 import dev.waldq.mipp.saveddata.ChunkLoaderSavedData;

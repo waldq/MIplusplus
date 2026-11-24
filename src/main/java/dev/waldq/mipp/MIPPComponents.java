@@ -2,12 +2,14 @@ package dev.waldq.mipp;
 
 import com.mojang.serialization.Codec;
 import dev.waldq.mipp.item.component.BlockTracker;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class MIPPComponents {
@@ -23,6 +25,12 @@ public class MIPPComponents {
     public static final Supplier<DataComponentType<Boolean>> IS_SCANNING = COMPONENTS.registerComponentType(
             "is_scanning",
             builder -> builder.persistent(Codec.BOOL).networkSynchronized(ByteBufCodecs.BOOL)
+    );
+
+    // for the debug journal machine attachments
+    public static final Supplier<DataComponentType<UUID>> UUID = COMPONENTS.registerComponentType(
+            "uuid",
+            builder -> builder.persistent(UUIDUtil.CODEC).networkSynchronized(UUIDUtil.STREAM_CODEC)
     );
 
     public static void init(IEventBus modEventBus) {

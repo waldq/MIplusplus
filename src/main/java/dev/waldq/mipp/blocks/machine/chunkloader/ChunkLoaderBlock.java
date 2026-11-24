@@ -6,7 +6,7 @@ import aztech.modern_industrialization.machines.MachineBlockEntity;
 
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.blocks.machine.component.ChunkLoaderComponent;
-import dev.waldq.mipp.blocks.machine.utils.CableTierUtils;
+import dev.waldq.mipp.utils.CableTierUtils;
 
 import dev.waldq.mipp.saveddata.ChunkLoaderSavedData;
 import net.minecraft.core.BlockPos;

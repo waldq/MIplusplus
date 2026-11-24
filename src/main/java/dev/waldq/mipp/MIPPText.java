@@ -176,6 +176,14 @@ public interface MIPPText {
         @TextSubSection
         States states();
 
+        @WithStyle("red")
+        @LangKey(text = "Not enough energy. Requires %s to show data.")
+        MutableComponent energyNotice(Component energy);
+
+        @WithStyle("red")
+        @LangKey(text = "No machines ticked in the world since the server restart.")
+        MutableComponent noMachines();
+
         interface FilterModes {
             @LangKey(text = "None")
             MutableComponent none();

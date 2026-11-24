@@ -19,7 +19,7 @@ import aztech.modern_industrialization.util.Simulation;
 import aztech.modern_industrialization.util.Tickable;
 import dev.waldq.mipp.blocks.machine.component.ChunkLoaderComponent;
 import dev.waldq.mipp.blocks.machine.component.ElectricChunkLoaderComponent;
-import dev.waldq.mipp.blocks.machine.utils.CableTierUtils;
+import dev.waldq.mipp.utils.CableTierUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.entity.BlockEntityType;

@@ -4,7 +4,7 @@ import aztech.modern_industrialization.api.energy.CableTier;
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPAttachments;
 
-import dev.waldq.mipp.blocks.machine.utils.CableTierUtils;
+import dev.waldq.mipp.utils.CableTierUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;

@@ -1,4 +1,4 @@
-package dev.waldq.mipp.blocks.machine.utils;
+package dev.waldq.mipp.utils;
 
 import aztech.modern_industrialization.api.energy.CableTier;
 
