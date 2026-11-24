@@ -15,6 +15,14 @@ public interface MIPPConfig {
     @SubSection
     ProspectorParameters prospectorPerameters();
 
+    @ConfigKey
+    @SubSection
+    OreGenParameters oreGenParameters();
+
+    @ConfigKey
+    @SubSection
+    DebugJournal debugJournal();
+
     interface ProspectorParameters {
         @ConfigKey
         @ConfigComment("How much energy will ore prospector consume when starting a scan.")
@@ -37,10 +45,6 @@ public interface MIPPConfig {
         default int chunksPerTick() { return 100; }
     }
 
-    @ConfigKey
-    @SubSection
-    OreGenParameters oreGenParameters();
-
     interface OreGenParameters {
         @ConfigKey
         @ConfigComment("Whether to enable vanilla ore veins or not.")
@@ -54,5 +58,20 @@ public interface MIPPConfig {
         @ConfigComment("Chance of a chunk being skipped during ore gen stage.")
         @Range.Integer(min = 1, max = 100)
         default int chunkSkipChance() { return 99; }
+    }
+
+    interface DebugJournal {
+        @ConfigKey
+        @ConfigComment("Max length of the debug journal in buckets (30 seconds).")
+        @Range.Integer(min = 1, max = 480)
+        default int historyLength() { return 60; }
+
+        @ConfigKey
+        @ConfigComment({
+                "Max days the debug journal stores the players' bindings withouth joining the server.",
+                "0 means never deleting such entries."
+        })
+        @Range.Integer(min = 0, max = Integer.MAX_VALUE)
+        default int maxEntryLifeSpan() { return 30; }
     }
 }

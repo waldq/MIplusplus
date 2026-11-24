@@ -173,16 +173,78 @@ public interface MIPPText {
         @TextSubSection
         SortModes sorts();
 
-        interface FilterModes {
+        @TextSubSection
+        States states();
 
+        interface FilterModes {
+            @LangKey(text = "None")
+            MutableComponent none();
+
+            @LangKey(text = "Any problem")
+            MutableComponent anyProblem();
+
+            @LangKey(text = "Working and low energy")
+            MutableComponent workingAndLowEnergy();
+
+            @LangKey(text = "No energy")
+            MutableComponent noEnergy();
         }
 
         interface GroupModes {
+            @LangKey(text = "None")
+            MutableComponent none(); // yes, the third none, so what
 
+            @LangKey(text = "Dimension")
+            MutableComponent dimension();
+
+            @LangKey(text = "State")
+            MutableComponent state();
+
+            @LangKey(text = "Block")
+            MutableComponent block();
         }
 
         interface SortModes {
+            @LangKey(text = "None")
+            MutableComponent none();
 
+            @LangKey(text = "Problem first")
+            MutableComponent problemFirst();
+        }
+
+        interface States {
+            @LangKey(text = "Working")
+            MutableComponent working();
+
+            @LangKey(text = "No data")
+            MutableComponent noData();
+
+            @LangKey(text = "Redstone")
+            MutableComponent redstone();
+
+            @LangKey(text = "Multiple recipes")
+            MutableComponent multipleRecipes();
+
+            @LangKey(text = "Invalid shape")
+            MutableComponent invalidShape();
+
+            @LangKey(text = "Low energy")
+            MutableComponent lowEnergy();
+
+            @LangKey(text = "No energy")
+            MutableComponent noEnergy();
+
+            @LangKey(text = "No recipe")
+            MutableComponent noRecipe();
+
+            @LangKey(text = "Output full")
+            MutableComponent outputFull();
+
+            @LangKey(text = "Condition(s) not met")
+            MutableComponent condition();
+
+            @LangKey(text = "Unknown")
+            MutableComponent unknown();
         }
     }
 }

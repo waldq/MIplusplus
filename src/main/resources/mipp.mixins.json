@@ -3,6 +3,7 @@
   "package": "dev.waldq.mipp.mixins",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "CrafterComponentMixin",
     "ItemNetworkMixin",
     "ItemNetworkNodeItemConnectionMixin",
     "ItemNetworkNodeMixin",
