@@ -24,6 +24,9 @@ public interface MIPPText {
     @TextSubSection
     Prospector prospector();
 
+    @TextSubSection
+    DebugJournal debugJournal();
+
     interface Binds {
         @LangKey(text = "Alt")
         MutableComponent keyAlt();
@@ -158,5 +161,28 @@ public interface MIPPText {
 
         @LangKey(text = "All resources")
         MutableComponent allRes();
+    }
+
+    interface DebugJournal {
+        @TextSubSection
+        FilterModes filters();
+
+        @TextSubSection
+        GroupModes groups();
+
+        @TextSubSection
+        SortModes sorts();
+
+        interface FilterModes {
+
+        }
+
+        interface GroupModes {
+
+        }
+
+        interface SortModes {
+
+        }
     }
 }
