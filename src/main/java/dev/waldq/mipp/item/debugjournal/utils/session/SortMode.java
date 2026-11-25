@@ -6,7 +6,7 @@ import net.minecraft.network.chat.MutableComponent;
 
 import java.util.Comparator;
 
-public enum SortMode {
+public enum SortMode implements ITextOwner{
     NO_SORT((ref1, ref2) -> 0, MIPP.text().debugJournal().sorts().none()),
     PROBLEM_FIRST((ref1, ref2) -> {
         JournalEntry en1 = ref1.entry();

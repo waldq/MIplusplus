@@ -90,6 +90,7 @@
   "text.mipp.debug_journal.states.redstone": "Redstone",
   "text.mipp.debug_journal.states.unknown": "Unknown",
   "text.mipp.debug_journal.states.working": "Working",
+  "text.mipp.debug_journal.work_time": "Total work time: %ss",
   "text.mipp.network_analyzer.empty_network": "No inventories are connected to this network.",
   "text.mipp.network_analyzer.empty_node": "No inventories are connected to this node.",
   "text.mipp.network_analyzer.help_1": "- Press %s on an item pipe block to highlight directly connected inventories.",

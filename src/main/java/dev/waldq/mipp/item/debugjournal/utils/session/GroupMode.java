@@ -20,7 +20,7 @@ import net.minecraft.world.level.block.Blocks;
 
 import java.util.function.Function;
 
-public enum GroupMode {
+public enum GroupMode implements ITextOwner {
     NONE(null, MIPP.text().debugJournal().groups().none()),
     DIMENSION(MachineRow::dimension, MIPP.text().debugJournal().groups().dimension()),
     STATE(MachineRow::getMainHistoryState, MIPP.text().debugJournal().groups().state()),

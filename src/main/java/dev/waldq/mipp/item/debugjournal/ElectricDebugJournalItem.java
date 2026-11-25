@@ -4,16 +4,16 @@ import aztech.modern_industrialization.MIText;
 import aztech.modern_industrialization.api.energy.CableTier;
 import aztech.modern_industrialization.util.TextHelper;
 
-import brachy.modularui.api.drawable.IDrawable;
-import brachy.modularui.api.drawable.Text;
 import brachy.modularui.factory.PlayerInventoryGuiData;
 import brachy.modularui.factory.PlayerInventoryUIFactory;
 import brachy.modularui.screen.ModularPanel;
 import brachy.modularui.screen.ModularScreen;
 import brachy.modularui.screen.UISettings;
+import brachy.modularui.utils.Alignment;
 import brachy.modularui.value.sync.*;
 import brachy.modularui.widget.Widget;
 import brachy.modularui.widgets.ButtonWidget;
+import brachy.modularui.widgets.ScrollingTextWidget;
 import brachy.modularui.widgets.ToggleButton;
 import brachy.modularui.widgets.layout.Flow;
 import brachy.modularui.widgets.menu.DropdownWidget;
@@ -23,11 +23,8 @@ import dev.waldq.mipp.MIPPComponents;
 import dev.waldq.mipp.item.ElectricItem;
 import dev.waldq.mipp.item.IItemUIHolder;
 import dev.waldq.mipp.item.debugjournal.gui.JournalWidget;
-import dev.waldq.mipp.item.debugjournal.utils.session.JournalSession;
+import dev.waldq.mipp.item.debugjournal.utils.session.*;
 import dev.waldq.mipp.item.debugjournal.utils.MachineRow;
-import dev.waldq.mipp.item.debugjournal.utils.session.FilterMode;
-import dev.waldq.mipp.item.debugjournal.utils.session.GroupMode;
-import dev.waldq.mipp.item.debugjournal.utils.session.SortMode;
 import dev.waldq.mipp.utils.CableTierUtils;
 
 import io.netty.buffer.ByteBuf;
@@ -38,7 +35,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 import static dev.waldq.mipp.item.debugjournal.utils.session.JournalSession.getRefs;
@@ -131,44 +127,15 @@ public class ElectricDebugJournalItem extends ElectricItem implements IItemUIHol
         return ModularPanel.defaultPanel("electric_debug_journal", 500, 300)
                 .padding(4)
                 .child(Flow.col()
+                        .childPadding(4)
+                        .child(createModeButtons(
+                                filterValue,
+                                sortValue,
+                                groupModeValue
+                        ).height(18))
                         .child(journalWidget
                                 .expanded()
                         )
-                        .child(Flow.row()
-                                .widthRel(1f)
-                                .coverChildrenHeight()
-                                .wrap()
-                                .children(
-                                        Arrays.asList(MachineState.values), this::createStateEntry
-                                )
-                        )
-                )
-                .child(new DropdownWidget<>("groupMenu", GroupMode.class)
-                        .size(110, 18)
-                        .top(-14).leftRelAnchor(0f, 1f)
-                        .decoration()
-                        .options(GroupMode.values)
-                        .optionToWidget((m, b) -> Text.comp(m.getText()).asWidget().center())
-                        .value(groupModeValue)
-                        .excludeAreaInRecipeViewer()
-                )
-                .child(new DropdownWidget<>("sortMenu", SortMode.class)
-                        .size(110, 18)
-                        .top(4).leftRelAnchor(0f, 1f)
-                        .decoration()
-                        .options(SortMode.values)
-                        .optionToWidget((m, b) -> Text.comp(m.getText()).asWidget().center())
-                        .value(sortValue)
-                        .excludeAreaInRecipeViewer()
-                )
-                .child(new DropdownWidget<>("filterMenu", FilterMode.class)
-                        .size(110, 18)
-                        .top(22).leftRelAnchor(0f, 1f)
-                        .decoration()
-                        .options(FilterMode.values)
-                        .optionToWidget((m, b) -> Text.comp(m.getText()).asWidget().center())
-                        .value(filterValue)
-                        .excludeAreaInRecipeViewer()
                 )
                 .child(new ToggleButton()
                         .top(76).leftRelAnchor(0f, 1f)
@@ -187,14 +154,29 @@ public class ElectricDebugJournalItem extends ElectricItem implements IItemUIHol
 
     }
 
-    private Widget<Flow> createStateEntry(MachineState state) {
-        IDrawable stateSquare = (ctx, x, y, w, h, theme) -> {
-            ctx.getGraphics().fill(x, y, x + w, y + h, state.color());
-        };
+    private Widget<Flow> createModeButtons(
+            EnumSyncValue<FilterMode> filterValue,
+            EnumSyncValue<SortMode> sortValue,
+            EnumSyncValue<GroupMode> groupModeValue
+    ) {
         return Flow.row()
-                .size(100, 10)
                 .childPadding(4)
-                .child(stateSquare.asWidget().size(8))
-                .child(Text.comp(state.text()).asWidget());
+                .child(createDropDownWidget(FilterMode.class, filterValue, "filterMenu"))
+                .child(createDropDownWidget(SortMode.class, sortValue, "sortMenu"))
+                .child(createDropDownWidget(GroupMode.class, groupModeValue, "groupMenu"));
+    }
+
+    private <T extends Enum<T> & ITextOwner> DropdownWidget createDropDownWidget(Class<T> e, EnumSyncValue<T> syncValue, String name) {
+        return new DropdownWidget<>(name, e)
+                .size(110, 18)
+                .decoration()
+                .options(e.getEnumConstants())
+                .optionToWidget((m, b) -> new ScrollingTextWidget(m.getText())
+                        .size(110, 18)
+                        .textAlign(Alignment.Center)
+                        .verticalCenter()
+                )
+                .value(syncValue)
+                .excludeAreaInRecipeViewer();
     }
 }

@@ -7,7 +7,7 @@ import net.minecraft.network.chat.MutableComponent;
 
 import java.util.function.Predicate;
 
-public enum FilterMode {
+public enum FilterMode implements ITextOwner {
     NONE(ref -> true, MIPP.text().debugJournal().filters().none()),
     ANY_PROBLEM(ref -> {
         JournalEntry entry = ref.entry();

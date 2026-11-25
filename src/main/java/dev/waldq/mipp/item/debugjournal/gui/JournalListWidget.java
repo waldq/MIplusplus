@@ -4,17 +4,18 @@ import brachy.modularui.api.drawable.IDrawable;
 import brachy.modularui.api.drawable.Text;
 import brachy.modularui.api.widget.Interactable;
 import brachy.modularui.drawable.ItemDrawable;
+import brachy.modularui.drawable.Rectangle;
+import brachy.modularui.screen.RichTooltip;
 import brachy.modularui.screen.viewport.GuiContext;
 import brachy.modularui.theme.WidgetTheme;
 import brachy.modularui.utils.Alignment;
 import brachy.modularui.value.sync.GenericListSyncHandler;
 import brachy.modularui.widget.ParentWidget;
 import brachy.modularui.widget.Widget;
-import brachy.modularui.widgets.ButtonWidget;
-import brachy.modularui.widgets.ListWidget;
-import brachy.modularui.widgets.TextWidget;
+import brachy.modularui.widgets.*;
 import brachy.modularui.widgets.layout.Flow;
 
+import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPClient;
 import dev.waldq.mipp.item.debugjournal.MachineState;
 import dev.waldq.mipp.item.debugjournal.utils.MachineRow;
@@ -23,7 +24,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
-import java.util.List;
+import java.util.*;
 import java.util.function.Supplier;
 
 public class JournalListWidget extends ParentWidget<JournalListWidget> implements Interactable {
@@ -73,6 +74,7 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
         if (expand) list.heightRelOffset(1f, -MIDDLE_ROW_HEIGHT);
 
         Flow middleRow = Flow.row()
+                .childPadding(4)
                 .widthRel(1f)
                 .height(MIDDLE_ROW_HEIGHT);
         middleRow.child(createPageButtons()
@@ -134,6 +136,16 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
             MachineRow r = row(i);
             if (r != null) ctx.getGraphics().fill(x, y, x + w, y + h, MachineState.values[r.state()].color());
         };
+        HistoryBarDrawable history = new HistoryBarDrawable(
+                () -> {
+                    MachineRow r = row(i);
+                    return r == null ? new byte[0] : r.history();
+                },
+                () -> {
+                    MachineRow r = row(i);
+                    return r == null ? new short[0] : r.workTicks();
+                }
+        );
 
         return new ButtonWidget<>()
                 .widthRel(1f).height(20)
@@ -150,14 +162,17 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
                                     return r == null ? Component.empty() : r.machine().getName();
                                 }).asWidget().width(140))
                                 .child(stateSquare.asWidget().size(8))
-                                .child(Text.dynamic(() -> {
+                                .child(new ScrollingTextWidget(Text.dynamic(() -> {
                                     MachineRow r = row(i);
                                     return r == null ? Component.empty() : MachineState.values[r.state()].text();
-                                }).asWidget().width(90))
-                                .child(new HistoryBarDrawable(() -> {
-                                    MachineRow r = row(i);
-                                    return r == null ? new byte[0] : r.history();
-                                }).asWidget().expanded().height(8))
+                                })).size(90, 16))
+                                .child(history
+                                        .asWidget()
+                                        .expanded()
+                                        .height(8)
+                                        .tooltipAutoUpdate(true)
+                                        .tooltipDynamic(history::tooltip)
+                                )
 
                 );
     }
@@ -209,9 +224,61 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
 
     public static class HistoryBarDrawable implements IDrawable {
         private final Supplier<byte[]> historySupplier;
+        private final Supplier<short[]> workTicksSupplier;
 
-        public HistoryBarDrawable(Supplier<byte[]> historySupplier) {
+        private Map<MachineState, Integer> statesWithCounts = new HashMap<>();
+
+        public HistoryBarDrawable(Supplier<byte[]> historySupplier, Supplier<short[]> workTicksSupplier) {
             this.historySupplier = historySupplier;
+            this.workTicksSupplier = workTicksSupplier;
+        }
+
+        private void tooltip(RichTooltip tooltip) {
+            updateStateWithCounts();
+            if (statesWithCounts.isEmpty()) return;
+
+            tooltip.addLine(MIPP.text().debugJournal().workTime(sum(workTicksSupplier.get()))); //TODO
+
+            statesWithCounts.entrySet().stream()
+                    .sorted(Comparator.comparing(
+                            entry -> entry.getKey().text().getString(),
+                            String.CASE_INSENSITIVE_ORDER
+                    ))
+                    .forEach(entry -> {
+                        MachineState state = entry.getKey();
+
+                        tooltip.addDrawable(new Rectangle()
+                                .color(entry.getKey().color())
+                                .asIcon()
+                                .size(8)
+                        )
+                                .add(Component.literal(" "))
+                                .add(state.text())
+                                .newLine();
+
+                    });
+        }
+
+        private void updateStateWithCounts() {
+            var history = historySupplier.get();
+            var workTicks = workTicksSupplier.get();
+            if (history.length != workTicks.length) return;
+
+            var length = history.length;
+            statesWithCounts.clear();
+
+            for (int i = 0; i < length; i++) {
+                var state = MachineState.values[history[i]];
+                statesWithCounts.merge(state, (int) workTicks[i], Integer::sum);
+            }
+        }
+
+        private Component sum(short[] workTicks) {
+            int res = 0;
+            for (short bucket : workTicks) {
+                res += bucket;
+            }
+            return Component.literal(String.valueOf(res / 20));
         }
 
         @Override

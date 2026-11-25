@@ -184,6 +184,9 @@ public interface MIPPText {
         @LangKey(text = "No machines ticked in the world since the server restart.")
         MutableComponent noMachines();
 
+        @LangKey(text = "Total work time: %ss")
+        MutableComponent workTime(Component time);
+
         interface FilterModes {
             @LangKey(text = "None")
             MutableComponent none();
