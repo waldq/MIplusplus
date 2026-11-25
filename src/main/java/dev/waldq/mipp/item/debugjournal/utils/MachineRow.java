@@ -1,5 +1,6 @@
 package dev.waldq.mipp.item.debugjournal.utils;
 
+import aztech.modern_industrialization.api.energy.CableTier;
 import dev.waldq.mipp.item.debugjournal.MachineState;
 import io.netty.buffer.ByteBuf;
 
@@ -20,6 +21,8 @@ public record MachineRow(
         ResourceKey<Level> dimension,
         long pos,
         Block machine,
+        CableTier cableTier,
+        boolean isOverdriving,
         byte state,
         byte[] history,
         byte mainHistoryState,
@@ -30,6 +33,8 @@ public record MachineRow(
                 dimension,
                 pos,
                 Blocks.AIR,
+                null,
+                false,
                 (byte) MachineState.NO_DATA.ordinal(),
                 new byte[0],
                 (byte) MachineState.NO_DATA.ordinal(),
@@ -49,17 +54,24 @@ public record MachineRow(
             }
     );
 
+    private static final StreamCodec<ByteBuf, CableTier> CABLE_TIER_STREAM_CODEC = ByteBufCodecs.STRING_UTF8.map(
+                    name -> name.isEmpty() ? null : CableTier.getTier(name),
+                    tier -> tier == null ? "" : tier.name
+            );
+
     public static final StreamCodec<ByteBuf, MachineRow> STREAM_CODEC = new StreamCodec<ByteBuf, MachineRow>() {
         @Override
         public MachineRow decode(ByteBuf buf) {
             ResourceKey<Level> dimension = ResourceKey.streamCodec(Registries.DIMENSION).decode(buf);
             long pos                     = ByteBufCodecs.VAR_LONG.decode(buf);
             Block machine                = ByteBufCodecs.idMapper(BuiltInRegistries.BLOCK).decode(buf);
+            CableTier cableTier          = CABLE_TIER_STREAM_CODEC.decode(buf);
+            boolean isOverdriving        = ByteBufCodecs.BOOL.decode(buf);
             byte state                   = ByteBufCodecs.BYTE.decode(buf);
             byte[] history               = ByteBufCodecs.BYTE_ARRAY.decode(buf);
             byte mainHistoryState        = ByteBufCodecs.BYTE.decode(buf);
             short[] workTicks            = SHORT_ARRAY_STREAM_CODEC.decode(buf);
-            return new MachineRow(dimension, pos, machine, state, history, mainHistoryState, workTicks);
+            return new MachineRow(dimension, pos, machine, cableTier, isOverdriving, state, history, mainHistoryState, workTicks);
         }
 
         @Override
@@ -67,6 +79,8 @@ public record MachineRow(
             ResourceKey.streamCodec(Registries.DIMENSION).encode(buf, row.dimension());
             ByteBufCodecs.VAR_LONG.encode(buf, row.pos());
             ByteBufCodecs.idMapper(BuiltInRegistries.BLOCK).encode(buf, row.machine());
+            CABLE_TIER_STREAM_CODEC.encode(buf, row.cableTier());
+            ByteBufCodecs.BOOL.encode(buf, row.isOverdriving());
             ByteBufCodecs.BYTE.encode(buf, row.state());
             ByteBufCodecs.BYTE_ARRAY.encode(buf, row.history());
             ByteBufCodecs.BYTE.encode(buf, row.mainHistoryState());
@@ -99,6 +113,8 @@ public record MachineRow(
         return dimension.equals(other.dimension())
                 && pos == other.pos()
                 && machine == other.machine()
+                && cableTier == other.cableTier()
+                && isOverdriving == other.isOverdriving()
                 && state == other.state()
                 && mainHistoryState == other.mainHistoryState()
                 && Arrays.equals(history, other.history())
@@ -107,7 +123,15 @@ public record MachineRow(
 
     @Override
     public int hashCode() {
-        int h = Objects.hash(dimension, pos, machine, state, mainHistoryState);
+        int h = Objects.hash(
+                dimension,
+                pos,
+                machine,
+                cableTier,
+                isOverdriving,
+                state,
+                mainHistoryState
+        );
         h = 31 * h + Arrays.hashCode(history);
         h = 31 * h + Arrays.hashCode(workTicks);
         return h;

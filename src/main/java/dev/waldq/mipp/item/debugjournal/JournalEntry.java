@@ -1,5 +1,6 @@
 package dev.waldq.mipp.item.debugjournal;
 
+import aztech.modern_industrialization.api.energy.CableTier;
 import dev.waldq.mipp.MIPP;
 import net.minecraft.world.level.block.Block;
 import org.apache.commons.lang3.ArrayUtils;
@@ -15,20 +16,31 @@ public class JournalEntry {
     @Nullable
     private final UUID owner;
     private final Block machine;
+    @Nullable
+    private CableTier cableTier;
+    private boolean isOverdriving;
 
     private byte state;
     private final short[] counts = new short[MachineState.values.length];
     private byte curMainStateIndex;
     private final byte[] history = new byte[HISTORY_LENGTH];
     private byte mainHistoryState = (byte) MachineState.NO_DATA.ordinal();
-    private final short[] workTicks = new short[HISTORY_LENGTH]; // TODO either use or remove it entirely
+    private final short[] workTicks = new short[HISTORY_LENGTH];
     private int head;
     private long bucketEnd;
     private boolean isValid = true;
 
-    public JournalEntry(@Nullable UUID owner, Block machine, long currentTick) {
+    public JournalEntry(
+            @Nullable UUID owner,
+            Block machine,
+            @Nullable CableTier cableTier,
+            boolean isOverdriving,
+            long currentTick
+    ) {
         this.owner = owner;
         this.machine = machine;
+        this.cableTier = cableTier;
+        this.isOverdriving = isOverdriving;
         this.bucketEnd = currentTick + BUCKET_LENGTH;
         Arrays.fill(history, (byte) MachineState.NO_DATA.ordinal());
     }
@@ -90,6 +102,22 @@ public class JournalEntry {
 
     public Block getMachine() {
         return machine;
+    }
+
+    public @Nullable CableTier getCableTier() {
+        return cableTier;
+    }
+
+    public void setCableTier(@Nullable CableTier cableTier) {
+        this.cableTier = cableTier;
+    }
+
+    public boolean isOverdriving() {
+        return isOverdriving;
+    }
+
+    public void setOverdriving(boolean isOverdriving) {
+        this.isOverdriving = isOverdriving;
     }
 
     public MachineState getState() {

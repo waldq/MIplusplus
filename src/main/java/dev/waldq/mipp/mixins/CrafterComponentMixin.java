@@ -1,5 +1,7 @@
 package dev.waldq.mipp.mixins;
 
+import aztech.modern_industrialization.api.energy.CableTier;
+import aztech.modern_industrialization.api.energy.CableTierHolder;
 import aztech.modern_industrialization.machines.MachineBlockEntity;
 import aztech.modern_industrialization.machines.components.CrafterComponent;
 import aztech.modern_industrialization.util.Simulation;
@@ -139,11 +141,21 @@ public class CrafterComponentMixin {
             entry = byPos.get(pos);
 
             if (entry == null || !entry.isValid() || entry.getMachine() != block) {
-                entry = new JournalEntry(mipp$machine.placedBy.placerId, block, currentTick);
+                CableTier cableTier = mipp$machine instanceof CableTierHolder holder
+                        ? holder.getCableTier()
+                        : null;
+                entry = new JournalEntry(
+                        mipp$machine.placedBy.placerId,
+                        block,
+                        cableTier,
+                        false,
+                        currentTick
+                );
                 byPos.put(pos, entry);
             }
             mipp$entry = entry;
         }
+        entry.setOverdriving(behavior.isOverdriving());
 
         int state;
 

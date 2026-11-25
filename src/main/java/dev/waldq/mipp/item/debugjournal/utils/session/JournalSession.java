@@ -187,6 +187,8 @@ public class JournalSession {
                     dimension,
                     pos,
                     entry.getMachine(),
+                    entry.getCableTier(),
+                    entry().isOverdriving(),
                     (byte) entry.getState().ordinal(),
                     entry.getHistory(),
                     (byte) entry.getMainHistoryState().ordinal(),
