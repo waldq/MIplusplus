@@ -59,7 +59,7 @@ public final class PipeScanRenderer {
     private static List<Visible> collect(Vec3 camPos) {
         List<ClientPipeScan.Label> labels = ClientPipeScan.labels;
         double distance = PipeNetworkAnalyzerItem.scanRenderDistance;
-        int maxLabels = 200;
+        int maxLabels = 200; //TODO
 
         boolean dataChanged = labels != cachedSourceLabels;
         boolean settingsChanged = distance != cachedDistance || maxLabels != cachedMaxLabels;
@@ -107,7 +107,7 @@ public final class PipeScanRenderer {
         renderText(event, mc, camera, camPos, visible);
     }
 
-        private static void renderOverlays(RenderLevelStageEvent event, Camera camera, Vec3 camPos, List<Visible> visible) {
+    private static void renderOverlays(RenderLevelStageEvent event, Camera camera, Vec3 camPos, List<Visible> visible) {
         RenderSystem.clear(256, Minecraft.ON_OSX);
 
         PoseStack matrices = event.getPoseStack();

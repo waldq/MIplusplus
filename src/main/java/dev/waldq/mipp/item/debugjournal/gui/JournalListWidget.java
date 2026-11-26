@@ -17,6 +17,7 @@ import brachy.modularui.widgets.layout.Flow;
 
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPClient;
+import dev.waldq.mipp.client.ClientMachineOverlays;
 import dev.waldq.mipp.item.debugjournal.MachineState;
 import dev.waldq.mipp.item.debugjournal.utils.MachineRow;
 
@@ -174,7 +175,12 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
                                         .tooltipDynamic(history::tooltip)
                                 )
 
-                );
+                )
+                .onMousePressed((context, button) -> {
+                    var row = row(i);
+                    if (row == null) return false;
+                    return ClientMachineOverlays.addOrRemoveMachine(row);
+                });
     }
 
     private Widget<Flow> createPageButtons() {

@@ -25,5 +25,12 @@ public interface MIPPClientConfig {
         @ConfigComment("Maximum buckets (sections, 30 seconds each) shown in the debug journal screen.")
         @Range.Integer(min = 1, max = 480)
         default int maxBucketsShown() { return 60; }
+
+        @ConfigKey
+        @ConfigComment({
+                "Whether to use full block overlay for machines or not.",
+                "MI standard outline will be used otherwise."
+        })
+        default boolean useFullBlockOverlay() { return true; }
     }
 }
