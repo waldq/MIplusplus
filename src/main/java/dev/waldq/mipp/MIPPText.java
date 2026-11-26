@@ -176,6 +176,9 @@ public interface MIPPText {
         @TextSubSection
         States states();
 
+        @TextSubSection
+        Expanded expanded();
+
         @WithStyle("red")
         @LangKey(text = "Not enough energy. Requires %s to show data.")
         MutableComponent energyNotice(Component energy);
@@ -186,6 +189,9 @@ public interface MIPPText {
 
         @LangKey(text = "Total work time: %ss")
         MutableComponent workTime(Component time);
+
+        @LangKey(text = "Machines: %s")
+        MutableComponent machinesAmount(Component amount);
 
         interface FilterModes {
             @LangKey(text = "None")
@@ -256,6 +262,23 @@ public interface MIPPText {
 
             @LangKey(text = "Unknown")
             MutableComponent unknown();
+        }
+
+        interface Expanded {
+            @LangKey(text = "XYZ: %s")
+            MutableComponent blockPos(Component pos);
+
+            @LangKey(text = "Dimension: %s")
+            MutableComponent dimension(Component dimension);
+
+            @LangKey(text = "Energy tier: %s")
+            MutableComponent energyTier(Component tier);
+
+            @LangKey(text = "Overdriving: %s")
+            MutableComponent overdriving(Component isOverdriving);
+
+            @LangKey(text = "Highlight in the world")
+            MutableComponent highlight();
         }
     }
 }

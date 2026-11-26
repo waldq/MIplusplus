@@ -1,13 +1,7 @@
 package dev.waldq.mipp.item.debugjournal.gui;
 
-import brachy.modularui.api.drawable.IDrawable;
 import brachy.modularui.api.drawable.Text;
-import brachy.modularui.api.widget.Interactable;
-import brachy.modularui.drawable.ItemDrawable;
-import brachy.modularui.drawable.Rectangle;
-import brachy.modularui.screen.RichTooltip;
-import brachy.modularui.screen.viewport.GuiContext;
-import brachy.modularui.theme.WidgetTheme;
+import brachy.modularui.drawable.GuiTextures;
 import brachy.modularui.utils.Alignment;
 import brachy.modularui.value.sync.GenericListSyncHandler;
 import brachy.modularui.widget.ParentWidget;
@@ -15,20 +9,15 @@ import brachy.modularui.widget.Widget;
 import brachy.modularui.widgets.*;
 import brachy.modularui.widgets.layout.Flow;
 
-import dev.waldq.mipp.MIPP;
-import dev.waldq.mipp.MIPPClient;
-import dev.waldq.mipp.client.ClientMachineOverlays;
-import dev.waldq.mipp.item.debugjournal.MachineState;
 import dev.waldq.mipp.item.debugjournal.utils.MachineRow;
 
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
 import java.util.*;
 import java.util.function.Supplier;
 
-public class JournalListWidget extends ParentWidget<JournalListWidget> implements Interactable {
+public class JournalListWidget extends ParentWidget<JournalListWidget> {
     private static final int PAGE_LENGTH = 30;
     private static final int GROUPED_LIST_LENGTH = 8;
 
@@ -38,7 +27,6 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
     private final Supplier<List<Integer>> indicesSupplier; // or indexes, me no english sorry
     private final boolean expand;
     private int lastIndicesSize;
-    private int lastPageLength = -1;
 
     private final MachineListWidget list;
     private int pageIndex = 0;
@@ -69,6 +57,7 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
             col.sizeRel(1f);
         } else {
             col.coverChildrenHeight();
+            list.coverChildrenHeight();
         }
 
         col.child(list.widthRel(1f));
@@ -102,16 +91,12 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
         pageIndex = Math.clamp(pageIndex, 0, maxPage);
 
         int visibleCount = Math.min(visibleListLength, indices.size() - pageIndex * visibleListLength);
-        if (visibleCount == lastPageLength) return;
 
-        lastPageLength = visibleCount;
         list.removeAll();
-        if (!expand) {
-            list.height(visibleCount * 20);
-        }
 
         for (int i = 0; i < visibleCount; i++) {
-            list.child(createMachineRowEntry(i));
+            int ind = i;
+            list.child(new MachineRowWidget(() -> row(ind)));
         }
     }
 
@@ -125,62 +110,6 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
         List<MachineRow> rows = rowHandler.getValue();
 
         return rowIndex >= 0 && rowIndex < rows.size() ? rows.get(rowIndex) : null;
-    }
-
-    private ButtonWidget<?> createMachineRowEntry(int i) {
-        ItemDrawable item = new ItemDrawable();
-        IDrawable icon = (ctx, x, y, w, h, theme) -> {
-            MachineRow r = row(i);
-            if (r != null) item.item(r.machine()).draw(ctx, x, y, w, h, theme);
-        };
-        IDrawable stateSquare = (ctx, x, y, w, h, theme) -> {
-            MachineRow r = row(i);
-            if (r != null) ctx.getGraphics().fill(x, y, x + w, y + h, MachineState.values[r.state()].color());
-        };
-        HistoryBarDrawable history = new HistoryBarDrawable(
-                () -> {
-                    MachineRow r = row(i);
-                    return r == null ? new byte[0] : r.history();
-                },
-                () -> {
-                    MachineRow r = row(i);
-                    return r == null ? new short[0] : r.workTicks();
-                }
-        );
-
-        return new ButtonWidget<>()
-                .widthRel(1f).height(20)
-                .setEnabledIf(w -> row(i) != null)
-                .child(
-                        Flow.row()
-                                .sizeRel(1f)
-                                .childPadding(4)
-                                .crossAxisAlignment(Alignment.CrossAxis.CENTER)
-                                .padding(4, 0, 0, 0)
-                                .child(icon.asWidget().size(16))
-                                .child(Text.dynamic(() -> {
-                                    MachineRow r = row(i);
-                                    return r == null ? Component.empty() : r.machine().getName();
-                                }).asWidget().width(140))
-                                .child(stateSquare.asWidget().size(8))
-                                .child(new ScrollingTextWidget(Text.dynamic(() -> {
-                                    MachineRow r = row(i);
-                                    return r == null ? Component.empty() : MachineState.values[r.state()].text();
-                                })).size(90, 16))
-                                .child(history
-                                        .asWidget()
-                                        .expanded()
-                                        .height(8)
-                                        .tooltipAutoUpdate(true)
-                                        .tooltipDynamic(history::tooltip)
-                                )
-
-                )
-                .onMousePressed((context, button) -> {
-                    var row = row(i);
-                    if (row == null) return false;
-                    return ClientMachineOverlays.addOrRemoveMachine(row);
-                });
     }
 
     private Widget<Flow> createPageButtons() {
@@ -225,91 +154,6 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> implement
         @Override
         public boolean removeAll() {
             return super.removeAll();
-        }
-    }
-
-    public static class HistoryBarDrawable implements IDrawable {
-        private final Supplier<byte[]> historySupplier;
-        private final Supplier<short[]> workTicksSupplier;
-
-        private Map<MachineState, Integer> statesWithCounts = new HashMap<>();
-
-        public HistoryBarDrawable(Supplier<byte[]> historySupplier, Supplier<short[]> workTicksSupplier) {
-            this.historySupplier = historySupplier;
-            this.workTicksSupplier = workTicksSupplier;
-        }
-
-        private void tooltip(RichTooltip tooltip) {
-            updateStateWithCounts();
-            if (statesWithCounts.isEmpty()) return;
-
-            tooltip.addLine(MIPP.text().debugJournal().workTime(sum(workTicksSupplier.get()))); //TODO
-
-            statesWithCounts.entrySet().stream()
-                    .sorted(Comparator.comparing(
-                            entry -> entry.getKey().text().getString(),
-                            String.CASE_INSENSITIVE_ORDER
-                    ))
-                    .forEach(entry -> {
-                        MachineState state = entry.getKey();
-
-                        tooltip.addDrawable(new Rectangle()
-                                .color(entry.getKey().color())
-                                .asIcon()
-                                .size(8)
-                        )
-                                .add(Component.literal(" "))
-                                .add(state.text())
-                                .newLine();
-
-                    });
-        }
-
-        private void updateStateWithCounts() {
-            var history = historySupplier.get();
-            var workTicks = workTicksSupplier.get();
-            if (history.length != workTicks.length) return;
-
-            var length = history.length;
-            statesWithCounts.clear();
-
-            for (int i = 0; i < length; i++) {
-                var state = MachineState.values[history[i]];
-                statesWithCounts.merge(state, (int) workTicks[i], Integer::sum);
-            }
-        }
-
-        private Component sum(short[] workTicks) {
-            int res = 0;
-            for (short bucket : workTicks) {
-                res += bucket;
-            }
-            return Component.literal(String.valueOf(res / 20));
-        }
-
-        @Override
-        public void draw(GuiContext context, int x, int y, int width, int height, WidgetTheme widgetTheme) {
-            byte[] history = historySupplier.get();
-            int n = Math.min(history.length, MIPPClient.config().debugJournal().maxBucketsShown());
-            if (n == 0) return;
-
-            GuiGraphics graphics = context.getGraphics();
-            int gap = 1;
-            int segmentWidth = (width - (n - 1) * gap) / n;
-
-            if (segmentWidth <= 0) return;
-
-            int x0 = x;
-
-            for (int i = 0; i < n; i++) {
-                graphics.fill(
-                        x0, y,
-                        x0 + segmentWidth, y + height,
-                        MachineState.values[history[i]].color()
-                );
-
-                x0 += segmentWidth + gap;
-            }
         }
     }
 }
