@@ -52,9 +52,9 @@ public class MachineGroupWidget extends ParentWidget<MachineGroupWidget> impleme
                 .child(Flow.row()
                         .child(header)
                         .child(
-                                Text.comp(MIPP.text().debugJournal().machinesAmount(
+                                Text.dynamic(() -> MIPP.text().debugJournal().machinesAmount(
                                                 Component.literal(
-                                                        String.valueOf(clearableList.getTypeChildren().size())
+                                                        String.valueOf(indicesSupplier.get().size())
                                                 )
                                 )).asWidget()
                         )

@@ -28,8 +28,6 @@ public class CrafterComponentMixin {
     @Shadow
     private boolean matchesMultipleRecipes;
     @Shadow
-    private long usedEnergy;
-    @Shadow
     @Final
     private CrafterComponent.Behavior behavior;
     @Shadow
@@ -105,7 +103,7 @@ public class CrafterComponentMixin {
             ),
             remap = false
     )
-    private boolean mipp$resetOutputsBlocked(boolean original) {
+    private boolean mipp$resetFlags(boolean original) {
         mipp$outputsBlocked = false;
         mipp$conditionsMatch = true;
         return original;
