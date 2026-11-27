@@ -4,6 +4,8 @@ import aztech.modern_industrialization.MIText;
 import aztech.modern_industrialization.api.energy.CableTier;
 import aztech.modern_industrialization.util.TextHelper;
 
+import brachy.modularui.api.drawable.IDrawable;
+import brachy.modularui.drawable.GuiTextures;
 import brachy.modularui.factory.PlayerInventoryGuiData;
 import brachy.modularui.factory.PlayerInventoryUIFactory;
 import brachy.modularui.screen.ModularPanel;
@@ -23,6 +25,7 @@ import dev.waldq.mipp.MIPPComponents;
 import dev.waldq.mipp.item.ElectricItem;
 import dev.waldq.mipp.item.IItemUIHolder;
 import dev.waldq.mipp.item.debugjournal.gui.JournalWidget;
+import dev.waldq.mipp.item.debugjournal.gui.ModeDropdownWidget;
 import dev.waldq.mipp.item.debugjournal.utils.session.*;
 import dev.waldq.mipp.item.debugjournal.utils.MachineRow;
 import dev.waldq.mipp.utils.CableTierUtils;
@@ -161,22 +164,36 @@ public class ElectricDebugJournalItem extends ElectricItem implements IItemUIHol
     ) {
         return Flow.row()
                 .childPadding(4)
-                .child(createDropDownWidget(FilterMode.class, filterValue, "filterMenu"))
-                .child(createDropDownWidget(SortMode.class, sortValue, "sortMenu"))
-                .child(createDropDownWidget(GroupMode.class, groupModeValue, "groupMenu"));
+                .child(createDropDownWidget(FilterMode.class, filterValue, "filterMenu", GuiTextures.FILTER))
+                .child(createDropDownWidget(SortMode.class, sortValue, "sortMenu", GuiTextures.REVERSE))
+                .child(createDropDownWidget(GroupMode.class, groupModeValue, "groupMenu", GuiTextures.FOLDER));
     }
 
-    private <T extends Enum<T> & ITextOwner> DropdownWidget createDropDownWidget(Class<T> e, EnumSyncValue<T> syncValue, String name) {
-        return new DropdownWidget<>(name, e)
-                .size(110, 18)
+    private <T extends Enum<T> & ITextOwner> DropdownWidget createDropDownWidget(
+            Class<T> e,
+            EnumSyncValue<T> syncValue,
+            String name,
+            IDrawable icon
+    ) {
+        return new ModeDropdownWidget<>(name, e)
+                .size(18)
                 .decoration()
                 .options(e.getEnumConstants())
-                .optionToWidget((m, b) -> new ScrollingTextWidget(m.getText())
-                        .size(110, 18)
+                .optionToWidget((m, b) -> b
+                        ? new IDrawable.DrawableWidget(icon) {
+                            @Override
+                            public boolean canHover() {
+                                return false;
+                            }
+                        }.size(18).center()
+                        : new ScrollingTextWidget(m.getText())
+                        .size(104, 18)
+                        .leftRelAnchor(0.5f, 0.5f)
                         .textAlign(Alignment.Center)
                         .verticalCenter()
                 )
                 .value(syncValue)
+                .tooltipDynamic(r -> r.addLine(syncValue.getValue().getText()))
                 .excludeAreaInRecipeViewer();
     }
 }

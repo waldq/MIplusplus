@@ -123,35 +123,38 @@ public class MachineRowWidget extends ParentWidget<MachineRowWidget> {
                             var row = rowSupplier.get();
                             if (row == null) return false;
                             return ClientMachineOverlays.addOrRemoveMachine(row);
-                        }));
+                        })
+                        .tooltip(r -> r.addLine(MIPP.text().debugJournal().highlights().highlight())));
     }
 
     private Widget<Flow> createExpanded(Supplier<MachineRow> rowSupplier) {
         var j = MIPP.text().debugJournal().expanded();
-        return Flow.col()
+        return Flow.row()
                 .widthRel(1f)
-                .coverChildrenHeight()
-                .childPadding(4)
+                .height(32)
+                .wrap()
+                .crossAxisChildPadding(4)
+                .childPadding(40)
                 .padding(24, 6, 6, 6)
                 .child(new TextWidget<>(() -> {
                     var row = rowSupplier.get();
                     return row == null ? Component.empty()
                             : j.blockPos(Component.literal(GeneralUtils.formatBlockPos(BlockPos.of(row.pos()))));
-                }).widthRel(1f).height(10))
+                }).height(10))
                 .child(new TextWidget<>(() -> {
                     var row = rowSupplier.get();
                     return row == null ? Component.empty()
                             : j.dimension(Component.literal(row.dimension().location().toString()));
-                }).widthRel(1f).height(10))
+                }).height(10))
                 .child(new TextWidget<>(() -> {
                     var row = rowSupplier.get();
-                    return row == null ? Component.empty()
+                    return row == null || row.cableTier() == null ? Component.empty()
                             : j.energyTier(row.cableTier().shortEnglishName());
-                }).widthRel(1f).height(10))
+                }).height(10))
                 .child(new TextWidget<>(() -> {
                     var row = rowSupplier.get();
                     return row == null ? Component.empty()
                             : j.overdriving(Component.literal(String.valueOf(row.isOverdriving())));
-                }).widthRel(1f).height(10));
+                }).height(10));
     }
 }

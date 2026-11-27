@@ -48,7 +48,7 @@ public final class JournalListWidget extends ParentWidget<JournalListWidget> {
         }
 
         list = new MachineListWidget();
-        Flow col = Flow.col().widthRel(1f);
+        Flow col = Flow.col().widthRel(1f).childPadding(4);
 
         if (expand) {
             col.sizeRel(1f);
@@ -58,7 +58,7 @@ public final class JournalListWidget extends ParentWidget<JournalListWidget> {
         }
 
         col.child(list.widthRel(1f));
-        if (expand) list.heightRelOffset(1f, -MIDDLE_ROW_HEIGHT);
+        if (expand) list.heightRelOffset(1f, -(MIDDLE_ROW_HEIGHT + 4));
 
         Flow middleRow = Flow.row()
                 .childPadding(4)

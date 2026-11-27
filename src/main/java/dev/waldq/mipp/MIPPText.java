@@ -179,6 +179,9 @@ public interface MIPPText {
         @TextSubSection
         Expanded expanded();
 
+        @TextSubSection
+        Highlight highlights();
+
         @WithStyle("red")
         @LangKey(text = "Not enough energy. Requires %s to show data.")
         MutableComponent energyNotice(Component energy);
@@ -276,6 +279,11 @@ public interface MIPPText {
 
             @LangKey(text = "Overdriving: %s")
             MutableComponent overdriving(Component isOverdriving);
+        }
+
+        interface Highlight {
+            @LangKey(text = "Highlight all in the world")
+            MutableComponent highlightAll();
 
             @LangKey(text = "Highlight in the world")
             MutableComponent highlight();

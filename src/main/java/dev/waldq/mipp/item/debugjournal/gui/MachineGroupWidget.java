@@ -99,7 +99,8 @@ public class MachineGroupWidget extends ParentWidget<MachineGroupWidget> impleme
                                     .map(all::get)
                                     .toList();
                             return ClientMachineOverlays.addOrRemoveList(group);
-                        }));
+                        })
+                        .tooltip(r -> r.addLine(MIPP.text().debugJournal().highlights().highlightAll())));
     }
 
     @Override
