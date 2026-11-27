@@ -1,7 +1,6 @@
 package dev.waldq.mipp.item.debugjournal.gui;
 
 import brachy.modularui.api.drawable.Text;
-import brachy.modularui.drawable.GuiTextures;
 import brachy.modularui.utils.Alignment;
 import brachy.modularui.value.sync.GenericListSyncHandler;
 import brachy.modularui.widget.ParentWidget;
@@ -17,18 +16,17 @@ import net.minecraft.network.chat.Component;
 import java.util.*;
 import java.util.function.Supplier;
 
-public class JournalListWidget extends ParentWidget<JournalListWidget> {
-    private static final int PAGE_LENGTH = 30;
+public final class JournalListWidget extends ParentWidget<JournalListWidget> {
+    private static final int PAGE_LENGTH = 20;
     private static final int GROUPED_LIST_LENGTH = 8;
-
     private static final int MIDDLE_ROW_HEIGHT = 18;
 
     private final GenericListSyncHandler<ByteBuf, MachineRow> rowHandler;
     private final Supplier<List<Integer>> indicesSupplier; // or indexes, me no english sorry
-    private final boolean expand;
     private int lastIndicesSize;
 
     private final MachineListWidget list;
+    private final List<MachineRow> rows = new ArrayList<>();
     private int pageIndex = 0;
     private final int visibleListLength;
 
@@ -39,7 +37,6 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> {
     ) {
         this.rowHandler = rowHandler;
         this.indicesSupplier = indicesSupplier;
-        this.expand = expand;
         this.lastIndicesSize = indicesSupplier.get().size();
 
         this.visibleListLength = expand ? PAGE_LENGTH : GROUPED_LIST_LENGTH;
@@ -92,10 +89,12 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> {
 
         int visibleCount = Math.min(visibleListLength, indices.size() - pageIndex * visibleListLength);
 
+        rows.clear();
         list.removeAll();
 
         for (int i = 0; i < visibleCount; i++) {
             int ind = i;
+            rows.add(row(ind));
             list.child(new MachineRowWidget(() -> row(ind)));
         }
     }
@@ -150,7 +149,11 @@ public class JournalListWidget extends ParentWidget<JournalListWidget> {
                         .excludeAreaInRecipeViewer());
     }
 
-    private static class MachineListWidget extends ListWidget<Widget<?>, MachineListWidget> {
+    public List<MachineRow> getRows() {
+        return rows;
+    }
+
+    private static class MachineListWidget extends ListWidget<MachineRowWidget, MachineListWidget> {
         @Override
         public boolean removeAll() {
             return super.removeAll();

@@ -2,13 +2,12 @@ package dev.waldq.mipp.client;
 
 import dev.waldq.mipp.item.debugjournal.MachineState;
 import dev.waldq.mipp.item.debugjournal.utils.MachineRow;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.Level;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class ClientMachineOverlays {
     public static class Overlay {
@@ -43,6 +42,32 @@ public class ClientMachineOverlays {
 
         if (overlays.contains(overlay)) return overlays.remove(overlay);
         return overlays.add(overlay);
+    }
+
+    public static boolean addOrRemoveList(List<MachineRow> rows) {
+        var level = Minecraft.getInstance().level;
+        if (level == null) return false;
+
+        dimension = level.dimension();
+        var currentOverlays = rows.stream()
+                .filter(row -> row.dimension().equals(dimension))
+                .map(row ->
+                        new Overlay(
+                                BlockPos.of(row.pos()),
+                                MachineState.values[row.state()]
+                ))
+                .toList();
+        if (currentOverlays.isEmpty()) return false;
+
+        if (overlays.containsAll(currentOverlays)) {
+            currentOverlays.forEach(overlays::remove);
+        } else {
+            currentOverlays.forEach(o -> {
+                overlays.remove(o);
+                overlays.add(o);
+            });
+        }
+        return true;
     }
 
     public static boolean addMachine(Overlay overlay) {
