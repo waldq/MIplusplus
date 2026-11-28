@@ -60,7 +60,7 @@ public final class MIPPItems {
             .register();
 
     public static final ItemHolder<ElectricDebugJournalItem> ELECTRIC_DEBUG_JOURNAL = create(
-            "electric_debug_journal", "Electric Debug Journal", p -> new ElectricDebugJournalItem(p, CableTier.HV, 3200L),
+            "electric_debug_journal", "Electric Debug Journal", p -> new ElectricDebugJournalItem(p, CableTier.HV, 3200L, 10),
             MIPPCreativeTab.Order.ELECTRIC_PROSPECTOR)
             .withCapabilities(MICommonCapabitilies::simpleEnergyItem)
             .register();

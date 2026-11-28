@@ -2,6 +2,7 @@ package dev.waldq.mipp.item.debugjournal;
 
 import aztech.modern_industrialization.MIText;
 import aztech.modern_industrialization.api.energy.CableTier;
+import aztech.modern_industrialization.machines.MachineBlockEntity;
 import aztech.modern_industrialization.util.TextHelper;
 
 import brachy.modularui.api.drawable.IDrawable;
@@ -22,34 +23,44 @@ import brachy.modularui.widgets.menu.DropdownWidget;
 
 import dev.waldq.mipp.MIPP;
 import dev.waldq.mipp.MIPPComponents;
+import dev.waldq.mipp.client.ClientMachineOverlays;
 import dev.waldq.mipp.item.ElectricItem;
 import dev.waldq.mipp.item.IItemUIHolder;
 import dev.waldq.mipp.item.debugjournal.gui.JournalWidget;
 import dev.waldq.mipp.item.debugjournal.gui.ModeDropdownWidget;
 import dev.waldq.mipp.item.debugjournal.utils.session.*;
 import dev.waldq.mipp.item.debugjournal.utils.MachineRow;
+import dev.waldq.mipp.saveddata.DebugJournalSavedData;
 import dev.waldq.mipp.utils.CableTierUtils;
+import dev.waldq.mipp.utils.GeneralUtils;
 
 import io.netty.buffer.ByteBuf;
+import net.minecraft.core.GlobalPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 import java.util.UUID;
 
-import static dev.waldq.mipp.item.debugjournal.utils.session.JournalSession.getRefs;
+import static dev.waldq.mipp.item.debugjournal.utils.session.JournalSession.noRefs;
 
 public class ElectricDebugJournalItem extends ElectricItem implements IItemUIHolder {
     private final CableTier tier;
     private final boolean allowAllMine;
+    private final int maxBindings;
 
-    public ElectricDebugJournalItem(Properties properties, CableTier tier, long capacity) {
+
+    public ElectricDebugJournalItem(Properties properties, CableTier tier, long capacity, int maxBindings) {
         super(properties, capacity);
         this.tier = tier;
         this.allowAllMine = tier == CableTier.HV;
+        this.maxBindings = maxBindings;
     }
 
     @Override
@@ -64,29 +75,71 @@ public class ElectricDebugJournalItem extends ElectricItem implements IItemUIHol
             }
             return InteractionResultHolder.fail(stack);
         }
-        if (!level.isClientSide()) {
-            if (level instanceof ServerLevel serverLevel) {
-                var journalUUID = stack.get(MIPPComponents.UUID);
-                if (journalUUID == null) {
-                    journalUUID = UUID.randomUUID();
-                    stack.set(MIPPComponents.UUID, journalUUID);
-                }
-
-                var refs = getRefs(serverLevel, player, journalUUID, allowAllMine);
-                if (refs.isEmpty()) {
-                    player.displayClientMessage(MIPP.text().debugJournal().noMachines(), true);
-                    return InteractionResultHolder.pass(stack);
-                }
-
-                if (!player.isCreative()) {
-                    tryUseEnergy(stack, cost);
-                }
-                PlayerInventoryUIFactory.INSTANCE.openFromHand(player, usedHand);
+        if (!(level instanceof ServerLevel serverLevel)) {
+            if (player.isShiftKeyDown()) {
+                ClientMachineOverlays.removeAll();
             }
-            return InteractionResultHolder.consume(stack);
+            return InteractionResultHolder.success(stack);
         }
 
+        var journalUUID = getUUIDComponent(stack);
+
+        var noRefs = noRefs(serverLevel, player, journalUUID, allowAllMine);
+        if (noRefs) {
+            player.displayClientMessage(MIPP.text().debugJournal().noMachines(), true);
+            return InteractionResultHolder.pass(stack);
+        }
+
+        if (!player.isCreative()) {
+            tryUseEnergy(stack, cost);
+        }
+        PlayerInventoryUIFactory.INSTANCE.openFromHand(player, usedHand);
+
         return InteractionResultHolder.sidedSuccess(stack, true);
+    }
+
+    @Override
+    public InteractionResult onItemUseFirst(ItemStack stack, UseOnContext ctx) {
+        var player = ctx.getPlayer();
+        if (player == null) return InteractionResult.PASS;
+
+        var level = ctx.getLevel();
+        var pos = ctx.getClickedPos();
+        var be = level.getBlockEntity(pos);
+        if (be instanceof MachineBlockEntity) {
+            if (player.isShiftKeyDown()) {
+                if (level instanceof ServerLevel serverLevel) {
+                    var data = DebugJournalSavedData.get(serverLevel);
+                    var journalUUID = getUUIDComponent(stack);
+                    var result = data.bindOrUnbind(
+                            journalUUID,
+                            new GlobalPos(serverLevel.dimension(), pos),
+                            maxBindings
+                    );
+                    var formattedPos = Component.literal(GeneralUtils.formatBlockPos(pos));
+                    var dim = Component.literal(serverLevel.dimension().location().toString());
+                    var t = MIPP.text().debugJournal().bindings();
+
+                    switch (result) {
+                        case BOUND -> player.displayClientMessage(t.bound(formattedPos, dim), true);
+                        case UNBOUND -> player.displayClientMessage(t.unbound(formattedPos, dim), true);
+                        case BOUND_AND_REMOVED -> player.displayClientMessage(t.boundAndRemoved(formattedPos, dim), true);
+                    }
+                }
+                return InteractionResult.sidedSuccess(level.isClientSide());
+            }
+            // TODO opening individual machines journal
+        }
+        return InteractionResult.PASS;
+    }
+
+    private static UUID getUUIDComponent(ItemStack stack) {
+        if (stack.has(MIPPComponents.UUID)) {
+            return stack.get(MIPPComponents.UUID);
+        }
+        var uuid = UUID.randomUUID();
+        stack.set(MIPPComponents.UUID, uuid);
+        return uuid;
     }
 
     @Override
@@ -118,6 +171,9 @@ public class ElectricDebugJournalItem extends ElectricItem implements IItemUIHol
         IntSyncValue refreshCounterValue = new IntSyncValue(session::getRefreshCounter, session::setRefreshCounter).allowC2S();
         syncManager.syncValue("refreshCounter", refreshCounterValue);
 
+        BooleanSyncValue allMineValue = new BooleanSyncValue(session::isSelectAllMine, session::setSelectAllMine).allowC2S();
+        syncManager.syncValue("allMine", allMineValue);
+
         GenericListSyncHandler<ByteBuf, MachineRow> rowHandler = GenericListSyncHandler.<ByteBuf, MachineRow>builder()
                 .getter(session::getRows)
                 .serializer(MachineRow.STREAM_CODEC)
@@ -131,11 +187,19 @@ public class ElectricDebugJournalItem extends ElectricItem implements IItemUIHol
                 .padding(4)
                 .child(Flow.col()
                         .childPadding(4)
-                        .child(createModeButtons(
-                                filterValue,
-                                sortValue,
-                                groupModeValue
-                        ).height(18))
+                        .child(Flow.row()
+                                .widthRel(1f)
+                                .height(18)
+                                .child(createModeButtons(
+                                        filterValue,
+                                        sortValue,
+                                        groupModeValue
+                                ).left(0))
+                                .child(new ToggleButton()
+                                        .setEnabledIf(b -> allowAllMine)
+                                        .right(0)
+                                        .decoration()
+                                        .value(allMineValue)))
                         .child(journalWidget
                                 .expanded()
                         )

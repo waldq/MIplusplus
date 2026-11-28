@@ -182,6 +182,9 @@ public interface MIPPText {
         @TextSubSection
         Highlight highlights();
 
+        @TextSubSection
+        Bindings bindings();
+
         @WithStyle("red")
         @LangKey(text = "Not enough energy. Requires %s to show data.")
         MutableComponent energyNotice(Component energy);
@@ -287,6 +290,20 @@ public interface MIPPText {
 
             @LangKey(text = "Highlight in the world")
             MutableComponent highlight();
+        }
+
+        interface Bindings {
+            @WithStyle("green")
+            @LangKey(text = "Machine bound at %s in %s.")
+            MutableComponent bound(Component pos, Component dim);
+
+            @WithStyle("red")
+            @LangKey(text = "Machine unbound at %s in %s.")
+            MutableComponent unbound(Component pos, Component dim);
+
+            @WithStyle("yellow")
+            @LangKey(text = "Machine bound at %s in %s. Oldest binding removed.")
+            MutableComponent boundAndRemoved(Component pos, Component dim);
         }
     }
 }

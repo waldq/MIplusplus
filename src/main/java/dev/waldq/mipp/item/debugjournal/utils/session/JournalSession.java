@@ -28,6 +28,7 @@ public class JournalSession {
     private FilterMode filter;
     private SortMode sort;
     private GroupMode groupMode;
+    private boolean selectAllMine = false;
     private boolean dirty;
     private boolean isUpdating;
     private int refreshCounter;
@@ -111,6 +112,12 @@ public class JournalSession {
         GlobalJournal.CHUNKS_TO_CLEAN.add(key);
     }
 
+    public static boolean noRefs(ServerLevel level, Player player, UUID journalUUID, boolean allowAllMine) {
+        var bindingsAreEmpty = getRefs(level, player, journalUUID, false).isEmpty();
+        return allowAllMine ? getRefs(level, player, journalUUID, true).isEmpty()
+                && bindingsAreEmpty : bindingsAreEmpty;
+    }
+
     public List<MachineRow> getRows() {
         if (!(player instanceof ServerPlayer serverPlayer)) return List.of();
         ServerLevel level = serverPlayer.serverLevel();
@@ -125,7 +132,7 @@ public class JournalSession {
     }
 
     private void update(ServerLevel level) {
-        refs = getRefs(level, player, journalUUID, allowAllMine);
+        refs = getRefs(level, player, journalUUID, selectAllMine & allowAllMine);
         dirty = false;
         lastUpdated = level.getGameTime();
     }
@@ -152,6 +159,16 @@ public class JournalSession {
 
     public void setGroupMode(GroupMode groupMode) {
         this.groupMode = groupMode;
+    }
+
+
+    public boolean isSelectAllMine() {
+        return selectAllMine;
+    }
+
+    public void setSelectAllMine(boolean selectAllMine) {
+        this.selectAllMine = selectAllMine;
+        requestUpdate();
     }
 
     public boolean isUpdating() {

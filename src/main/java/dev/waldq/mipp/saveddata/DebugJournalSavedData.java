@@ -21,6 +21,13 @@ public class DebugJournalSavedData extends SavedData {
     );
     private static final String ID = "mipp_debug_journal";
 
+    public enum BindingResult {
+        BOUND,
+        UNBOUND,
+        BOUND_AND_REMOVED,
+        UNKNOWN
+    }
+
     public static class JournalBindings {
         private final LinkedHashSet<GlobalPos> machines;
         private long lastAccess;
@@ -67,21 +74,45 @@ public class DebugJournalSavedData extends SavedData {
         return level.getServer().overworld().getDataStorage().computeIfAbsent(FACTORY, ID);
     }
 
-    public void bind(UUID journalUUID, GlobalPos pos, int limit) {
+    public BindingResult bindOrUnbind(UUID journalUUID, GlobalPos pos, int limit) {
+        JournalBindings bindings = journalBindings
+                .computeIfAbsent(
+                        journalUUID,
+                        id -> new JournalBindings(new LinkedHashSet<>(), System.currentTimeMillis())
+                );
+        if (bindings.machines.isEmpty() || !bindings.machines.contains(pos)) {
+            return bind(journalUUID, pos, limit);
+        } else {
+            return unbind(journalUUID, pos);
+        }
+    }
+
+    public BindingResult bind(UUID journalUUID, GlobalPos pos, int limit) {
         JournalBindings bindings = journalBindings
                 .computeIfAbsent(
                         journalUUID,
                         id -> new JournalBindings(new LinkedHashSet<>(), System.currentTimeMillis())
                 );
         bindings.machines.add(pos);
-        if (bindings.machines.size() > limit) bindings.machines.removeFirst();
+        boolean removed = false;
+        if (bindings.machines.size() > limit) {
+            bindings.machines.removeFirst();
+            removed = true;
+        }
         setDirty();
+        bindings.touch();
+        if (removed) {
+            return BindingResult.BOUND_AND_REMOVED;
+        }
+        return BindingResult.BOUND;
     }
 
-    public void unbind(UUID journalUUID, GlobalPos pos) {
+    public BindingResult unbind(UUID journalUUID, GlobalPos pos) {
         JournalBindings bindings = journalBindings.get(journalUUID);
-        if (bindings == null) return;
+        if (bindings == null) return BindingResult.UNKNOWN;
         if (bindings.machines.remove(pos)) setDirty();
+        bindings.touch();
+        return BindingResult.UNBOUND;
     }
 
     public List<GlobalPos> getMachines(UUID journalUUID) {
